@@ -46,3 +46,101 @@ label {
     display:block;
     margin-bottom: 10px;
 }
+
+.options {
+    background-color: #f7e7ce;
+    border-radius: 15px;
+    position: relative;
+    display: inline-block;
+    padding: 5px;
+  }
+
+.punctuation {
+    background-color: #f7e7ce;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+  
+  .punctuation-clicked {
+    background-color: #f7e7ce;
+    color: #ef820d;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+
+  .numbers {
+    background-color: #f7e7ce;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+  
+  .numbers-clicked {
+    background-color: #f7e7ce;
+    color: #ef820d;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+
+  .time30 {
+    background-color: #f7e7ce;
+    color: #ef820d;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+  .time30-clicked {
+    background-color: #f7e7ce;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+
+  .time15 {
+    background-color: #f7e7ce;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+
+  .time60 {
+    background-color: #f7e7ce;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+
+  .time-clicked {
+    background-color: #f7e7ce;
+    color: #ef820d;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+
