@@ -27,7 +27,7 @@ img#logo {
 }
 
 div.title {
-    font-size: 50px;
+    font-size: 64px;
 }
 
 div.title>p {
@@ -144,3 +144,14 @@ label {
     border-radius: 15px; 
   }
 
+  button {
+    transition: filter 0.1s ease-in-out;
+  }
+
+  button:hover {
+    filter: brightness(90%);
+  }
+
+  button:active {
+    filter: brightness(70%);
+  }
