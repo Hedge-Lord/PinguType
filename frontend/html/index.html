@@ -23,53 +23,7 @@
   </header>
   <br>
   <div class="options">
-    <script>
-      function toggleMenu(x) {
-                var element; var e2; var e3;
-                switch (x) {
-                  case 0: 
-                    element = document.getElementById("puncy");
-                    element.classList.toggle("punctuation-clicked");
-                    return;
-                  case 1:
-                    element = document.getElementById("numby");
-                    element.classList.toggle("numbers-clicked");
-                    return;
-                  case 2:
-                    element = document.getElementById("timey30");
-                    element.classList.toggle("time30-clicked")
-                    var e2 = document.getElementById("timey15");
-                    var e3 = document.getElementById("timey60");
-                    if (e2.className !== "time15") {
-                      e2.classList.toggle("time-clicked");
-                    } if (e3.className !== "time60") {
-                      e3.classList.toggle("time-clicked")
-                    }
-                    return;
-                  case 3:
-                    element = document.getElementById("timey15");
-                    element.classList.toggle("time-clicked")
-                    e2 = document.getElementById("timey30");
-                    e3 = document.getElementById("timey60");
-                    if (e2.className == "time30") {
-                      e2.classList.toggle("time30-clicked");
-                    } if (e3.className !== "time60") {
-                      e3.classList.toggle("time-clicked")
-                    }
-                    return;
-                  case 4:
-                    element = document.getElementById("timey60");
-                    element.classList.toggle("time-clicked")
-                    e2 = document.getElementById("timey30");
-                    e3 = document.getElementById("timey15");
-                    if (e2.className == "time30") {
-                      e2.classList.toggle("time30-clicked");
-                    } if (e3.className !== "time15") {
-                      e3.classList.toggle("time-clicked")
-                    }
-                    return;
-                }
-      }
+    <script type = "text/javascript" src = "../scripts/functions.js">
     </script>
     <button id="puncy" class="punctuation" onClick="toggleMenu(0)">Punctuation</button>
     <button id="numby" class="numbers" onClick="toggleMenu(1)">Numbers</button>
@@ -79,9 +33,19 @@
   </div>
   <div id="typing-test">
     <label for="typing-area"> Type away! PinguType is a WIP. Typing speed test functionality has not yet been implemented. </label> 
-    <textarea id="typing-area" rows="17" cols="120">
-
-    </textarea>
-  </div>
+      <head>
+        <script type = "text/javascript" src = "../scripts/functions.js"></script>
+      </head>
+      <body>
+      <div id="timerDisplay">
+          <h3 id="time">Start typing to start the timer</h3>
+      </div>
+      
+      </body>
+      <textarea id="typing-area" rows="17" cols="120" oninput="startTimerOnce()">
+  
+      </textarea>
+  
+    </div>
 </body>
 </html>
