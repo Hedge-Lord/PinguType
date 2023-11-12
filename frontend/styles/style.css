@@ -12,12 +12,14 @@ body {
 }
 
 header {
+
     height: 12vh;
     width: 100vw;
-    margin-top: 10vh;
+    margin-top: 4vh;
     display:flex;
     flex-direction: row;
     justify-content: center;
+
     align-items: center;
     gap: 30px;
 }
@@ -32,6 +34,10 @@ div.title {
 
 div.title>p {
     margin:0;
+}
+
+div.title>a {
+  margin:0;
 }
 
 p.subtext {
@@ -154,4 +160,49 @@ label {
 
   button:active {
     filter: brightness(70%);
+  }
+
+  a:visited {
+    color: black;
+  }
+  
+  .signup {
+    background-color: #ef820d;
+    color: #fff;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+
+  .login {
+    background-color: #ef820d;
+    color: #fff;
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: black;
+    border-radius: 15px; 
+  }
+
+  .username-area {
+    background-color: #f7e7ce;
+    text-align: start;
+    vertical-align: bottom;
+    border-radius: 10px;
+  }
+
+  .password-area {
+    background-color: #f7e7ce;
+    text-align: start;
+    vertical-align: bottom;
+    border-radius: 10px;
+  }
+
+  .description-signup {
+    border-radius: 15px;
+    position: relative;
+    display: inline-block;
+    padding: 5px;
   }
