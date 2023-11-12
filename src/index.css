@@ -46,6 +46,10 @@ p.subtext {
 
 #typing-test {
   margin-top: 10vh;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 /* This is temporary. Remove later */
 label {
@@ -56,9 +60,11 @@ label {
 .options {
   background-color: #f7e7ce;
   border-radius: 15px;
-  position: relative;
   display: inline-block;
   padding: 5px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .punctuation {
