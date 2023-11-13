@@ -1,0 +1,69 @@
+.card1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #ef820d;
+    height: 200px;
+    margin-left: 300px;
+    margin-right: 300px;
+    margin-top: 10px;
+    border-radius: 10px;
+    position: relative; /* Add position: relative to the .card container */
+}
+
+.profile-name {
+    font-size: 30px;
+}
+
+.caption-container {
+    position: absolute;
+    top: 70px;
+
+}
+
+.caption {
+    background-color: white;
+    border-radius: 10px;
+    font-size: smaller;
+}
+
+.card-img{
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
+    position: absolute;
+    margin-left: -500px;
+    margin-top: 40px;
+    border-radius: 50%;
+}
+
+.card2{
+    margin-top: 3vh;
+    background-color: #ef820d;
+    height: 300px ;
+    margin-left: 300px;
+    margin-right: 300px;
+    margin-top: 10px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.stats{
+    position: absolute;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+
+
+}
+
+.button1 button{
+    background-color: #ef820d;
+    margin-left: 800px;
+    margin-right: 800px;
+    margin-top: 50px;
+    border-radius: 10px;
+    
+}
+

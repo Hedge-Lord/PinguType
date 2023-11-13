@@ -14,7 +14,7 @@ function App() {
       <ul className="list-container">
         <Link to="/"><button>Home</button></Link>
         <Link to="/login"><button>Login</button></Link>
-        <Link to="/profile"><button>Profile</button></Link>
+        <Link to="/profile" imageUrl = 'https://media.istockphoto.com/id/1351147752/photo/studio-portrait-of-attractive-20-year-old-bearded-man.jpg?s=612x612&w=0&k=20&c=-twL1NKKad6S_EPrGSniewjh6776A0Ju27ExMh7v_kI='><button>Profile</button></Link>
       </ul>
     </nav>
     <header>
