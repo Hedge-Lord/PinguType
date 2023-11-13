@@ -44,3 +44,11 @@
     transform: rotate(360deg);
   }
 }
+
+.image-button {
+  width: 25px;
+  height: 25px;
+  background: none;
+  border: none;
+  margin-right: 10px;
+}
