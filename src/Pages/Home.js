@@ -57,14 +57,14 @@ function Home() {
     if (!timerStarted)
     {
       setTimerStarted(true);
-      var countDown = 0;
+      var countDown = endTime;
       var timerDisplay = document.getElementById("time");
       var update = setInterval(function () {
-        var now = countDown++;
+        var now = countDown--;
         timerDisplay.innerHTML = "Time: " + countDown;
   
   
-        if (countDown > endTime) {
+        if (countDown == 0) {
           clearInterval(update);
             timerDisplay.innerHTML = "Time's up!!!";
         }
