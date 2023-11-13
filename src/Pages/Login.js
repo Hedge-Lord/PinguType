@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'
 import logo from '../assets/pingutype.png';
 
 function Login() {
@@ -25,17 +26,17 @@ function Login() {
             <h3>Register</h3>
             <p className="username-spot">
               <span style={{ fontSize: '18px' }}>
-                <textarea className="username-area" rows="1" cols="40">Username</textarea>
+                <textarea className="username-area" rows="1" cols="40" placeholder="Username"></textarea>
               </span>
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <textarea className="password-area" rows="1" cols="40">Password</textarea>
+                <textarea className="password-area" rows="1" cols="40" placeholder="Password"></textarea>
               </span>
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <textarea className="password-area" rows="1" cols="40">Verify password</textarea>
+                <textarea className="password-area" rows="1" cols="40" placeholder="Verify password"></textarea>
               </span>
             </p>
             <button className="signup" onClick={handleClick}>Sign-up</button>
@@ -45,12 +46,12 @@ function Login() {
             <h3>Login</h3>
             <p className="username-spot">
                 <span style={{ fontSize: '18px' }}>
-                  <textarea className="username-area" rows="1" cols="40">Username</textarea>
+                  <textarea className="username-area" rows="1" cols="40" placeholder="Username"></textarea>
                 </span>
               </p>
               <p className="password-spot">
                 <span style={{ fontSize: '18px' }}>
-                  <textarea className="password-area" rows="1" cols="40">Password</textarea>
+                  <textarea className="password-area" rows="1" cols="40" placeholder="Password"></textarea>
                 </span>
               </p>
               <br />

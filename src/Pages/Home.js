@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import './Home.css'
 import logo from '../assets/pingutype.png';
 
 import "../App.css"
