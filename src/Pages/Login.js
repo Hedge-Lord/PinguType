@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
-import logo from '../assets/pingutype.png';
 
 function Login() {
     let navigate = useNavigate();
