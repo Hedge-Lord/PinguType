@@ -29,6 +29,18 @@
     border-color: var(--border-color);
     border-radius: 15px; 
   }
+  
+  button {
+    transition: filter 0.1s ease-in-out;
+  }
+  
+  button:hover {
+    filter: brightness(90%);
+  }
+  
+  button:active {
+    filter: brightness(70%);
+  }
 
 
   #typing-test {
