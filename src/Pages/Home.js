@@ -111,7 +111,7 @@ return (
             <div id="timerDisplay">
             <h3 id="time">Start typing to start the timer</h3>
             </div>
-            <textarea id="typing-area" rows="17" cols="120" onInput={() => startTimer()}></textarea>
+            <textarea id="typing-area" rows="17" cols="120" onInput={() => startTimer()} placeholder="Type in here!"></textarea>
         </div>
     </div>);
 }
