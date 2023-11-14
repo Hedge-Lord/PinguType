@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Link, Routes, Route} from "react-router-dom";
-import Home from "./Pages/Home";
+import TypingTest from "./Pages/TypingTest";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile"
 import Leaderboard from "./Pages/Leaderboard";
@@ -21,7 +21,7 @@ function App() {
 function Routing() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<TypingTest />} />
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/leaderboard" element={<Leaderboard />} />

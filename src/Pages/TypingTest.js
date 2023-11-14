@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import './Home.css'
+import './TypingTest.css'
 import "../App.css"
 
-function Home() {
+function TypingTest() {
   const [timerStarted, setTimerStarted] = useState(false);
   const [endTime, setEndTime] = useState(30);
 
@@ -58,4 +58,4 @@ return (
     </>);
 }
 
-export default Home;
+export default TypingTest;

@@ -7,7 +7,7 @@ function NavBar() {
     <nav>
         <ul className="list-container">
           <Link to="/">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Home_icon_orange.png" alt="Home" className="image-button" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Home_icon_orange.png" alt="TypingTest" className="image-button" />
           </Link>
           <Link to="/login">
               <img src="https://cdn-icons-png.flaticon.com/512/2996/2996170.png" alt="Login" className="image-button" />
