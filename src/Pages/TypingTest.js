@@ -1,11 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './TypingTest.css'
 import "../App.css"
 
 function TypingTest() {
   const [timerStarted, setTimerStarted] = useState(false);
   const [endTime, setEndTime] = useState(30);
+  const [elapsedTime, setElapsedTime] = useState(0);
 
   function startTimer() {
     if (!timerStarted)
@@ -15,6 +16,7 @@ function TypingTest() {
       var timerDisplay = document.getElementById("time");
       var update = setInterval(function () {
         var now = countDown--;
+        setElapsedTime(endTime - countDown);
         timerDisplay.innerHTML = "Time: " + countDown;
   
   
@@ -37,8 +39,53 @@ function TypingTest() {
     document.getElementById(id).classList.toggle("button-clicked");
   }
 
+  const textInputRef = useRef(null);
+  const [currInput, setCurrInput] = useState("");
+  const [wpmKeyStrokes, setWpmKeyStrokes] = useState(0);
+  const [wpm, setWpm] = useState(0);
+
+  const handleKeyDown = (e) => {
+    if (elapsedTime == endTime) return;
+    const keyCode = e.keyCode;
+    if (wpmKeyStrokes !== 0 && elapsedTime > 0) {
+      setWpm(Math.floor((wpmKeyStrokes / 5 / (elapsedTime)) * 60.0));
+    }
+
+    // space bar
+    if (keyCode === 32) {
+      setWpmKeyStrokes(wpmKeyStrokes + 1);
+      setCurrentCharIndex(0);
+      setCurrentIndex(currentIndex + 1);
+    } else if (keyCode != 8) {
+      setWpmKeyStrokes(wpmKeyStrokes + 1);
+      setCurrentCharIndex(currentCharIndex + 1);
+    }
+    
+    if (keyCode == 8 && currentCharIndex > 0) {
+      setWpmKeyStrokes(wpmKeyStrokes - 1);
+      setCurrentCharIndex(currentCharIndex - 1);
+    }
+  };
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+
+  function getCharClass(i, i_curr, idx, idx_curr) {
+    if (i < i_curr) {
+      return "colored";
+    } else if (i == i_curr) {
+      if (idx == idx_curr - 1) return "colored caret";
+      else if (idx < idx_curr) return "colored";
+    }
+    return "";
+  }
+
+  function focusTypeBox() {
+    textInputRef.current && textInputRef.current.focus();
+  }
+
 return (
-    <>
+    <div onClick={focusTypeBox}>
         <div className="options">
             <button id="puncy" onClick={() => handleClick("puncy")}> Punctuation </button>
             <button class = "center" id="numby" onClick={() => handleClick("numby")}> Numbers </button>
@@ -48,14 +95,46 @@ return (
         </div>
         <div id="typing-test">
             <label htmlFor="typing-area">
-              Type away! PinguType is a WIP. Typing speed test functionality has not yet been implemented.
+              Type away! PinguType is a WIP. Typing accuracy has not yet been implemented.
             </label>
             <div id="timerDisplay">
             <h3 id="time">Start typing to start the timer</h3>
             </div>
-            <textarea id="typing-area" rows="17" cols="120" onInput={() => startTimer()} placeholder="Type in here!"></textarea>
+            <div id='typing-area'>
+              {words.map((word, i) => (
+                <span
+                  key={i}
+                  >
+                  {word.split("").map((char, idx) => (
+                    <span
+                      key={"word" + idx}
+                      className={getCharClass(i, currentIndex, idx, currentCharIndex)}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                  <span> {" "} </span>
+                </span>
+              ))}
+            </div>
+            <span className='wpm-counter'>
+              WPM: {wpm}
+            </span>
+            <input 
+              ref={textInputRef}
+              className='hidden-input'
+              type='text'
+              value={currInput}
+              onChange={(e) => {setCurrInput(e.target.value); startTimer();}}
+              onKeyDown={handleKeyDown}
+            />
         </div>
-    </>);
+    </div>);
 }
 
 export default TypingTest;
+
+
+//change later
+let words_ = "apple banana cherry dog elephant frog grape hat ice cream jellyfish kite lemon mango notebook orange pizza quasar rainbow sunflower telescope umbrella violin watermelon xylophone yogurt zebra apricot bicycle cactus dragonfly espresso feather galaxy hammock iguana jigsaw koala lighthouse marzipan nebula otter parrot quokka rhubarb seashell tangerine ukulele volcano waffle xenon yawn zipper avocado breeze coconut daffodil eclipse fandango geyser hyena inkling jamboree kiwi lavender melon nocturne oregano popcorn quiche rhapsody sapphire trampoline uranus vanilla whimsy xenolith yodel zest abyss bliss cascade drizzle ember fizzle galaxy hummingbird illusion juniper kaleidoscope labyrinth melody nebula opulent penguin quasar radiant serendipity tranquility umber velvet wanderlust xanadu yearning zenith";
+const words = words_.split(" ").sort(() => (Math.random() > 0.5) ? 1 : -1)
