@@ -7,6 +7,7 @@ function TypingTest() {
   const [timerStarted, setTimerStarted] = useState(false);
   const [endTime, setEndTime] = useState(30);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [inputHistory, setInputHistory] = useState([]);
 
   function startTimer() {
     if (!timerStarted)
@@ -19,10 +20,10 @@ function TypingTest() {
         setElapsedTime(endTime - countDown);
         timerDisplay.innerHTML = "Time: " + countDown;
   
-  
+        
         if (countDown == 0) {
           clearInterval(update);
-            timerDisplay.innerHTML = "Time's up!!!";
+          timerDisplay.innerHTML = "Time's up!!!";
         }
       }, 1000);
     }
@@ -46,6 +47,7 @@ function TypingTest() {
 
   const handleKeyDown = (e) => {
     if (elapsedTime == endTime) return;
+
     const keyCode = e.keyCode;
     if (wpmKeyStrokes !== 0 && elapsedTime > 0) {
       setWpm(Math.floor((wpmKeyStrokes / 5 / (elapsedTime)) * 60.0));
@@ -53,14 +55,15 @@ function TypingTest() {
 
     // space bar
     if (keyCode === 32) {
-      setWpmKeyStrokes(wpmKeyStrokes + 1);
       setCurrentCharIndex(0);
       setCurrentIndex(currentIndex + 1);
+      setInputHistory([...inputHistory, currInput.trim()]);
+      setCurrInput("");
     } else if (keyCode != 8) {
       setWpmKeyStrokes(wpmKeyStrokes + 1);
       setCurrentCharIndex(currentCharIndex + 1);
     }
-    
+
     if (keyCode == 8 && currentCharIndex > 0) {
       setWpmKeyStrokes(wpmKeyStrokes - 1);
       setCurrentCharIndex(currentCharIndex - 1);
@@ -70,14 +73,32 @@ function TypingTest() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
 
-  function getCharClass(i, i_curr, idx, idx_curr) {
+  function getCharClass(char, i, i_curr, idx, idx_curr) {
     if (i < i_curr) {
-      return "colored";
+      if (inputHistory[i].charAt(idx) == char) return "correct";
+      else return "incorrect";
     } else if (i == i_curr) {
-      if (idx == idx_curr - 1) return "colored caret";
-      else if (idx < idx_curr) return "colored";
+      if (idx == idx_curr - 1) {
+        if (currInput.charAt(idx) == char) return "correct caret"
+        else return "incorrect caret"
+      }
+      else if (idx < idx_curr) {
+        if (currInput.charAt(idx) == char) return "correct";
+        else return "incorrect";
+      }
     }
     return "";
+  }
+
+  function calculateWpm() {
+    if (elapsedTime == 0) return 0;
+    let correctCpm = 0;
+    for (let i = 0; i < inputHistory.length; i++) {
+      if (inputHistory.at(i) == words.at(i)) {
+        correctCpm += words.at(i).length;
+      }
+    }
+    return [Math.floor((correctCpm / 5 / (elapsedTime)) * 60.0), (correctCpm / (wpmKeyStrokes - currInput.length) * 100).toFixed(2)];
   }
 
   function focusTypeBox() {
@@ -108,7 +129,7 @@ return (
                   {word.split("").map((char, idx) => (
                     <span
                       key={"word" + idx}
-                      className={getCharClass(i, currentIndex, idx, currentCharIndex)}
+                      className={getCharClass(char, i, currentIndex, idx, currentCharIndex)}
                     >
                       {char}
                     </span>
@@ -120,13 +141,20 @@ return (
             <span className='wpm-counter'>
               WPM: {wpm}
             </span>
+            <span className='wpm-counter'>
+              Corrected WPM: {calculateWpm()[0]}
+            </span>
+            <span className='wpm-counter'>
+              Accuracy: {calculateWpm()[1]}%
+            </span>
             <input 
               ref={textInputRef}
               className='hidden-input'
               type='text'
               value={currInput}
-              onChange={(e) => {setCurrInput(e.target.value); startTimer();}}
+              onChange={(e) => {if (elapsedTime != endTime) setCurrInput(e.target.value.trim()); startTimer();}}
               onKeyDown={handleKeyDown}
+              id='hidden-input'
             />
         </div>
     </div>);

@@ -6,6 +6,7 @@ import Profile from "./Pages/Profile"
 import Leaderboard from "./Pages/Leaderboard";
 import Settings from "./Pages/Settings"
 import Header from "./Header"
+import { useRef } from 'react';
 import "./App.css"
 
 
