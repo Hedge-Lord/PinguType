@@ -70,10 +70,6 @@ function TypingTest() {
     }
   };
 
-  const checkPrev = () => {
-
-  }
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
 
@@ -144,12 +140,6 @@ return (
             </div>
             <span className='wpm-counter'>
               WPM: {wpm}
-            </span>
-            <span className='wpm-counter'>
-              Corrected WPM: {calculateWpm()[0]}
-            </span>
-            <span className='wpm-counter'>
-              Accuracy: {calculateWpm()[1]}%
             </span>
             <span className='wpm-counter'>
               Corrected WPM: {calculateWpm()[0]}
