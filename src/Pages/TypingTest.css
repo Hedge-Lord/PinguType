@@ -62,7 +62,7 @@
   }
 
   .correct {
-    color: var(--accent-color);
+    color: black;
   }
 
   .incorrect {
@@ -77,4 +77,20 @@
   .wpm-counter {
     margin-top: 1vh;
     margin-right: auto;
+  }
+
+  .left-caret {
+    border-left: 1px solid;
+    border-color: var(--text-color);
+  }
+
+  #typing-area{
+    background-color: #fff6e8;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: grey;
+    border: 10px;
+    border: black;
+    border-style: solid;
   }

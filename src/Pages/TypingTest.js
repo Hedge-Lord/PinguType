@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState, useRef } from 'react';
 import './TypingTest.css'
 import "../App.css"
@@ -41,6 +41,13 @@ function TypingTest() {
   }
 
   const textInputRef = useRef(null);
+
+  useEffect(() => {
+    if (textInputRef.current) {
+      textInputRef.current.focus();
+    }
+  }, []);
+
   const [currInput, setCurrInput] = useState("");
   const [wpmKeyStrokes, setWpmKeyStrokes] = useState(0);
   const [wpm, setWpm] = useState(0);
@@ -81,11 +88,11 @@ function TypingTest() {
       if (idx == idx_curr - 1) {
         if (currInput.charAt(idx) == char) return "correct caret"
         else return "incorrect caret"
-      }
+      } 
       else if (idx < idx_curr) {
         if (currInput.charAt(idx) == char) return "correct";
         else return "incorrect";
-      }
+      } else if (idx_curr == 0 && idx == 0) return "left-caret";
     }
     return "";
   }
@@ -121,7 +128,7 @@ return (
             <div id="timerDisplay">
             <h3 id="time">Start typing to start the timer</h3>
             </div>
-            <div id='typing-area'>
+            <div id="typing-area">
               {words.map((word, i) => (
                 <span
                   key={i}
