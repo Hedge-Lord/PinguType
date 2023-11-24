@@ -1,0 +1,96 @@
+* { align-items: center;}
+
+.options {
+    background-color: var(--background-color);
+    border: 0;
+    display: inline-block;
+    padding: 5px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 16px;
+  }
+
+  button {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: var(--border-color);
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+  }
+  
+  .button-clicked {
+    background-color: var(--background-color);
+    color: var(--accent-color);
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: var(--border-color);
+    border-radius: 15px; 
+  }
+  
+  button {
+    transition: filter 0.1s ease-in-out;
+  }
+  
+  button:hover {
+    filter: brightness(90%);
+  }
+  
+  button:active {
+    filter: brightness(70%);
+  }
+
+
+  #typing-test {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+    max-width: 50vw;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .hidden-input{
+    opacity:0;
+    filter:alpha(opacity=0);
+  }
+
+  .correct {
+    color: black;
+  }
+
+  .incorrect {
+    color: red;
+  }
+
+  .caret {
+    border-right: 1px solid;
+    border-color: var(--text-color);
+  }
+
+  .wpm-counter {
+    margin-top: 1vh;
+    margin-right: auto;
+  }
+
+  .left-caret {
+    border-left: 1px solid;
+    border-color: var(--text-color);
+  }
+
+  #typing-area{
+    background-color: #fff6e8;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: grey;
+    border: 10px;
+    border: black;
+    border-style: solid;
+  }
