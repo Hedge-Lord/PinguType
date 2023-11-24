@@ -25,17 +25,17 @@ function Login() {
             <h3>Register</h3>
             <p className="username-spot">
               <span style={{ fontSize: '18px' }}>
-                <textarea className="username-area" rows="1" cols="40" placeholder="Username"></textarea>
+                <input className="username-area" type='text' rows="1" cols="40" placeholder="Username" />
               </span>
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <textarea className="password-area" rows="1" cols="40" placeholder="Password"></textarea>
+                <input className="password-area" type='password' rows="1" cols="40" placeholder='Password' />
               </span>
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <textarea className="password-area" rows="1" cols="40" placeholder="Verify password"></textarea>
+                <input className="password-area" type='password' rows="1" cols="40" placeholder='Verify password' />
               </span>
             </p>
             <button className="signup" onClick={handleClick}>Sign-up</button>
@@ -45,12 +45,12 @@ function Login() {
             <h3>Login</h3>
             <p className="username-spot">
                 <span style={{ fontSize: '18px' }}>
-                  <textarea className="username-area" rows="1" cols="40" placeholder="Username"></textarea>
+                  <input className="username-area" type='text' rows="1" cols="40" placeholder="Username" />
                 </span>
               </p>
               <p className="password-spot">
                 <span style={{ fontSize: '18px' }}>
-                  <textarea className="password-area" rows="1" cols="40" placeholder="Password"></textarea>
+                  <input className="password-area" type='password' rows="1" cols="40" placeholder='Password' />
                 </span>
               </p>
               <br />

@@ -5,9 +5,9 @@ import './Leaderboard.css'
 
 function retrieveTop5() {
     const user1 = {userName:"George", WPM:200, date: "11/13/2023"};
-    const user2 = {userName:"Jacob", WPM:113, date: "11/13/2023"};
+    const user2 = {userName:"Jacob", WPM:114, date: "11/24/2023"};
     const user3 = {userName:"Allison", WPM:101, date: "11/13/2023"};
-    const user4 = {userName:"Andrew", WPM:100, date: "11/13/2023"};
+    const user4 = {userName:"Andrew", WPM:94, date: "11/24/2023"};
     const user5 = {userName:"Radhika", WPM:20, date: "11/13/2023"};
     const top5array = [user1, user2, user3, user4, user5]
     return top5array

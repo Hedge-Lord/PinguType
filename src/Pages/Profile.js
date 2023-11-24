@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import './Profile.css';
 
-function Profile({ authorized, imageUrl }) {
+function Profile({ authorized=0, imageUrl }) {
     let navigate = useNavigate();
     if (!authorized) {
         navigate('/login');
