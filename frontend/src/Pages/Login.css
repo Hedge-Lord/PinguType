@@ -34,6 +34,19 @@
     border-radius: 10px;
   }
   
+  .show-password {
+    background-color: var(--accent-color);
+    border: none;
+    color: white;
+    padding: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 2px;
+    margin-bottom: 0px;
+  }
+
   .description-signup {
     border-radius: 15px;
     position: relative;

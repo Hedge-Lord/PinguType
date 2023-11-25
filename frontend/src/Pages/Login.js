@@ -1,6 +1,27 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'
+import './Login.css';
+
+
+function ShowPassword({value}) {
+  return(
+    <button onMouseDown={() => showPassword(value)} 
+      onMouseUp={() => unshowPassword(value)}
+      onMouseLeave={() => unshowPassword(value)}
+      className="show-password">
+        Show</button>
+  )
+}
+
+function showPassword(idof) {
+  var x = document.getElementById(idof);
+  x.type = 'text'
+}
+
+function unshowPassword(idof) {
+  var x = document.getElementById(idof);
+  x.type = 'password';
+}
 
 function Login() {
     let navigate = useNavigate();
@@ -30,12 +51,14 @@ function Login() {
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <input className="password-area" type='password' rows="1" cols="40" placeholder='Password' />
+                <input className="password-area" type='password' id="ps1" rows="1" cols="40" placeholder='Password' />
+                <ShowPassword value="ps1" />
               </span>
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <input className="password-area" type='password' rows="1" cols="40" placeholder='Verify password' />
+                <input className="password-area" type='password' id="ps2" rows="1" cols="40" placeholder='Verify password' />
+                <ShowPassword value="ps2" />
               </span>
             </p>
             <button className="signup" onClick={handleClick}>Sign-up</button>
@@ -50,7 +73,8 @@ function Login() {
               </p>
               <p className="password-spot">
                 <span style={{ fontSize: '18px' }}>
-                  <input className="password-area" type='password' rows="1" cols="40" placeholder='Password' />
+                  <input className="password-area" type='password' id="ps3" rows="1" cols="40" placeholder='Password' />
+                  <ShowPassword value="ps3" />
                 </span>
               </p>
               <br />
