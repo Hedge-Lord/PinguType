@@ -1,23 +1,49 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-app.use(bodyParser.json());
+const mongoose = require('mongoose');
+const cors = require('cors');
 
-const users = [];
-app.post("/api/register", (req, res) => {
-    const { username, password, typingSpeed } = req.body;
-    const userExists = users.some(user => user.username === username);
-    if (userExists) {
-        return res.status(333).json({ error: "Username already exists" });
-    }
-    const newUser = { username, password, typingSpeed };
-    users.push(newUser);
-    res.json({ message: "Account successfully made", user: newUser });
+const app = express();
+app.use(express.json());
+app.use(cors());
+const PORT = 3333;
+
+mongoose.connect('mongodb+srv://groupuser:H3YVLhy5S5bTM0hF@pingutypedb.pqjnivb.mongodb.net/accounts', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
-app.get("/api/users", (req, res) => {
-    res.json({ "users": ["George", "Allison", "Jacob", "Backend Demon", "Radhika"] });
-});
-  
-app.listen(4000, () => {
-    console.log(`Server started on port 4000`);
+
+const accountSchema = new mongoose.Schema({
+    name: String,
+    password: String
+})
+const accountModel = mongoose.model("accounts", accountSchema);
+app.post('/register', (req, res) => {
+    accountModel.create(req.body)
+    .then(accounts => res.json(accounts))
+    .catch(err => res.json(err));
+})
+app.post('/login', (req, res) => {
+    const {user, password} = req.body;
+    accountModel.findOne({user: user}).then(
+        user=>{
+            if (user)
+            {
+                if(user.password === password)
+                {
+                    res.json("Successfully logged in.");
+                }
+                else
+                {
+                    res.json("The username or password is incorrect.");
+                }
+            }
+            else
+            {
+                res.json("The username or password is incorrect.");
+            }
+        }
+    )
+})
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

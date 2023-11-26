@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState }from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import axios from 'axios';
 
 
 function ShowPassword({value}) {
@@ -24,7 +25,31 @@ function unshowPassword(idof) {
 }
 
 function Login() {
+    const [user,setUser]=useState('');
+    const [password,setPassword]=useState('');
+    const [newUser, setNewUser]=useState('');
+    const [newPassword, setNewPassword] = useState('');
     let navigate = useNavigate();
+    const loginSubmit = (login) =>
+    {
+      login.preventDefault();
+      axios.post('https://localhost:3333/login', {user, password})
+      .then(result=>{console.log(result)
+        if(result.data === "Successfully logged in.")
+        {
+          navigate('/profile');
+        }
+      })
+      .catch(err => console.log(err));
+    }
+    const registerSubmit = (reg) =>
+    {
+      reg.preventDefault();
+      axios.post('https://localhost:3333/register', {user, password})
+      .then(result=> {console.log(result)
+        navigate('/profile');})
+      .catch(err => console.log(err));
+    }
     const handleClick = () => {
       navigate('/profile');
     };
@@ -61,7 +86,7 @@ function Login() {
                 <ShowPassword value="ps2" />
               </span>
             </p>
-            <button className="signup" onClick={handleClick}>Sign-up</button>
+            <button className="signup" onClick={registerSubmit}>Sign-up</button>
           </div>
           <div className="register-login-spot">
             <div className="signupAndLogin">
