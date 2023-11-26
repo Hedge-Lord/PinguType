@@ -15,7 +15,7 @@ app.post("/api/register", (req, res) => {
     res.json({ message: "Account successfully made", user: newUser });
 });
 app.get("/api/users", (req, res) => {
-    res.json({ users });
+    res.json({ "users": ["George", "Allison", "Jacob", "Backend Demon", "Radhika"] });
 });
   
 app.listen(4000, () => {
