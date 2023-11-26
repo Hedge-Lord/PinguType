@@ -33,7 +33,7 @@ function Login() {
     const loginSubmit = (login) =>
     {
       login.preventDefault();
-      axios.post('https://localhost:3333/login', {user, password})
+      axios.post('http://localhost:3333/login', {user, password})
       .then(result=>{console.log(result)
         if(result.data === "Successfully logged in.")
         {
@@ -42,10 +42,10 @@ function Login() {
       })
       .catch(err => console.log(err));
     }
-    const registerSubmit = (reg) =>
+    const registerSubmit = (register) =>
     {
-      reg.preventDefault();
-      axios.post('https://localhost:3333/register', {user, password})
+      register.preventDefault();
+      axios.post('http://localhost:3333/register', {newUser, newPassword})
       .then(result=> {console.log(result)
         navigate('/profile');})
       .catch(err => console.log(err));
@@ -71,12 +71,12 @@ function Login() {
             <h3>Register</h3>
             <p className="username-spot">
               <span style={{ fontSize: '18px' }}>
-                <input className="username-area" type='text' rows="1" cols="40" placeholder="Username" />
+                <input className="username-area" type='text' rows="1" cols="40" placeholder="Username" onChange={(reg) => setNewUser(reg.target.value)}/>
               </span>
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <input className="password-area" type='password' id="ps1" rows="1" cols="40" placeholder='Password' />
+                <input className="password-area" type='password' id="ps1" rows="1" cols="40" placeholder='Password' onChange={(reg) => setNewPassword(reg.target.value)}/>
                 <ShowPassword value="ps1" />
               </span>
             </p>
@@ -93,18 +93,18 @@ function Login() {
             <h3>Login</h3>
             <p className="username-spot">
                 <span style={{ fontSize: '18px' }}>
-                  <input className="username-area" type='text' rows="1" cols="40" placeholder="Username" />
+                  <input className="username-area" type='text' rows="1" cols="40" placeholder="Username" onChange={(log) => setUser(log.target.value)}/>
                 </span>
               </p>
               <p className="password-spot">
                 <span style={{ fontSize: '18px' }}>
-                  <input className="password-area" type='password' id="ps3" rows="1" cols="40" placeholder='Password' />
+                  <input className="password-area" type='password' id="ps3" rows="1" cols="40" placeholder='Password' onChange={(log) => setPassword(log.target.value)}/>
                   <ShowPassword value="ps3" />
                 </span>
               </p>
               <br />
               <br />
-              <button className="login" onClick={handleClick}>Login</button>
+              <button className="login" onClick={loginSubmit}>Login</button>
             </div>
           </div>
         </div>

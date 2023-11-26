@@ -21,7 +21,7 @@ function TypingTest() {
         timerDisplay.innerHTML = "Time: " + countDown;
   
         
-        if (countDown == 0) {
+        if (countDown === 0) {
           clearInterval(update);
           timerDisplay.innerHTML = "Time's up!!!";
         }
@@ -53,7 +53,7 @@ function TypingTest() {
   const [wpm, setWpm] = useState(0);
 
   const handleKeyDown = (e) => {
-    if (elapsedTime == endTime) return;
+    if (elapsedTime === endTime) return;
 
     const keyCode = e.keyCode;
     if (wpmKeyStrokes !== 0 && elapsedTime > 0) {
@@ -66,12 +66,12 @@ function TypingTest() {
       setCurrentIndex(currentIndex + 1);
       setInputHistory([...inputHistory, currInput.trim()]);
       setCurrInput("");
-    } else if (keyCode != 8) {
+    } else if (keyCode !== 8) {
       setWpmKeyStrokes(wpmKeyStrokes + 1);
       setCurrentCharIndex(currentCharIndex + 1);
     }
 
-    if (keyCode == 8 && currentCharIndex > 0) {
+    if (keyCode === 8 && currentCharIndex > 0) {
       setWpmKeyStrokes(wpmKeyStrokes - 1);
       setCurrentCharIndex(currentCharIndex - 1);
     }
@@ -82,26 +82,26 @@ function TypingTest() {
 
   function getCharClass(char, i, i_curr, idx, idx_curr) {
     if (i < i_curr) {
-      if (inputHistory[i].charAt(idx) == char) return "correct";
+      if (inputHistory[i].charAt(idx) === char) return "correct";
       else return "incorrect";
-    } else if (i == i_curr) {
-      if (idx == idx_curr - 1) {
-        if (currInput.charAt(idx) == char) return "correct caret"
+    } else if (i === i_curr) {
+      if (idx === idx_curr - 1) {
+        if (currInput.charAt(idx) === char) return "correct caret"
         else return "incorrect caret"
       } 
       else if (idx < idx_curr) {
-        if (currInput.charAt(idx) == char) return "correct";
+        if (currInput.charAt(idx) === char) return "correct";
         else return "incorrect";
-      } else if (idx_curr == 0 && idx == 0) return "left-caret";
+      } else if (idx_curr === 0 && idx === 0) return "left-caret";
     }
     return "";
   }
 
   function calculateWpm() {
-    if (elapsedTime == 0) return 0;
+    if (elapsedTime === 0) return 0;
     let correctCpm = 0;
     for (let i = 0; i < inputHistory.length; i++) {
-      if (inputHistory.at(i) == words.at(i)) {
+      if (inputHistory.at(i) === words.at(i)) {
         correctCpm += words.at(i).length;
       }
     }
@@ -159,7 +159,7 @@ return (
               className='hidden-input'
               type='text'
               value={currInput}
-              onChange={(e) => {if (elapsedTime != endTime) setCurrInput(e.target.value.trim().trim()); startTimer();}}
+              onChange={(e) => {if (elapsedTime !== endTime) setCurrInput(e.target.value.trim().trim()); startTimer();}}
               onKeyDown={handleKeyDown}
               id='hidden-input'
             />
