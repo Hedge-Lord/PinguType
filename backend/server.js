@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 const PORT = 3333;
 
-mongoose.connect('mongodb+srv://groupuser:h1gDdHju63YUjbqo@pingutypedb.pqjnivb.mongodb.net/accounts', {
+mongoose.connect('mongodb+srv://groupuser:h1gDdHju63YUjbqo@pingutypedb.pqjnivb.mongodb.net/profiles', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -17,7 +17,6 @@ const accountSchema = new mongoose.Schema({
     password: String
 })
 const accountModel = mongoose.model("accounts", accountSchema);
-module.exports = accountModel;
 app.post('/register', (req, res) => {
     accountModel.create(req.body)
     .then(accounts => res.json(accounts))

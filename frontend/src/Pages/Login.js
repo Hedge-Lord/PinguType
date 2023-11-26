@@ -33,7 +33,7 @@ function Login() {
     const loginSubmit = (login) =>
     {
       login.preventDefault();
-      axios.post('http://localhost:3333/login', {user, password})
+      axios.post('http://localhost:3333/login', {user: user, password: password})
       .then(result=>{console.log(result)
         if(result.data === "Successfully logged in.")
         {
@@ -45,7 +45,7 @@ function Login() {
     const registerSubmit = (register) =>
     {
       register.preventDefault();
-      axios.post('http://localhost:3333/register', {newUser, newPassword})
+      axios.post('http://localhost:3333/register', {user: newUser, password: newPassword})
       .then(result=> {console.log(result)
         navigate('/profile');})
       .catch(err => console.log(err));
