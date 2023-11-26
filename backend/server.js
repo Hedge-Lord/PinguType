@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 const PORT = 3333;
 
-mongoose.connect('mongodb+srv://groupuser:h1gDdHju63YUjbqo@pingutypedb.pqjnivb.mongodb.net/profiles', {
+mongoose.connect('mongodb+srv://pass:user.pqjnivb.mongodb.net/profiles', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
