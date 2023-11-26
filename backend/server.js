@@ -8,10 +8,10 @@ app.post("/api/register", (req, res) => {
     const { username, password, typingSpeed } = req.body;
     const userExists = users.some(user => user.username === username);
     if (userExists) {
-        return res.status(400).json({ error: "Username already exists" });
+        return res.status(333).json({ error: "Username already exists" });
     }
     const newUser = { username, password, typingSpeed };
-    users.concat(newUser);
+    users.push(newUser);
     res.json({ message: "Account successfully made", user: newUser });
 });
 app.get("/api/users", (req, res) => {
