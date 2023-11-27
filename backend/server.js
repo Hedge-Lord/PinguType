@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const Account = require('./models/account.js');
 
 const app = express();
 app.use(express.json());
@@ -12,19 +13,14 @@ mongoose.connect('mongodb+srv://pass:user.pqjnivb.mongodb.net/profiles', {
   useUnifiedTopology: true,
 });
 
-const accountSchema = new mongoose.Schema({
-    user: String,
-    password: String
-})
-const accountModel = mongoose.model("accounts", accountSchema);
 app.post('/register', (req, res) => {
-    accountModel.create(req.body)
+    Account.create(req.body)
     .then(accounts => res.json(accounts))
     .catch(err => res.json(err));
 })
 app.post('/login', (req, res) => {
     const {user, password} = req.body;
-    accountModel.findOne({user: user}).then(
+    Account.findOne({user: user}).then(
         user=>{
             if (user)
             {
