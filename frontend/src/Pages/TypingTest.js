@@ -66,14 +66,24 @@ function TypingTest() {
       setCurrentIndex(currentIndex + 1);
       setInputHistory([...inputHistory, currInput.trim()]);
       setCurrInput("");
+      setWpmKeyStrokes(wpmKeyStrokes + 1);
     } else if (keyCode !== 8) {
       setWpmKeyStrokes(wpmKeyStrokes + 1);
       setCurrentCharIndex(currentCharIndex + 1);
     }
 
-    if (keyCode === 8 && currentCharIndex > 0) {
-      setWpmKeyStrokes(wpmKeyStrokes - 1);
-      setCurrentCharIndex(currentCharIndex - 1);
+    if (keyCode === 8) {
+      if (currentCharIndex > 0) {
+        setWpmKeyStrokes(wpmKeyStrokes - 1);
+        setCurrentCharIndex(currentCharIndex - 1);
+      } 
+      else if (currentCharIndex === 0 && currentIndex > 0) {
+        setWpmKeyStrokes(wpmKeyStrokes - 1);
+        setCurrentIndex(currentIndex - 1);
+        let lastInput = inputHistory.pop();
+        setCurrentCharIndex(lastInput.length);
+        setCurrInput(lastInput + lastInput.charAt(lastInput.length - 1));
+      }
     }
   };
 
@@ -104,6 +114,7 @@ function TypingTest() {
       if (inputHistory.at(i) === words.at(i)) {
         correctCpm += words.at(i).length;
       }
+      correctCpm++;
     }
     return [Math.floor((correctCpm / 5 / (elapsedTime)) * 60.0), (correctCpm / (wpmKeyStrokes - currInput.length) * 100).toFixed(2)];
   }
