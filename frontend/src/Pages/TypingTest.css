@@ -94,3 +94,15 @@
     border: black;
     border-style: solid;
   }
+
+  #reset-button{
+    padding: 7px;
+    border-radius: 0px;
+    margin-right: auto;
+    margin-top: 1vh;
+    background: none;
+  }
+
+#reset-image{
+  width: 25px;
+}
