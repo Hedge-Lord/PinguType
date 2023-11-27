@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useState, useRef } from 'react';
-import './TypingTest.css'
-import "../App.css"
+import './TypingTest.css';
+import "../App.css";
+
+const words = require('../assets/words');
 
 function TypingTest() {
   const [timerStarted, setTimerStarted] = useState(false);
@@ -173,14 +175,10 @@ return (
               onChange={(e) => {if (elapsedTime !== endTime) setCurrInput(e.target.value.trim().trim()); startTimer();}}
               onKeyDown={handleKeyDown}
               id='hidden-input'
+              autocomplete='off'
             />
         </div>
     </div>);
 }
 
 export default TypingTest;
-
-
-//change later
-let words_ = "apple banana cherry dog elephant frog grape hat ice cream jellyfish kite lemon mango notebook orange pizza quasar rainbow sunflower telescope umbrella violin watermelon xylophone yogurt zebra apricot bicycle cactus dragonfly espresso feather galaxy hammock iguana jigsaw koala lighthouse marzipan nebula otter parrot quokka rhubarb seashell tangerine ukulele volcano waffle xenon yawn zipper avocado breeze coconut daffodil eclipse fandango geyser hyena inkling jamboree kiwi lavender melon nocturne oregano popcorn quiche rhapsody sapphire trampoline uranus vanilla whimsy xenolith yodel zest abyss bliss cascade drizzle ember fizzle galaxy hummingbird illusion juniper kaleidoscope labyrinth melody nebula opulent penguin quasar radiant serendipity tranquility umber velvet wanderlust xanadu yearning zenith";
-const words = words_.split(" ").sort(() => (Math.random() > 0.5) ? 1 : -1)
