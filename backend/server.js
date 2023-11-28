@@ -13,11 +13,24 @@ mongoose.connect('mongodb+srv://groupuser:TaDIjdcjzQ6i4wwL@pingutypedb.pqjnivb.m
   useUnifiedTopology: true,
 });
 
-app.post('/register', (req, res) => {
-    Account.create(req.body)
-    .then(accounts => res.json(accounts))
-    .catch(err => res.json(err));
-})
+app.post('/register', async(req, res) => {
+    try {
+      const existingUser = await Account.findOne({ username: req.body.username });
+  
+      if (existingUser) {
+        console.log('Username already exists.');
+        res.json({ error: 'Username already exists.' });
+      } else {
+        const newAccount = await Account.create(req.body);
+        console.log('Account created:', newAccount);
+        res.json(newAccount);
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(11111).json({ error: 'Something went wrong when creating your account.' });
+    }
+  });
+  
 app.post('/login', (req, res) => {
     const {user, password} = req.body;
     Account.findOne({user: user}).then(
