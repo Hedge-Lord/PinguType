@@ -2,34 +2,11 @@ import React, { useEffect } from 'react';
 import { useState, useRef } from 'react';
 import './TypingTest.css';
 import "../App.css";
-
+import axios from 'axios';
 const words = require('../assets/words');
 
-function TypingTest() {
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [endTime, setEndTime] = useState(30);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [inputHistory, setInputHistory] = useState([]);
 
-  function startTimer() {
-    if (!timerStarted)
-    {
-      setTimerStarted(true);
-      var countDown = endTime;
-      var timerDisplay = document.getElementById("time");
-      var update = setInterval(function () {
-        var now = countDown--;
-        setElapsedTime(endTime - countDown);
-        timerDisplay.innerHTML = "Time: " + countDown;
-  
-        
-        if (countDown === 0) {
-          clearInterval(update);
-          timerDisplay.innerHTML = "Time's up!!!";
-        }
-      }, 1000);
-    }
-  }
+function TypingTest() {
 
   const [enabledTime, setEnabledTime] = useState("timey30");
   function handleTimeClick(time) {
@@ -53,7 +30,6 @@ function TypingTest() {
   const [currInput, setCurrInput] = useState("");
   const [wpmKeyStrokes, setWpmKeyStrokes] = useState(0);
   const [wpm, setWpm] = useState(0);
-
   const handleKeyDown = (e) => {
     if (elapsedTime === endTime) return;
 
@@ -118,7 +94,43 @@ function TypingTest() {
       }
       correctCpm++;
     }
-    return [Math.floor((correctCpm / 5 / (elapsedTime)) * 60.0), (correctCpm / (wpmKeyStrokes - currInput.length) * 100).toFixed(2)];
+    let correctWpm = Math.floor((correctCpm / 5 / (elapsedTime)) * 60.0)
+    let userAccuracy = (correctCpm / (wpmKeyStrokes - currInput.length) * 100).toFixed(2)
+    return [correctWpm, userAccuracy];
+  }
+
+  const [timerStarted, setTimerStarted] = useState(false);
+  const [endTime, setEndTime] = useState(30);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [inputHistory, setInputHistory] = useState([]);
+
+  function startTimer() {
+    if (!timerStarted)
+    {
+      setTimerStarted(true);
+      var countDown = endTime;
+      var timerDisplay = document.getElementById("time");
+      var update = setInterval(function () {
+        setElapsedTime(endTime - countDown);
+        timerDisplay.innerHTML = "Time: " + countDown;
+        countDown--;
+        
+        if (countDown === 0) {
+          clearInterval(update);
+          timerDisplay.innerHTML = "Time's up!!!";
+          let hasRun = true;
+          if (hasRun)
+          {
+            axios.post('http://localhost:3333/userscores', {username: "swagciety", wpm: wpm, acc: 100, date: new Date(), difficulty: "easy"})
+            .then(result=>{console.log(result)
+            })
+            .catch(err => console.log(err));
+            hasRun = false;
+          }
+
+        }
+      }, 1000);
+    }
   }
 
   function focusTypeBox() {
