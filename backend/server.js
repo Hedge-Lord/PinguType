@@ -60,6 +60,34 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.post('/userscores', (req, res) => {
+  const { username, wpm, acc, difficulty } = req.body;
+
+  // Find the account with the specified username
+  Account.findOne({ username })
+    .then(account => {
+
+      // Add the new score to the scores array
+      account.scores.push({
+        wpm: parseFloat(wpm),
+        acc: parseFloat(acc),
+        date: new Date(),
+        difficulty,
+      });
+
+      // Save the updated account
+      return account.save();
+    })
+    .then(savedAccount => {
+      console.log('Score saved successfully:', savedAccount);
+      res.json({ success: true });
+    })
+    .catch(err => {
+      console.error('Error saving score:', err);
+      res.json({ error: 'Error saving score' });
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
