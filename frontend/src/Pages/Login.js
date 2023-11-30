@@ -29,11 +29,12 @@ function Login() {
     const [password,setPassword]=useState('');
     const [newUser, setNewUser]=useState('');
     const [newPassword, setNewPassword] = useState('');
+    const [verifyNewPassword, setVerifyNewPassword] = useState('');
     let navigate = useNavigate();
     const loginSubmit = (login) =>
     {
       login.preventDefault();
-      axios.post('http://localhost:3333/login', {user: user, password: password})
+      axios.post('http://localhost:3333/login', {username: user, password: password})
       .then(result=>{console.log(result)
         if(result.data === "Successfully logged in.")
         {
@@ -44,8 +45,12 @@ function Login() {
     }
     const registerSubmit = (register) =>
     {
+      if (newPassword !== verifyNewPassword) {
+        console.log("Passwords don't match")
+        return;
+      }
       register.preventDefault();
-      axios.post('http://localhost:3333/register', {user: newUser, password: newPassword})
+      axios.post('http://localhost:3333/register', {username: newUser, password: newPassword})
       .then(result=> {console.log(result)
         navigate('/profile');})
       .catch(err => console.log(err));
@@ -82,7 +87,7 @@ function Login() {
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <input className="password-area" type='password' id="ps2" rows="1" cols="40" placeholder='Verify password' />
+                <input className="password-area" type='password' id="ps2" rows="1" cols="40" placeholder='Verify password' onChange={(reg) => setVerifyNewPassword(reg.target.value)}/>
                 <ShowPassword value="ps2" />
               </span>
             </p>
