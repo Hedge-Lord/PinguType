@@ -62,7 +62,7 @@
   }
 
   .correct {
-    color: black;
+    color: var(--text-color);
   }
 
   .incorrect {
@@ -71,7 +71,7 @@
 
   .caret {
     border-right: 1px solid;
-    border-color: var(--text-color);
+    border-color: var(--accent-color);
   }
 
   .wpm-counter {
@@ -81,16 +81,16 @@
 
   .left-caret {
     border-left: 1px solid;
-    border-color: var(--text-color);
+    border-color: var(--accent-color);
   }
 
   #typing-area{
-    background-color: #fff6e8;
+    background-color: var(--background-color);
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 10px;
-    color: grey;
+    color: var(--underlaying-text-color);
     border: 10px;
-    border: black;
+    border: var(--border-color);
     border-style: solid;
   }

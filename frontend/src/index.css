@@ -2,6 +2,7 @@
   --main-color: white;
   --accent-color: #ef820d;
   --text-color: black;
+  --underlaying-text-color: gray;
   --border-color: black;
   --whole-page-background-color: white;
   --background-color: #f7e7ce;
@@ -77,3 +78,91 @@ a:visited {
   color: var(--text-color);
 }
 
+.dark {
+  --main-color: black;
+  --accent-color: #ef820d;
+  --text-color: white;
+  --underlaying-text-color: lightgray;
+  --border-color: white;
+  --whole-page-background-color: #48494b;
+  --background-color: #828282;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.dark-blue-accent {
+  --main-color: black;
+  --accent-color: lightblue;
+  --text-color: white;
+  --underlaying-text-color: lightgray;
+  --border-color: white;
+  --whole-page-background-color: #48494b;
+  --background-color: #828282;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.light-blue-accent {
+  --main-color: white;
+  --accent-color: #598baf;
+  --text-color: black;
+  --underlaying-text-color: gray;
+  --border-color: black;
+  --whole-page-background-color: white;
+  --background-color: #f7e7ce;;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.dark-panda {
+  --main-color: black;
+  --accent-color: white;
+  --text-color: white;
+  --underlaying-text-color: lightgray;
+  --border-color: white;
+  --whole-page-background-color: black;
+  --background-color: #191919;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.reverse-panda {
+  --main-color: white;
+  --accent-color: black;
+  --text-color: black;
+  --underlaying-text-color: lightgray;
+  --border-color: black;
+  --whole-page-background-color: white;
+  --background-color: #f8f8ff;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.red {
+  --main-color: black;
+  --accent-color: #d30000;
+  --text-color: white;
+  --underlaying-text-color: darkgray;
+  --border-color: black;
+  --whole-page-background-color: #ee6b6e;
+  --background-color: #7c0a03;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.orange {
+  --main-color: white;
+  --accent-color: #b64000;
+  --text-color: black;
+  --underlaying-text-color: gray;
+  --border-color: #8b4000;
+  --whole-page-background-color: #fda172;
+  --background-color: #ff964f;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.blue {
+  --main-color: white;
+  --accent-color: #006884;
+  --text-color: black;
+  --underlaying-text-color: gray;
+  --border-color: black;
+  --whole-page-background-color: #a9c7ee;
+  --background-color: #afdae0;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}

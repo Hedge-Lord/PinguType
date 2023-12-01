@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    background-color: #ef820d;
+    background-color: var(--accent-color);
     height: 200px;
     margin-left: 300px;
     margin-right: 300px;
@@ -23,7 +23,8 @@
 }
 
 .caption {
-    background-color: white;
+    background-color: var(--text-color);
+    color: var(--main-color);
     border-radius: 4px;
     font-size: smaller;
 }
@@ -40,7 +41,7 @@
 
 .card2{
     margin-top: 3vh;
-    background-color: #ef820d;
+    background-color: var(--accent-color);
     height: 300px ;
     margin-left: 300px;
     margin-right: 300px;
@@ -59,7 +60,7 @@
 }
 
 .button1 button{
-    background-color: #ef820d;
+    background-color: var(--accent-color);
     margin-left: 800px;
     margin-right: 800px;
     margin-top: 50px;
