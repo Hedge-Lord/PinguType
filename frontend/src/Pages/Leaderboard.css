@@ -23,10 +23,6 @@
     margin-bottom: 0;
 }
 
-.second-column-elements {
-  color: var(--text-color);
-}
-
 .second-column-elements:hover {
     color: var(--accent-color);
 }

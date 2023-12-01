@@ -33,7 +33,7 @@ export default function Header() {
         <header>
           <a className="logo-link" href="/"><img src={logo} id="logo" alt="PinguType Logo" /></a>
           <div className="title">
-            <a href="/" className="pingutype-header">
+            <a href="/" style={{ textDecoration: 'none', color: 'black' }}>
               pingutype
             </a>
             <p className="subtext">a typing tool for penguins.</p>

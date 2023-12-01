@@ -60,8 +60,3 @@ button:hover {
 button:active {
   filter: brightness(70%);
 }
-
-.pingutype-header {
-  text-decoration: none;
-  color: var(--text-color)
-}

@@ -37,7 +37,7 @@
   .show-password {
     background-color: var(--accent-color);
     border: none;
-    color: var(--main-color);
+    color: white;
     padding: 3px;
     text-align: center;
     text-decoration: none;
