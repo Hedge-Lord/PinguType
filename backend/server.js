@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const Account = require('./models/account.js');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
 
 const app = express();
 app.use(express.json());
@@ -13,6 +16,29 @@ mongoose.connect('mongodb+srv://groupuser:TaDIjdcjzQ6i4wwL@pingutypedb.pqjnivb.m
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+app.use(session({
+  secret: 'super-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://groupuser:TaDIjdcjzQ6i4wwL@pingutypedb.pqjnivb.mongodb.net/profiles' }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // Cookie max age (1 day)
+    httpOnly: true,
+    secure: true
+  },
+}));
+
+const isAuthenticated = (req, res, next) => {
+  if (req.session.username) {
+      // User is authenticated
+      next();
+  } else {
+      // User is not authenticated
+      res.json({ message: 'Unauthorized' });
+  }
+};
+
 
 app.post('/register', async (req, res) => {
   try {
@@ -43,10 +69,12 @@ app.post('/login', async (req, res) => {
     const user = await Account.findOne({ username: username });
 
     if (user) {
-      // Compare hashed password
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (passwordMatch) {
+        // Set user in the session
+        req.session.username = user.username;
+        console.log('Session data:', req.session.username);
         res.json("Successfully logged in.");
       } else {
         res.json("The username or password is incorrect.");
@@ -60,17 +88,21 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.post('/userscores', (req, res) => {
-  const { username, wpm, acc, difficulty } = req.body;
 
+app.post('/userscores', isAuthenticated, (req, res) => {
+  const { wpm, acc, difficulty } = req.body;
+  const username = req.session.username; // Get the username from the session
   // Find the account with the specified username
   Account.findOne({ username })
     .then(account => {
+      if (!account) {
+        throw new Error('Account not found');
+      }
 
       // Add the new score to the scores array
       account.scores.push({
-        wpm: parseFloat(wpm),
-        acc: parseFloat(acc),
+        wpm: wpm,
+        acc: acc,
         date: new Date(),
         difficulty,
       });
@@ -84,7 +116,7 @@ app.post('/userscores', (req, res) => {
     })
     .catch(err => {
       console.error('Error saving score:', err);
-      res.json({ error: 'Error saving score' });
+      res.status(500).json({ error: 'Error saving score' });
     });
 });
 
