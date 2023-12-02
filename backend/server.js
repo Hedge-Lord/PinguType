@@ -6,11 +6,18 @@ const Account = require('./models/account.js');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
-
+const PORT = 3333;
 const app = express();
 app.use(express.json());
-app.use(cors());
-const PORT = 3333;
+
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  credentials:true
+}
+
+
+app.use(cors(corsOptions));
+
 
 mongoose.connect('mongodb+srv://groupuser:TaDIjdcjzQ6i4wwL@pingutypedb.pqjnivb.mongodb.net/profiles', {
   useNewUrlParser: true,
@@ -25,7 +32,7 @@ app.use(session({
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // Cookie max age (1 day)
     httpOnly: true,
-    secure: true
+    secure: false
   },
 }));
 
