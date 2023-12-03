@@ -3,50 +3,57 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const Account = require('./models/account.js');
-
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+/*
+USE THIS GENERAL TEMPLATE TO SAVE USER INFO
+            axios.post('http://localhost:3333/userscores', {
+              wpm: 2000,
+              acc: 100,
+              date: new Date(),
+              difficulty: "easy"
+            }, {
+              withCredentials: true
+            })
+            .then(result => {
+              console.log(result);
+            })
+            .catch(err => console.log(err));
+*/
+const PORT = 3333;
 const app = express();
 app.use(express.json());
-app.use(cors());
-const PORT = 3333;
+const corsOptions ={
+  origin: 'http://localhost:3000', 
+  credentials: true
+}
+app.use(cors(corsOptions));
+app.use(session({
+  secret: 'super-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://groupuser:TaDIjdcjzQ6i4wwL@pingutypedb.pqjnivb.mongodb.net/profiles' }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // Cookie max age (1 day)
+    httpOnly: true,
+    secure: false
+  },
+}));
 
-mongoose.connect('mongodb+srv://groupuser:TaDIjdcjzQ6i4wwL@pingutypedb.pqjnivb.mongodb.net/profiles', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-app.post('/register', async (req, res) => {
-  try {
-    const existingUser = await Account.findOne({ username: req.body.username });
-
-    if (existingUser) {
-      console.log('Username already exists.');
-      res.json({ error: 'Username already exists.' });
-    } else {
-      // Hash the password before saving it to the database
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const newAccount = await Account.create({
-        username: req.body.username,
-        password: hashedPassword,
-      });
-      console.log('Account created:', newAccount);
-      res.json(newAccount);
-    }
-  } catch (err) {
-    console.error(err);
-    res.json({ error: 'Something went wrong when creating your account.' });
-  }
-});
+mongoose.connect('mongodb+srv://groupuser:TaDIjdcjzQ6i4wwL@pingutypedb.pqjnivb.mongodb.net/profiles');
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await Account.findOne({ username: username });
-
     if (user) {
-      // Compare hashed password
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (passwordMatch) {
+        // Set user in the session
+        req.session.username = user.username;
+        req.session.save();
+        console.log('Session data:', req.session.username);
         res.json("Successfully logged in.");
       } else {
         res.json("The username or password is incorrect.");
@@ -58,6 +65,47 @@ app.post('/login', async (req, res) => {
     console.error(err);
     res.json({ error: 'Something went wrong during login.' });
   }
+});
+
+const isAuthenticated = (req, res, next) => {
+  if (req.session.username) {
+    next();
+  } else {
+    res.json({ message: 'Unauthorized' });
+    console.log(req.session.username);
+  }
+};
+
+app.post('/userscores', isAuthenticated, (req, res) => {
+  const { wpm, acc, difficulty } = req.body;
+  const username = req.session.username; // Get the username from the session
+  console.log("while typing, acc is ", username);
+  // Find the account with the specified username
+  Account.findOne({ username })
+    .then(account => {
+      if (!account) {
+        throw new Error('Account not found');
+      }
+
+      // Add the new score to the scores array
+      account.scores.push({
+        wpm: wpm,
+        acc: acc,
+        date: new Date(),
+        difficulty: difficulty
+      });
+
+      // Save the updated account
+      return account.save();
+    })
+    .then(savedAccount => {
+      console.log('Score saved successfully:', savedAccount);
+      res.json({ success: true });
+    })
+    .catch(err => {
+      console.error('Error saving score:', err);
+      res.status(500).json({ error: 'Error saving score' });
+    });
 });
 
 app.listen(PORT, () => {

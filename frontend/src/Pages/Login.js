@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
 
-
 function ShowPassword({value}) {
   return(
     <button onMouseDown={() => showPassword(value)} 
@@ -34,7 +33,7 @@ function Login() {
     const loginSubmit = (login) =>
     {
       login.preventDefault();
-      axios.post('http://localhost:3333/login', {username: user, password: password})
+      axios.post('http://localhost:3333/login', {username: user, password: password}, {withCredentials: true})
       .then(result=>{console.log(result)
         if(result.data === "Successfully logged in.")
         {
@@ -50,7 +49,7 @@ function Login() {
         return;
       }
       register.preventDefault();
-      axios.post('http://localhost:3333/register', {username: newUser, password: newPassword})
+      axios.post('http://localhost:3333/register', {username: newUser, password: newPassword}, {withCredentials: true})
       .then(result=> {console.log(result)
         navigate('/profile');})
       .catch(err => console.log(err));
