@@ -94,3 +94,14 @@
     border: var(--border-color);
     border-style: solid;
   }
+
+  #reset-button{
+    padding: 7px;
+    padding-top: 0px;
+    margin-right: auto;
+    background: none;
+  }
+
+  #reset-image{
+    width: 25px;
+  }

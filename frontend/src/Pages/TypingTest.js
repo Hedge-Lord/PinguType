@@ -11,6 +11,7 @@ function TypingTest() {
   const [endTime, setEndTime] = useState(1);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [inputHistory, setInputHistory] = useState([]);
+  const [update, setUpdate] = useState(null);
   const textInputRef = useRef(null);
   const [currInput, setCurrInput] = useState("");
   const [wpmKeyStrokes, setWpmKeyStrokes] = useState(0);
@@ -31,16 +32,17 @@ function TypingTest() {
       setTimerStarted(true);
       var countDown = endTime;
       var timerDisplay = document.getElementById("time");
-      var update = setInterval(function () {
+      var updateInterval = setInterval(function () {
         var now = countDown--;
         setElapsedTime(endTime - countDown);
         timerDisplay.innerHTML = "Time: " + countDown;
 
         if (countDown === 0) {
-          clearInterval(update);
+          clearInterval(updateInterval);
           timerDisplay.innerHTML = "Time's up!!!";
         }
       }, 1000);
+      setUpdate(updateInterval);
     }
   }
 
@@ -140,6 +142,25 @@ function TypingTest() {
     textInputRef.current && textInputRef.current.focus();
   }
 
+  const handleReset = () => {
+    setTimerStarted(false);
+    setElapsedTime(0);
+    setInputHistory([]);
+    setCurrInput("");
+    setWpmKeyStrokes(0);
+    setWpm(0);
+    setCurrentIndex(0);
+    setCurrentCharIndex(0);
+    textInputRef.current.value = "";
+
+    if (update) {
+      clearInterval(update);
+      setUpdate(null);
+    }
+
+    document.getElementById("time").innerHTML = "Start typing to start the timer";
+  };
+
 return (
     <div onClick={focusTypeBox}>
         <div className="options">
@@ -192,6 +213,9 @@ return (
               id='hidden-input'
               autocomplete='off'
             />
+            <button id ="reset-button" onClick={handleReset}>
+              <img id="reset-image" src="https://static.thenounproject.com/png/3135990-200.png" alt="Reset" />
+            </button>
         </div>
     </div>);
 }
