@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React, { useState, useEffect }from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
@@ -29,13 +29,26 @@ function Login() {
     const [newUser, setNewUser]=useState('');
     const [newPassword, setNewPassword] = useState('');
     const [verifyNewPassword, setVerifyNewPassword] = useState('');
+    const [loggedIn, setLoggedIn] = useState(false);
     let navigate = useNavigate();
+
+    useEffect(() => {
+      axios.get('http://localhost:3333/check-auth', {withCredentials: true})
+      .then(res => {
+        console.log(res.data);
+        if (res.data.auth) {
+          console.log('sjdkfasd');
+          navigate("/profile");
+        }
+      });
+    });
+
     const loginSubmit = (login) =>
     {
       login.preventDefault();
       axios.post('http://localhost:3333/login', {username: user, password: password}, {withCredentials: true})
       .then(result=>{console.log(result)
-        if(result.data === "Successfully logged in.")
+        if(result.data.success)
         {
           navigate('/profile');
         }
@@ -54,9 +67,6 @@ function Login() {
         navigate('/profile');})
       .catch(err => console.log(err));
     }
-    const handleClick = () => {
-      navigate('/profile');
-    };
     return (
       <html lang="en">
       <head>

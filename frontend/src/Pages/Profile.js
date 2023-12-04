@@ -4,10 +4,6 @@ import '../App.css';
 import './Profile.css';
 
 function Profile({ authorized=0, imageUrl }) {
-    let navigate = useNavigate();
-    if (!authorized) {
-        navigate('/login');
-    }
     return (
         <div className="card">
             <div className= "card1">
