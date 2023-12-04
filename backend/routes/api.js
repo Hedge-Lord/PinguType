@@ -46,6 +46,12 @@ router.post('/register', async (req, res, next) => {
         })(req, res, next);
   });
 
+  router.get("/logout", (req, res, next) => {
+    req.logout((err) => {
+      if (err) return next(err);
+    })
+  });
+
   router.get("/check-auth", (req, res, next) => {
     try {
         if(req.user) res.json({auth: true});

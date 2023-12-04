@@ -11,19 +11,22 @@ function Profile({ imageUrl }) {
     const [scores, setScores] = useState([]);
 
     useEffect(() => {
-        if (!loggedIn) {
-            axios.get('http://localhost:3333/check-auth', {withCredentials: true})
+        axios.get('http://localhost:3333/check-auth', { withCredentials: true })
             .then(res => {
                 if (res.data.auth) {
-                    axios.get('http://localhost:3333/scores', {withCredentials: true})
-                    .then(res => {
-                        setScores(res.data.scores);
-                    });
+                    axios.get('http://localhost:3333/scores', { withCredentials: true })
+                        .then(res => {
+                            setScores(res.data.scores);
+                        });
                 }
                 setLoggedIn(res.data.auth);
-            }, []);
-        }
-      });
+            });
+    }, []); 
+
+    function logout() {
+        axios.get('http://localhost:3333/logout', {withCredentials: true});
+        window.location.reload(false);
+    }
 
     if (loggedIn === null) {
         return (
@@ -43,6 +46,8 @@ function Profile({ imageUrl }) {
                 <h4>Joined September 2023</h4>
             </div>
         </div>
+
+        <button className="logout" onClick={logout}>Logout</button>
 
         <img src="https://media.istockphoto.com/id/1351147752/photo/studio-portrait-of-attractive-20-year-old-bearded-man.jpg?s=612x612&w=0&k=20&c=-twL1NKKad6S_EPrGSniewjh6776A0Ju27ExMh7v_kI=" 
             alt = 'pic'

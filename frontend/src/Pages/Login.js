@@ -29,8 +29,6 @@ function Login() {
     const [newUser, setNewUser]=useState('');
     const [newPassword, setNewPassword] = useState('');
     const [verifyNewPassword, setVerifyNewPassword] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
-    let navigate = useNavigate();
 
     const loginSubmit = (login) =>
     {
