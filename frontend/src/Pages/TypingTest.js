@@ -236,7 +236,7 @@ return (
               autocomplete='off'
             />
             <button id ="reset-button" onClick={handleReset}>
-              <img id="reset-image" src="https://static.thenounproject.com/png/3135990-200.png" alt="Reset" />
+              ⟳ {/* Unicode character for a home symbol */}
             </button>
         </div>
     </div>);

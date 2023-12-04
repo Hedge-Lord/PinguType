@@ -102,6 +102,11 @@
     background: none;
   }
 
-  #reset-image{
-    width: 25px;
+  #reset-button{
+    background: none;
+    border: none;
+    margin-right: auto;
+    margin-top: -20px;
+    font-size: 50px;
+    text-decoration: none;
   }
