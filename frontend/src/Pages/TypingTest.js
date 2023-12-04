@@ -24,6 +24,10 @@ function TypingTest() {
   const [words, setWords] = useState(generateWords().normal);
 
   useEffect(() => {
+    document.getElementById("normal").click();
+  }, []);
+
+  useEffect(() => {
     if (textInputRef.current) {
       textInputRef.current.focus();
     }
@@ -167,7 +171,7 @@ function TypingTest() {
     setWords(selectedWords);
 
     document.getElementById("time").innerHTML = "Start typing to start the timer";
-  
+
   };
 
   const handleDifficultyClick = (difficulty) => {
