@@ -166,3 +166,37 @@ a:visited {
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
+
+.purple {
+  --main-color: white;
+  --accent-color: #371f76;
+  --text-color: white;
+  --underlaying-text-color: #371f76;
+  --border-color: #371f76;
+  --whole-page-background-color: #8968cd;
+  --background-color: #cea2fd;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.ucla {
+  --main-color: white;
+  --accent-color: blue;
+  --text-color: yellow;
+  --underlaying-text-color: blue;
+  --border-color: black;
+  --whole-page-background-color: #0f52ba;
+  --background-color: #89cfef;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.chiefs {
+  --main-color: black;
+  --accent-color: #ffbf00;
+  --text-color: yellow;
+  --underlaying-text-color: white;
+  --border-color: black;
+  --whole-page-background-color: #d30000;
+  --background-color: black;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
