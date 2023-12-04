@@ -130,9 +130,8 @@ function TypingTest() {
     let correctCpm = 0;
     for (let i = 0; i < inputHistory.length; i++) {
       if (inputHistory.at(i) === words.at(i)) {
-        correctCpm += words.at(i).length;
+        correctCpm += words.at(i).length + 1;
       }
-      correctCpm++;
     }
     return [Math.floor((correctCpm / 5 / (elapsedTime)) * 60.0), (correctCpm / (wpmKeyStrokes - currInput.length) * 100).toFixed(2)];
   }

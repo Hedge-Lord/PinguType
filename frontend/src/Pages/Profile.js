@@ -21,7 +21,7 @@ function Profile({ imageUrl }) {
                     });
                 }
                 setLoggedIn(res.data.auth);
-            });
+            }, []);
         }
       });
 
@@ -56,11 +56,13 @@ function Profile({ imageUrl }) {
                 <div>
                     <ul>
                         {scores.map((score, index) => (
-                            <li key={index}> 
-                            <div> Date: {score.date} </div>
-                            <div> WPM/ACC: {score.wpm} WPM / {score.acc}% ACC </div>
-                            <div> Difficulty: {score.difficulty} </div>
-                             </li>
+                            <div className="score-card">
+                                <li key={index}> 
+                                    <div> Date: {score.date} </div>
+                                    <div> WPM/ACC: {score.wpm} WPM / {score.acc}% ACC </div>
+                                    <div> Difficulty: {score.difficulty} </div>
+                                </li>
+                             </div>
                         ))}
                     </ul>
                 </div>

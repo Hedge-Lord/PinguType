@@ -13,5 +13,9 @@ module.exports = mongoose.model("Account", new Schema({
         type: String,
         required: true,
         minLength: 1
+    },
+    best_score: {
+        type: Schema.Types.ObjectId,
+        ref: "Score"
     }
 }));

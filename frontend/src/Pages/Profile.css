@@ -70,3 +70,10 @@
 li {
     list-style-type: none;
 }
+
+.score-card {
+    background-color: var(--main-color);
+    border-radius: 16px;
+    margin: 5px;
+    padding: 12px;
+}

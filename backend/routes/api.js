@@ -69,30 +69,43 @@ router.post('/register', async (req, res, next) => {
     }
   });
   
-  router.post('/scores', (req, res, next) => {
+  router.post('/scores', async (req, res, next) => {
+    try {
     const wpm = req.body.wpm;
     const accuracy = req.body.accuracy;
     const difficulty = req.body.difficulty;
     const user = req.body.user_id;
 
     console.log("saving score to uid ", user);
-    Score.create({
+    const newScore = await Score.create({
       date: new Date(), 
       wpm: wpm, 
       acc: accuracy, 
       difficulty: difficulty, 
-      user: user})
-    .then(newScore => {
+      user: user});
+
+    const account = await Account.findById(user).populate("best_score");
+
+    if (!account.best_score) {
+      account.best_score = newScore._id;
+      await account.save();
+    }
+    else {
+      if (account.best_score.wpm < newScore.wpm) {
+        account.best_score = newScore._id;
+        await account.save();
+      }
+    }
       console.log("Score saved successfully: ", newScore);
       res.json({ success: true });
-    })
-    .catch(err => {
-      console.error('Error saving score:', err);
-      res.status(500).json({ error: 'Error saving score' });
-    })
+    }
+    catch (err) {
+      return next(err);
+    }
   });
 
-  router.get('/scores', async (req, res, next) => {
+  /////// NOT REST API, retrieves scores of user of current session
+  router.get('/scores', async (req, res, next) => { 
     if (req.user) {
       const user = await Account.findOne({username: req.user.username}).exec();
       const scores = await Score.find({user: user._id}).exec();
@@ -100,6 +113,11 @@ router.post('/register', async (req, res, next) => {
       res.json({scores});
     }
     else res.json({scores: []});
+  });
+
+  router.get('/accounts', async (req, res, next) => {
+    const accounts = await Account.find().populate("best_score").exec();
+    res.json({accounts});
   });
 
 module.exports = router;
