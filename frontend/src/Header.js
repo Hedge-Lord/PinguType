@@ -9,9 +9,6 @@ function NavBar() {
           <Link to="/">
               <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Home_icon_orange.png" alt="TypingTest" className="image-button" />
           </Link>
-          <Link to="/login">
-              <img src="https://cdn-icons-png.flaticon.com/512/2996/2996170.png" alt="Login" className="image-button" />
-          </Link>
           <Link to="/profile">
               <img src="https://cdn3.iconfinder.com/data/icons/flatastic-4-1/256/user_orange-512.png" alt="Profile" className="image-button" />
           </Link>

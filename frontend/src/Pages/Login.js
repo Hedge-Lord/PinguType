@@ -32,17 +32,6 @@ function Login() {
     const [loggedIn, setLoggedIn] = useState(false);
     let navigate = useNavigate();
 
-    useEffect(() => {
-      axios.get('http://localhost:3333/check-auth', {withCredentials: true})
-      .then(res => {
-        console.log(res.data);
-        if (res.data.auth) {
-          console.log('sjdkfasd');
-          navigate("/profile");
-        }
-      });
-    });
-
     const loginSubmit = (login) =>
     {
       login.preventDefault();
@@ -50,7 +39,7 @@ function Login() {
       .then(result=>{console.log(result)
         if(result.data.success)
         {
-          navigate('/profile');
+          window.location.reload(false);
         }
       })
       .catch(err => console.log(err));

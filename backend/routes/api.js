@@ -88,4 +88,17 @@ router.post('/register', async (req, res, next) => {
     }
   });
 
+  router.get("/get-user-id", async (req, res, next) => {
+    try {
+        if(req.user) {
+          const user = await Account.findOne({username: req.user.username}).exec();
+          res.json({user_id: user._id});
+        }
+        else res.json({user_id: null});
+    }
+    catch(err) {
+        return next(err);
+    }
+  });
+
 module.exports = router;

@@ -10,6 +10,19 @@ function TypingTest() {
   const [endTime, setEndTime] = useState(30);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [inputHistory, setInputHistory] = useState([]);
+  const textInputRef = useRef(null);
+  const [currInput, setCurrInput] = useState("");
+  const [wpmKeyStrokes, setWpmKeyStrokes] = useState(0);
+  const [wpm, setWpm] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (textInputRef.current) {
+      textInputRef.current.focus();
+    }
+  }, []);
 
   function startTimer() {
     if (!timerStarted)
@@ -21,8 +34,7 @@ function TypingTest() {
         var now = countDown--;
         setElapsedTime(endTime - countDown);
         timerDisplay.innerHTML = "Time: " + countDown;
-  
-        
+
         if (countDown === 0) {
           clearInterval(update);
           timerDisplay.innerHTML = "Time's up!!!";
@@ -30,6 +42,13 @@ function TypingTest() {
       }, 1000);
     }
   }
+
+  useEffect(() => {
+    if (elapsedTime === endTime && !saved) {
+      setSaved(true);
+      console.log('end');
+    }
+  });
 
   const [enabledTime, setEnabledTime] = useState("timey30");
   function handleTimeClick(time) {
@@ -42,22 +61,11 @@ function TypingTest() {
     document.getElementById(id).classList.toggle("button-clicked");
   }
 
-  const textInputRef = useRef(null);
-
-  useEffect(() => {
-    if (textInputRef.current) {
-      textInputRef.current.focus();
-    }
-  }, []);
-
-  const [currInput, setCurrInput] = useState("");
-  const [wpmKeyStrokes, setWpmKeyStrokes] = useState(0);
-  const [wpm, setWpm] = useState(0);
-
   const handleKeyDown = (e) => {
     if (elapsedTime === endTime) return;
 
     const keyCode = e.keyCode;
+    if (keyCode < 32 && keyCode !== 8) return; // non printable char
     if (wpmKeyStrokes !== 0 && elapsedTime > 0) {
       setWpm(Math.floor((wpmKeyStrokes / 5 / (elapsedTime)) * 60.0));
     }
@@ -88,9 +96,6 @@ function TypingTest() {
       }
     }
   };
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentCharIndex, setCurrentCharIndex] = useState(0);
 
   function getCharClass(char, i, i_curr, idx, idx_curr) {
     if (i < i_curr) {
