@@ -4,7 +4,8 @@ import './TypingTest.css';
 import "../App.css";
 import axios from 'axios';
 
-const words = require('../assets/words');
+import generateWords from '../assets/words';
+const { normal, hard } = generateWords();
 
 function TypingTest() {
   const [timerStarted, setTimerStarted] = useState(false);
@@ -19,6 +20,8 @@ function TypingTest() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [saved, setSaved] = useState(false);
+  const [enabledDifficulty, setEnabledDifficulty] = useState("normal");
+  const [words, setWords] = useState(generateWords().normal);
 
   useEffect(() => {
     if (textInputRef.current) {
@@ -37,7 +40,7 @@ function TypingTest() {
         setElapsedTime(endTime - countDown);
         timerDisplay.innerHTML = "Time: " + countDown;
 
-        if (countDown === 0) {
+        if (countDown <= 0) {
           clearInterval(updateInterval);
           timerDisplay.innerHTML = "Time's up!!!";
         }
@@ -65,6 +68,8 @@ function TypingTest() {
 
   const [enabledTime, setEnabledTime] = useState("timey30");
   function handleTimeClick(time) {
+    handleReset();
+
     document.getElementById(enabledTime).classList.toggle("button-clicked");
     document.getElementById(time).classList.toggle("button-clicked");
     setEnabledTime(time);
@@ -131,7 +136,7 @@ function TypingTest() {
     if (elapsedTime === 0) return 0;
     let correctCpm = 0;
     for (let i = 0; i < inputHistory.length; i++) {
-      if (inputHistory.at(i) === words.at(i)) {
+      if (inputHistory.at(i) === words[i]) {
         correctCpm += words.at(i).length + 1;
       }
     }
@@ -158,14 +163,31 @@ function TypingTest() {
       setUpdate(null);
     }
 
+    const selectedWords = enabledDifficulty === "hard" ? generateWords().hard : generateWords().normal;
+    setWords(selectedWords);
+
     document.getElementById("time").innerHTML = "Start typing to start the timer";
+  
+  };
+
+  const handleDifficultyClick = (difficulty) => {
+    
+    handleReset();
+    
+    document.getElementById(enabledDifficulty).classList.remove("button-clicked");
+    document.getElementById(difficulty).classList.add("button-clicked");
+    setEnabledDifficulty(difficulty);
+
+    const selectedWords = difficulty === "hard" ? generateWords().hard : generateWords().normal;
+    setWords(selectedWords);
+
   };
 
 return (
     <div onClick={focusTypeBox}>
         <div className="options">
-            <button id="puncy" onClick={() => handleClick("puncy")}> Punctuation </button>
-            <button class = "center" id="numby" onClick={() => handleClick("numby")}> Numbers </button>
+            <button id="normal" onClick={() => handleDifficultyClick("normal")}> Normal </button>
+            <button id="hard" onClick={() => handleDifficultyClick("hard")}> Hard </button>
             <button id="timey15" onClick={() => {handleTimeClick("timey15"); setEndTime(15)}}> 15s </button>
             <button id="timey30" className="button-clicked" onClick={() => {handleTimeClick("timey30"); setEndTime(30)}}> 30s </button>
             <button id="timey60" onClick={() => {handleTimeClick("timey60"); setEndTime(60)}}> 60s</button>
