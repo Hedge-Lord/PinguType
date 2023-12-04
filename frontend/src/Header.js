@@ -1,7 +1,9 @@
 import "./App.css"
 import logo from './assets/pingutype.png';
 import { BrowserRouter as Router, Link, Routes, Route} from "react-router-dom";
-
+import {useState} from 'react'
+import {useEffect} from 'react'
+import Settings from './Pages/Settings'
 function NavBar() {
     return (    
     <nav>
@@ -20,6 +22,7 @@ function NavBar() {
           </Link>
         </ul>
       </nav>
+      
       );
 }
 
@@ -28,11 +31,11 @@ export default function Header() {
     <>
         <div className="constant-header">
         <header>
-          <a className="logo-link" href="/"><img src={logo} id="logo" alt="PinguType Logo" /></a>
+          <Link className="logo-link" to="/"><img src={logo} id="logo" alt="PinguType Logo" /></Link>
           <div className="title">
-            <a href="/" className="pingutype-header">
+            <Link to="/" className="pingutype-header">
               pingutype
-            </a>
+            </Link>
             <p className="subtext">a typing tool for penguins.</p>
           </div>
         </header>

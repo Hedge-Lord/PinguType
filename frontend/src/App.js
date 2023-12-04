@@ -6,11 +6,16 @@ import Profile from "./Pages/Profile"
 import Leaderboard from "./Pages/Leaderboard";
 import Settings from "./Pages/Settings"
 import Header from "./Header"
-import { useRef } from 'react';
+import {useEffect} from 'react'
+import {useState} from 'react'
 import "./App.css"
 
-
 function App() {
+  const storedValue = localStorage.getItem('theme');
+  const [theme, setTheme] = useState(storedValue);
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
   return (
     <>
       <Header />

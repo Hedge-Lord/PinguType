@@ -1,16 +1,13 @@
 .collapsible {
     display: flex;
     flex-direction: column;
+    width: 80vh;
 }
 
 .theme-menu-button {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 20vh 20vh 20vh 20vh;
     gap: 3px;
-}
-
-.theme-button {
-
 }
 
 .header {
@@ -22,7 +19,11 @@
     border-color: var(--border-color);
     border-radius: 15px; 
     transition: filter 0.1s ease-in-out;
-    margin-bottom: 3px;
+    margin-bottom: 8px;
+}
+
+.logout-button {
+    margin-top: 5px;
 }
 
 h1 {
@@ -83,7 +84,7 @@ h1 {
     transition: filter 0.1s ease-in-out;
     margin-bottom: 3px;
 }
-.theme-button-dark-panda {
+.theme-button-panda {
     background-color: black;
     color: white;
     padding: 16px;
@@ -94,7 +95,7 @@ h1 {
     transition: filter 0.1s ease-in-out;
     margin-bottom: 3px;
 }
-.theme-button-reverse-panda {
+.theme-button-polar-bear {
     background-color: white;
     color: black;
     padding: 16px;
@@ -130,6 +131,39 @@ h1 {
 .theme-button-blue {
     background-color: #a9c7ee;
     color: #006884;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-purple {
+    background-color: #ac94f4;
+    color: #371f76;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-ucla {
+    background-color: #0f52ba;
+    color: yellow;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-chiefs {
+    background-color: #d30000;
+    color: yellow;
     padding: 16px;
     font-size: 16px;
     border-style: solid;

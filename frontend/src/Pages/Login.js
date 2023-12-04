@@ -44,10 +44,6 @@ function Login() {
     }
     const registerSubmit = (register) =>
     {
-      if (newPassword !== verifyNewPassword) {
-        console.log("Passwords don't match")
-        return;
-      }
       register.preventDefault();
       axios.post('http://localhost:3333/register', {username: newUser, password: newPassword}, {withCredentials: true})
       .then(result=> {console.log(result)
@@ -91,7 +87,7 @@ function Login() {
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <input className="password-area" type='password' id="ps2" rows="1" cols="40" placeholder='Verify password' onChange={(reg) => setVerifyNewPassword(reg.target.value)}/>
+                <input className="password-area" type='password' id="ps2" rows="1" cols="40" placeholder='Verify password' />
                 <ShowPassword value="ps2" />
               </span>
             </p>
