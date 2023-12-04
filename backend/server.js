@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const Account = require('./models/account.js');
 const session = require('express-session');
@@ -26,7 +27,7 @@ USE THIS GENERAL TEMPLATE TO SAVE USER INFO
             .catch(err => console.log(err));
 */
 const PORT = process.env.PORT || 3333;
-mongoose.connect('mongodb+srv://user:mypassword123@myatlasclusteredu.eiepfa0.mongodb.net/pingu?retryWrites=true&w=majority');
+mongoose.connect(process.env.mongoDB_URL);
 
 const app = express();
 app.use(logger('dev'));
