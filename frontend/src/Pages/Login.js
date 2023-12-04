@@ -53,7 +53,15 @@ function Login() {
       register.preventDefault();
       axios.post('http://localhost:3333/register', {username: newUser, password: newPassword}, {withCredentials: true})
       .then(result=> {console.log(result)
-        navigate('/profile');})
+        axios.post('http://localhost:3333/login', {username: newUser, password: newPassword}, {withCredentials: true})
+        .then(result=>{console.log(result)
+          if(result.data.success)
+          {
+            window.location.reload(false);
+          }
+        })
+        .catch(err => console.log(err));
+      })
       .catch(err => console.log(err));
     }
     return (
