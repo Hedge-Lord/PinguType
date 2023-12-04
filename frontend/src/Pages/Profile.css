@@ -65,5 +65,8 @@
     margin-right: 800px;
     margin-top: 50px;
     border-radius: 10px;
-    
+}
+
+li {
+    list-style-type: none;
 }

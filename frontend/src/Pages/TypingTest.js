@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { useState, useRef } from 'react';
 import './TypingTest.css';
 import "../App.css";
+import axios from 'axios';
 
 const words = require('../assets/words');
 
 function TypingTest() {
   const [timerStarted, setTimerStarted] = useState(false);
-  const [endTime, setEndTime] = useState(30);
+  const [endTime, setEndTime] = useState(1);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [inputHistory, setInputHistory] = useState([]);
   const textInputRef = useRef(null);
@@ -43,10 +44,20 @@ function TypingTest() {
     }
   }
 
+  /////// score submit
   useEffect(() => {
     if (elapsedTime === endTime && !saved) {
       setSaved(true);
-      console.log('end');
+      console.log(calculateWpm());
+      const [wpm, accuracy] = calculateWpm();
+      axios.get("http://localhost:3333/get-user-id", { withCredentials: true })
+      .then(res => {
+        if (res.data.user_id) {
+          axios.post("http://localhost:3333/scores",
+          {user_id: res.data.user_id, wpm, accuracy, difficulty: "placeholder"});
+        }
+        else console.log("Log in to save scores.");
+      })
     }
   });
 

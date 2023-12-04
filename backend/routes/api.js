@@ -45,38 +45,6 @@ router.post('/register', async (req, res, next) => {
           });
         })(req, res, next);
   });
-  
-  router.post('/scores', (req, res, next) => {
-    const { wpm, acc, difficulty } = req.body;
-    const username = req.session.username; // Get the username from the session
-    console.log("while typing, acc is ", username);
-    // Find the account with the specified username
-    Account.findOne({ username })
-      .then(account => {
-        if (!account) {
-          throw new Error('Account not found');
-        }
-  
-        // Add the new score to the scores array
-        account.scores.push({
-          wpm: wpm,
-          acc: acc,
-          date: new Date(),
-          difficulty: difficulty
-        });
-  
-        // Save the updated account
-        return account.save();
-      })
-      .then(savedAccount => {
-        console.log('Score saved successfully:', savedAccount);
-        res.json({ success: true });
-      })
-      .catch(err => {
-        console.error('Error saving score:', err);
-        res.status(500).json({ error: 'Error saving score' });
-      });
-  });
 
   router.get("/check-auth", (req, res, next) => {
     try {
@@ -99,6 +67,39 @@ router.post('/register', async (req, res, next) => {
     catch(err) {
         return next(err);
     }
+  });
+  
+  router.post('/scores', (req, res, next) => {
+    const wpm = req.body.wpm;
+    const accuracy = req.body.accuracy;
+    const difficulty = req.body.difficulty;
+    const user = req.body.user_id;
+
+    console.log("saving score to uid ", user);
+    Score.create({
+      date: new Date(), 
+      wpm: wpm, 
+      acc: accuracy, 
+      difficulty: difficulty, 
+      user: user})
+    .then(newScore => {
+      console.log("Score saved successfully: ", newScore);
+      res.json({ success: true });
+    })
+    .catch(err => {
+      console.error('Error saving score:', err);
+      res.status(500).json({ error: 'Error saving score' });
+    })
+  });
+
+  router.get('/scores', async (req, res, next) => {
+    if (req.user) {
+      const user = await Account.findOne({username: req.user.username}).exec();
+      const scores = await Score.find({user: user._id}).exec();
+      console.log(scores);
+      res.json({scores});
+    }
+    else res.json({scores: []});
   });
 
 module.exports = router;

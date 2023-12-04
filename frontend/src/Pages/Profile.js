@@ -8,12 +8,21 @@ import Login from './Login';
 
 function Profile({ imageUrl }) {
     const [loggedIn, setLoggedIn] = useState(null);
+    const [scores, setScores] = useState([]);
+
     useEffect(() => {
-        axios.get('http://localhost:3333/check-auth', {withCredentials: true})
-        .then(res => {
-          console.log(res.data);
-          setLoggedIn(res.data.auth);
-        });
+        if (!loggedIn) {
+            axios.get('http://localhost:3333/check-auth', {withCredentials: true})
+            .then(res => {
+                if (res.data.auth) {
+                    axios.get('http://localhost:3333/scores', {withCredentials: true})
+                    .then(res => {
+                        setScores(res.data.scores);
+                    });
+                }
+                setLoggedIn(res.data.auth);
+            });
+        }
       });
 
     if (loggedIn === null) {
@@ -43,15 +52,20 @@ function Profile({ imageUrl }) {
         <div className="card2">
             <div className="info">
                 <div className= "stats">
-                <h2> Your Stats</h2>
-                <h4> Tests Completed: </h4>
-                <h4> Tests Started: </h4>
-                <h4> Time Typed: </h4>
+                <h2> Completed Tests: </h2>
+                <div>
+                    <ul>
+                        {scores.map((score, index) => (
+                            <li key={index}> 
+                            <div> Date: {score.date} </div>
+                            <div> WPM/ACC: {score.wpm} WPM / {score.acc}% ACC </div>
+                            <div> Difficulty: {score.difficulty} </div>
+                             </li>
+                        ))}
+                    </ul>
+                </div>
                 </div>
             </div>
-        </div>
-        <div className="button1">
-            <button> Edit Profile </button>
         </div>
     </div>
         ) 
