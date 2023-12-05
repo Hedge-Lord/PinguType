@@ -92,15 +92,22 @@ function TypingTest() {
     setEnabledTime(time);
   }
 
-  function handleClick(id) {
-    document.getElementById(id).classList.toggle("button-clicked");
-  }
-
   const handleKeyDown = (e) => {
     if (elapsedTime === endTime) return;
 
     const keyCode = e.keyCode;
-    if (keyCode < 32 && keyCode !== 8) return; // non printable char
+
+
+    var valid = 
+    (keyCode > 47 && keyCode < 58)   || // number keys
+    keyCode == 32 || keyCode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
+    (keyCode > 64 && keyCode < 91)   || // letter keys
+    (keyCode > 95 && keyCode < 112)  || // numpad keys
+    (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
+    (keyCode > 218 && keyCode < 223);   // [\]' (in order)
+    if (!valid && keyCode !== 8) return;
+
+
     if (wpmKeyStrokes !== 0 && elapsedTime > 0) {
       setWpm(Math.floor((wpmKeyStrokes / 5 / (elapsedTime)) * 60.0));
     }
@@ -119,15 +126,28 @@ function TypingTest() {
 
     if (keyCode === 8) {
       if (currentCharIndex > 0) {
-        setWpmKeyStrokes(wpmKeyStrokes - 1);
-        setCurrentCharIndex(currentCharIndex - 1);
+        if (e.ctrlKey || e.altKey || e.metaKey) {
+          setWpmKeyStrokes(wpmKeyStrokes - currentCharIndex);
+          setCurrentCharIndex(0);
+        }
+        else {
+          setWpmKeyStrokes(wpmKeyStrokes - 1);
+          setCurrentCharIndex(currentCharIndex - 1);
+        }
       } 
       else if (currentCharIndex === 0 && currentIndex > 0) {
-        setWpmKeyStrokes(wpmKeyStrokes - 1);
-        setCurrentIndex(currentIndex - 1);
-        let lastInput = inputHistory.pop();
-        setCurrentCharIndex(lastInput.length);
-        setCurrInput(lastInput + lastInput.charAt(lastInput.length - 1));
+        if (e.ctrlKey || e.altKey || e.metaKey) {
+          let lastInput = inputHistory.pop();
+          setWpmKeyStrokes(wpmKeyStrokes - lastInput.length - 1);
+          setCurrentIndex(currentIndex - 1);
+        }
+        else {
+          setWpmKeyStrokes(wpmKeyStrokes - 1);
+          setCurrentIndex(currentIndex - 1);
+          let lastInput = inputHistory.pop();
+          setCurrentCharIndex(lastInput.length);
+          setCurrInput(lastInput + lastInput.charAt(lastInput.length - 1));
+        }
       }
     }
   };
