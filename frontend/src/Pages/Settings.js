@@ -50,12 +50,48 @@ function Collapsible() {
         </body>
         );
 }
-
+const SettingsPage = () => {
+   
+    const handleUpdateUsername = () => {
+      // Functionality for updating username
+    };
+  
+    const handleChangePassword = () => {
+      // Functionality for changing password
+    };
+  
+    const handleResetSettings = () => {
+      // Functionality for resetting settings
+    };
+  
+    const handleDeleteAccount = () => {
+      // Functionality for deleting account
+    };
+  
+    return (
+      <div className="settings-container">
+        
+        <div className="settings-card">
+          <h2> My Account Settings</h2>
+          <div className="sub-heading">Update Username</div>
+          <button onClick={handleUpdateUsername}>Update Username</button>
+          <div className="sub-heading">Change Password</div>
+          <button onClick={handleChangePassword}>Change Password</button>
+          <div className="sub-heading">Reset Settings</div>
+          <button onClick={handleResetSettings}>Reset Settings</button>
+          <div className="sub-heading">Delete Account</div>
+          <button onClick={handleDeleteAccount}>Delete Account</button>
+        </div>
+      </div>
+    );
+  };
+  
 function Settings() {
     return (
             <body>
                 <h1>Settings</h1>
                 <Collapsible />
+                <SettingsPage/>
             </body>
           );
 }
