@@ -23,12 +23,15 @@ function unshowPassword(idof) {
   x.type = 'password';
 }
 
+
 function Login() {
     const [user,setUser]=useState('');
     const [password,setPassword]=useState('');
     const [newUser, setNewUser]=useState('');
     const [newPassword, setNewPassword] = useState('');
     const [verifyNewPassword, setVerifyNewPassword] = useState('');
+    const [isIncorrectVerify, setIsIncorrectVerify] = useState(false);
+    const [isCorrectUsernamePassword, setIsCorrectUsernamePassword] = useState(false);
 
     const loginSubmit = (login) =>
     {
@@ -40,10 +43,14 @@ function Login() {
           window.location.reload(false);
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {console.log(err); setIsCorrectUsernamePassword(true); });
     }
     const registerSubmit = (register) =>
     {
+      if (verifyNewPassword !== newPassword) {
+        setIsIncorrectVerify(true);
+        return;
+      }
       register.preventDefault();
       axios.post('http://localhost:3333/register', {username: newUser, password: newPassword}, {withCredentials: true})
       .then(result=> {console.log(result)
@@ -87,7 +94,7 @@ function Login() {
             </p>
             <p className="password-spot">
               <span style={{ fontSize: '18px' }}>
-                <input className="password-area" type='password' id="ps2" rows="1" cols="40" placeholder='Verify password' />
+                <input className="password-area" type='password' id="ps2" rows="1" cols="40" placeholder='Verify password' onChange={(reg) => setVerifyNewPassword(reg.target.value)}/>
                 <ShowPassword value="ps2" />
               </span>
             </p>
@@ -106,13 +113,19 @@ function Login() {
                   <input className="password-area" type='password' id="ps3" rows="1" cols="40" placeholder='Password' onChange={(log) => setPassword(log.target.value)}/>
                   <ShowPassword value="ps3" />
                 </span>
+              </p>            
+              <p className="invisible-password-spot">
+                <span style={{ fontSize: '18px' }}>
+                  <input className="password-area" type='password' id="ps2" rows="1" cols="40" placeholder='Verify password' />
+                  <ShowPassword value='ps2' />
+                </span>
               </p>
-              <br />
-              <br />
               <button className="login" onClick={loginSubmit}>Login</button>
             </div>
           </div>
         </div>
+        <h2 className={isIncorrectVerify ? 'show-incorrect-verify' : 'dont-show-incorrect-verify'}>Passwords don't match</h2>
+        <h2 className={isCorrectUsernamePassword ? 'show-incorrect-username' : 'dont-show-incorrect-username'}>Incorrect username or password</h2>
       </body>
     </html>
     );

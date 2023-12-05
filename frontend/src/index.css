@@ -209,7 +209,7 @@ a:visited {
   color: var(--text-color);
 }
 .ucla {
-  --main-color: white;
+  --main-color: blue;
   --accent-color: yellow;
   --text-color: white;
   --correct-color: #89cfef;

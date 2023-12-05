@@ -79,3 +79,23 @@
   {
     resize:none;
   }
+
+  .invisible-password-spot {
+    visibility: hidden;
+  }
+
+  .show-incorrect-username {
+    color: var(--incorrect-color);
+  }
+
+  .dont-show-incorrect-username {
+    display: none;
+  }
+
+  .show-incorrect-verify {
+    color: var(--incorrect-color);
+  }
+
+  .dont-show-incorrect-verify {
+    display: none;
+  }
