@@ -180,14 +180,59 @@
     font-size: 30px;
 }
 
-.following-card {
+.follow-cards {
+    display: flex;
+}
+
+.main-follower-card {
     margin-left: 30px;
     margin-top: 30px;
     border: solid;
     padding-left: 15px;
     border-radius: 10px;
-    width: 500px;
+    width: 220px;
     height: 340px;
+    overflow-y: auto;
+}
+
+.follower-card {
+    margin-top: 10px;
+    margin-left: -30px;
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 150px;
+}
+
+.follower-image {
+    margin-top: 10px;   
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: solid;
+    border-width: 1px;
+}
+
+.follower-name {
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.follower-info a {
+    margin-top: -40px;
+    margin-left: 65px;
+    display: block;
+}
+
+.main-following-card {
+    margin-left: 30px;
+    margin-top: 30px;
+    border: solid;
+    padding-left: 15px;
+    border-radius: 10px;
+    width: 220px;
+    height: 340px;
+    overflow-y: auto;
 }
 
 .card-img{

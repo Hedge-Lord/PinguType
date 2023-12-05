@@ -61,7 +61,7 @@ function Profile({ imageUrl }) {
                   .then(res => {
                       setScores(res.data.scores);
                   });
-              navigate("/profile/" + res.data.username);
+              navigate("/profile/" + res.data.username, { replace: true });
               setProfileName(res.data.username);
           } 
           setProfileLoad(res.data.auth);
@@ -100,20 +100,30 @@ function Profile({ imageUrl }) {
 
   function logout() {
     axios.get("http://localhost:3333/logout", { withCredentials: true });
-    navigate("/profile");
+    navigate("/login");
     window.location.reload(false);
   }
 
   function handleFollow() {
-    axios.get("http://localhost:3333/get-user-id", {withCredentials: true})
-    .then(res => {
-      axios.post("http://localhost:3333/accounts/" + profileName + "/followers", {user_id: res.data.user_id})
-      .then(resp => {
-        // do something with resp
-        // resp.success, resp.newFollower
-        window.location.reload(false);
-      })
-    })
+    axios.get("http://localhost:3333/check-auth", { withCredentials: true })
+      .then((res) => {
+        if (res.data.auth) {
+          axios.get("http://localhost:3333/get-user-id", { withCredentials: true })
+            .then((res) => {
+              axios.post("http://localhost:3333/accounts/" + profileName + "/followers", { user_id: res.data.user_id })
+                .then((resp) => {
+                  // do something with resp
+                  // resp.success, resp.newFollower
+                  //if (resp.success) {
+                  window.location.reload();
+                  //}
+                });
+            });
+        } else {
+          alert("Need to be logged in to follow accounts.");
+          navigate("/login");
+        }
+      });
   }
 
   function handleUnfollow() {
@@ -234,20 +244,30 @@ function Profile({ imageUrl }) {
               </div>
           </div>
 
-          <div className="following-card">
-            <h2> Followers  {followers.length}</h2>
-            <ul>
-                  {followers.map((follower, index) => (
-                    <div className="score-card">
-                      <div className="test-info">
-                        <li key={index}>
-                          <a href={`/profile/${follower.username}`}>{follower.username}</a>
-                        </li>
-                      </div>
-
+          <div className="follow-cards">
+            <div className="main-follower-card">
+              <h2>Followers: {followers.length}</h2>
+              <ul>
+                {followers.map((follower, index) => (
+                  <div className="follower-card" key={index}>
+                    <div className="follower-info">
+                      <li>
+                        <div>
+                        <img src="https://www.freeiconspng.com/thumbs/penguin-icon/penguin-icon-18.jpg" 
+                            alt={`${follower.username}'s profile`}
+                            className="follower-image" />
+                        <a href={`/profile/${follower.username}`} className="follower-name">{follower.username}</a>
+                        </div>
+                      </li>
                     </div>
-                  ))}
-                </ul>
+                  </div>
+                ))}
+              </ul>
+            </div>
+
+            <div className="main-following-card">
+              <h2>Following:</h2>
+            </div>
           </div>
 
         </div>
