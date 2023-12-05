@@ -167,6 +167,7 @@ router.get("/scores", async (req, res, next) => {
 
 router.get("/accounts", async (req, res, next) => {
   const accounts = await Account.find().populate("best_score").exec();
+  console.log(accounts);
   res.json({ accounts });
 });
 
