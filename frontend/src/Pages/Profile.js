@@ -15,6 +15,12 @@ function Profile({ imageUrl }) {
   const params = useParams();
   const navigate = useNavigate();
 
+  const [averageWPM, setAverageWPM] = useState(0);
+  const [averageAccuracy, setAverageAccuracy] = useState(0);
+
+  const [highestWPM, setHighestWPM] = useState(0);
+  const [highestAccuracy, setHighestAccuracy] = useState(0);
+
   useEffect(() => {
     if (params.username) {
       console.log("load user prof");
@@ -49,8 +55,29 @@ function Profile({ imageUrl }) {
           setProfileLoad(res.data.auth);
           setLoggedIn(res.data.auth);
       });
-    }
+    }  
   }, [params.username]);
+
+  useEffect(() => {
+    if (scores.length > 0) {
+      const totalWPM = scores.reduce((sum, score) => sum + score.wpm, 0);
+      const totalAccuracy = scores.reduce((sum,score) => sum + score.acc, 0);
+
+      const avgWPM = totalWPM / scores.length;
+      const avgAccuracy = totalAccuracy / scores.length;
+
+      setAverageWPM(avgWPM);
+      setAverageAccuracy(avgAccuracy);
+
+      const maxWPM = Math.max(...scores.map(score => score.wpm));
+      const maxAccuracy = Math.max(...scores.map(score => score.acc));
+
+      setHighestWPM(maxWPM);
+      setHighestAccuracy(maxAccuracy);
+
+    }
+  }, [scores])
+
   function getSearchText(e) {
     setSearchInput(e.target.value);
   }
@@ -70,56 +97,117 @@ function Profile({ imageUrl }) {
     return <h1>Loading...</h1>;
   } else
     return profileLoad ? (
-        
+
+    <div>
+
       <div className="card">
         <div className="card1">
-          <div className="profile-name">
-            <h3>{profileName}'s Account</h3>
-          </div>
-          <div className="caption-container">
-            <div className="caption">
-              <h4>Joined September 2023</h4>
+          <img src="https://www.freeiconspng.com/thumbs/penguin-icon/penguin-icon-18.jpg" 
+                alt="Profile Image"
+                className="profile-image" />
+          <div className="profile-info">
+            <div className="profile-name">
+              <h3>{profileName}</h3>
             </div>
-            <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search an existing user"
-              value={searchInput}
-              onChange={getSearchText}
-              onKeyDown={searchUser}
-            />
+            <div className="caption">
+                <h4>Joined September 2023</h4>
+            </div>
+
           </div>
-<div className="stats">
-              <h2> Completed Tests: </h2>
+
+          <div className="profile-button">
+            {loggedIn && (
+              <button className="logout" onClick={logout}>
+                Logout
+              </button>
+            ) || !loggedIn && (<button className="follow" >
+                Follow
+            </button>)}
+          </div>
+
+          {loggedIn && (
+              <div className="add-following">
+                <div> Search Users: </div>
+                <div className="search-bar">
+                  <input
+                    type="text"
+                    placeholder="Type in existing user"
+                    value={searchInput}
+                    onChange={getSearchText}
+                    onKeyDown={searchUser}
+                  />
+                </div>
+              </div>
+            )}
+
+        </div>
+
+        <div className="main-body">
+          <div className="tests-card">
+            <h2> Completed Tests </h2>
               <div>
                 <ul>
                   {scores.map((score, index) => (
                     <div className="score-card">
-                      <li key={index}>
-                        <div> Date: {score.date} </div>
-                        <div>
-                          {" "}
-                          WPM/ACC: {score.wpm} WPM / {score.acc}% ACC{" "}
-                        </div>
-                        <div> Difficulty: {score.difficulty} </div>
-                        <div> Time: {score.time} </div>
-                      </li>
+                      <div className="penguin-icon">
+                        🐧
+                      </div>
+                      <div className="test-info">
+                        <li key={index}>
+                          <div> {score.date} </div>
+                          <div>
+                            {" "}
+                            WPM: {score.wpm} -- ACC: {score.acc}%{" "}
+                          </div>
+                          <div> Difficulty: {score.difficulty} </div>
+                          <div> Time: {score.time}s </div>
+                        </li>
+                      </div>
+
                     </div>
                   ))}
                 </ul>
               </div>
-            </div>
           </div>
-          {loggedIn && (
-              <button className="logout" onClick={logout} style={{backgroundColor: 'var(--button-color)'}}>
-                Logout
-              </button>
-            ) || !loggedIn && (<button className="follow" style={{backgroundColor: 'var(--button-color)'}} >
-                Follow
-            </button>)}
+
+          <div>
+          <div className="stats-card">
+              <h2> Personal Stats </h2>
+              <div className="avg-stats">
+                <div className="avg-wpm"> 
+                  <div> Average WPM </div>
+                  <div className="wpm"> {averageWPM.toFixed(2)} </div>
+                </div>
+
+                <div className="avg-acc">
+                  <div> Average Accuracy </div>
+                  <div className="acc"> {averageAccuracy.toFixed(2)}% </div>
+                </div>
+              </div>
+
+              <div className="max-stats">
+                <div className="max-wpm"> 
+                  <div> Best WPM </div>
+                  <div className="wpm"> {highestWPM.toFixed(2)} </div>
+                </div>
+
+                <div className="max-acc">
+                  <div> Best Accuracy </div>
+                  <div className="acc"> {highestAccuracy.toFixed(2)}% </div>
+                </div>
+              </div>
+          </div>
+
+          <div className="following-card">
+            <h2> Followers </h2>
+            
+          </div>
 
         </div>
+        </div>
+          
       </div>
+    </div>
     ) : (
       <Login />
     );

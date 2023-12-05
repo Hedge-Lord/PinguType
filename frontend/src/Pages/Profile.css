@@ -1,32 +1,193 @@
+.card {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+
 .card1 {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: flex-start;
-    background-color: var(--accent-color);
-    height: auto;
-    margin-left: 300px;
+    background-color: none;
+    margin-left: 400px;
     margin-right: 300px;
-    margin-top: 10px;
+    margin-top: -30px;
     border-radius: 10px;
     position: relative; /* Add position: relative to the .card container */
 }
 
-.profile-name {
-    font-size: 30px;
+.profile-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 30px;
 }
 
-.caption-container {
-    position: absolute;
-    top: 70px;
+.profile-image {
+    margin-top: 10px;    
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: solid;
+    border-width: 1px;
+}
 
+.profile-info {
+    margin-left: 20px;
+}
+
+.profile-name {
+    font-size: 25px;
 }
 
 .caption {
-    background-color: var(--text-color);
-    color: var(--main-color);
-    border-radius: 4px;
+    color: var(--text-color);
     font-size: smaller;
+    margin-top: -20px;
+}
+
+.profile-button {
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.logout {
+    background-color: var(--main-color);
+    border: solid;
+}
+
+.follow {
+    background-color: var(--main-color);
+    border: solid;
+}
+
+.add-following {
+    margin-left: 325px;
+    margin-top: 40px;
+}
+
+.main-body {
+    display: flex;
+    align-items: flex-start;
+}
+
+.tests-card {
+    margin-left: 400px;
+    margin-top: 30px;
+    border: solid;
+    padding-left: 15px;
+    border-radius: 10px;
+    width: 500px;
+    height: 713px;
+    overflow-y: auto;
+}
+
+.score-card {
+    background-color: var(--main-color);
+    border-radius: 16px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-left: -20px;
+    width: 400px;
+    border: solid;
+    display: flex;
+}
+
+.penguin-icon {
+    margin-right: 10px;
+    margin-bottom: 55px;
+    font-size: 20px;
+}
+
+.stats-card {
+    margin-left: 30px;
+    margin-top: 30px;
+    border: solid;
+    padding-left: 15px;
+    border-radius: 10px;
+    width: 500px;
+    height: 340px;
+}
+
+.avg-stats {
+    display: flex;
+    text-align: center;
+}
+
+.max-stats {
+    display: flex;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.avg-wpm {
+    background-color: var(--main-color);
+    border: solid;
+    border-radius: 10px;
+    width: 200px;
+    height: 100px;
+    margin-top: 10px;
+    margin-left: 20px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.max-wpm {
+    background-color: var(--main-color);
+    border: solid;
+    border-radius: 10px;
+    width: 200px;
+    height: 100px;
+    margin-top: 10px;
+    margin-left: 20px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.avg-acc {
+    background-color: var(--main-color);
+    border: solid;
+    border-radius: 10px;
+    width: 200px;
+    height: 100px;
+    margin-top: 10px;
+    margin-left: 30px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.max-acc {
+    background-color: var(--main-color);
+    border: solid;
+    border-radius: 10px;
+    width: 200px;
+    height: 100px;
+    margin-top: 10px;
+    margin-left: 30px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.wpm {
+    margin-top: 15px;
+    font-size: 30px;
+}
+
+.acc {
+    margin-top: 15px;
+    font-size: 30px;
+}
+
+.following-card {
+    margin-left: 30px;
+    margin-top: 30px;
+    border: solid;
+    padding-left: 15px;
+    border-radius: 10px;
+    width: 500px;
+    height: 340px;
 }
 
 .card-img{
@@ -39,26 +200,6 @@
     border-radius: 50%;
 }
 
-.card2{
-    margin-top: 3vh;
-    background-color: var(--accent-color);
-    height: 300px ;
-    margin-left: 300px;
-    margin-right: 300px;
-    margin-top: 10px;
-    border-radius: 10px;
-    position: relative;
-}
-
-.stats{
-    position: absolute;
-    margin-top: 30px;
-    margin-left: 20px;
-    margin-bottom: 30px;
-
-
-}
-
 .button1 button{
     background-color: var(--accent-color);
     margin-left: 800px;
@@ -67,13 +208,14 @@
     border-radius: 10px;
 }
 
+.search-bar {
+    margin-top: 8px;
+}
+
 li {
     list-style-type: none;
 }
 
-.score-card {
-    background-color: var(--main-color);
-    border-radius: 16px;
-    margin: 5px;
-    padding: 12px;
+h2 {
+    font-size: 20px;
 }

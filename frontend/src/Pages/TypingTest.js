@@ -9,7 +9,7 @@ const { normal, hard } = generateWords();
 
 function TypingTest() {
   const [timerStarted, setTimerStarted] = useState(false);
-  const [endTime, setEndTime] = useState(1);
+  const [endTime, setEndTime] = useState(30);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [inputHistory, setInputHistory] = useState([]);
   const [update, setUpdate] = useState(null);
