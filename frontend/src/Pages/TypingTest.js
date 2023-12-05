@@ -9,7 +9,7 @@ const { normal, hard } = generateWords();
 
 function TypingTest() {
   const [timerStarted, setTimerStarted] = useState(false);
-  const [endTime, setEndTime] = useState(30);
+  const [endTime, setEndTime] = useState(1);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [inputHistory, setInputHistory] = useState([]);
   const [update, setUpdate] = useState(null);
@@ -24,24 +24,11 @@ function TypingTest() {
   const [enabledDifficulty, setEnabledDifficulty] = useState("Normal");
   const [words, setWords] = useState(generateWords().normal);
   const [isVisible, setIsVisible] = useState(true);
-  const [enabledTime, setEnabledTime] = useState("timey30");
 
   useEffect(() => {
-    const storedDifficulty = localStorage.getItem('difficulty')
-    if (storedDifficulty === 'hard') {
-      document.getElementById(storedDifficulty).click();
-      return;
-    }
     document.getElementById("Normal").click();
   }, []);
-  // useEffect(() => {
-  //   const storedTimey = localStorage.getItem('timey');
-  //   console.log('stored timey:', storedTimey);
-  //   if (storedTimey !== 'timey30') {
-  //     setEnabledTime('timey30');
-  //     document.getElementById(storedTimey).click();
-  //   }
-  // }, []);
+
   useEffect(() => {
     if (textInputRef.current) {
       textInputRef.current.focus();
@@ -82,6 +69,7 @@ function TypingTest() {
                         user_id: res.data.user_id,
                         wpm,
                         accuracy,
+                        time: endTime,
                         difficulty: enabledDifficulty
                     })
                     .catch(error => {
@@ -109,22 +97,14 @@ function TypingTest() {
         }
   })
 
-
+  const [enabledTime, setEnabledTime] = useState("timey30");
   function handleTimeClick(time) {
     handleReset();
-    console.log("called");
-    console.log(enabledTime);
+
     document.getElementById(enabledTime).classList.toggle("button-clicked");
     document.getElementById(time).classList.toggle("button-clicked");
     setEnabledTime(time);
-    console.log(time);
   }
-  // useEffect(() => {
-  //   const storedTime = localStorage.getItem('time');
-  //   if (storedTime !== null) {
-  //       setEndTime(storedTime);
-  //   }
-  // }, []);
 
   const handleKeyDown = (e) => {
     if (elapsedTime === endTime) {
@@ -260,11 +240,11 @@ function TypingTest() {
 return (
     <div onClick={focusTypeBox}>
         <div className={isVisible ? 'options' : 'invisible-options'} >
-            <button id="Normal" onClick={() => {handleDifficultyClick("Normal"); localStorage.setItem('difficulty', 'normal')}}> Normal </button>
-            <button id="Hard" onClick={() => {handleDifficultyClick("Hard"); localStorage.setItem('difficulty', 'hard')}}> Hard </button>
-            <button id="timey15" onClick={() => {handleTimeClick("timey15"); setEndTime(15); localStorage.setItem('time', 15); localStorage.setItem('timey', 'timey15')}}> 15s </button>
-            <button id="timey30" className="button-clicked" onClick={() => {handleTimeClick("timey30"); setEndTime(30); localStorage.setItem('time', 30);localStorage.setItem('timey', 'timey30')}}> 30s </button>
-            <button id="timey60" onClick={() => {handleTimeClick("timey60"); setEndTime(60); localStorage.setItem('time', 60);localStorage.setItem('timey', 'timey60')}}> 60s</button>
+            <button id="Normal" onClick={() => handleDifficultyClick("Normal")}> Normal </button>
+            <button id="Hard" onClick={() => handleDifficultyClick("Hard")}> Hard </button>
+            <button id="timey15" onClick={() => {handleTimeClick("timey15"); setEndTime(15)}}> 15s </button>
+            <button id="timey30" className="button-clicked" onClick={() => {handleTimeClick("timey30"); setEndTime(30)}}> 30s </button>
+            <button id="timey60" onClick={() => {handleTimeClick("timey60"); setEndTime(60)}}> 60s</button>
         </div>
         <div id="typing-test">
             <div id="timerDisplay">
