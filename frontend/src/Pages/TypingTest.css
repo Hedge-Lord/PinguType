@@ -136,3 +136,11 @@
     height: 45px;
     margin-right: 10px;
   }
+  .wpm-counter {
+    display: block;
+    margin-bottom: 15px; /* Increase spacing between counters */
+    border: 2px solid #000; /* Add a slightly thicker rectangular border */
+    padding: 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Add border radius for rounded corners */
+  }
+  
