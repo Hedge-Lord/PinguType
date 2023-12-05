@@ -10,6 +10,7 @@ function Profile({ imageUrl }) {
   const [profileLoad, setProfileLoad] = useState(null);
   const [loggedIn, setLoggedIn] = useState(null);
   const [scores, setScores] = useState([]);
+  const [followers, setFollowers] = useState([]);
   const [profileName, setProfileName] = useState("");
   const [searchInput, setSearchInput] = useState(""); // Add state for search input
   const params = useParams();
@@ -34,6 +35,12 @@ function Profile({ imageUrl }) {
           axios.get('http://localhost:3333/check-auth', { withCredentials: true })
           .then(res => {
             setLoggedIn(res.data.username == params.username);
+          })
+          .then(res => {
+            axios.get("http://localhost:3333/accounts/" + params.username + "/followers")
+            .then(res => {
+              if (res.data.followers) setFollowers(res.data.followers);
+            })
           })
         }
         else {
@@ -93,6 +100,17 @@ function Profile({ imageUrl }) {
     window.location.reload(false);
   }
 
+  function handleFollow() {
+    axios.get("http://localhost:3333/get-user-id", {withCredentials: true})
+    .then(res => {
+      axios.post("http://localhost:3333/accounts/" + profileName + "/followers", {user_id: res.data.user_id})
+      .then(resp => {
+        // do something with resp
+        // resp.success, resp.newFollower
+      })
+    })
+  }
+
   if (profileLoad === null) {
     return <h1>Loading...</h1>;
   } else
@@ -120,7 +138,7 @@ function Profile({ imageUrl }) {
               <button className="logout" onClick={logout}>
                 Logout
               </button>
-            ) || !loggedIn && (<button className="follow" >
+            ) || !loggedIn && (<button className="follow" onClick={handleFollow}>
                 Follow
             </button>)}
           </div>
@@ -197,8 +215,19 @@ function Profile({ imageUrl }) {
           </div>
 
           <div className="following-card">
-            <h2> Followers </h2>
-            
+            <h2> Followers  {followers.length}</h2>
+            <ul>
+                  {followers.map((follower, index) => (
+                    <div className="score-card">
+                      <div className="test-info">
+                        <li key={index}>
+                          <div> {follower.username} </div>
+                        </li>
+                      </div>
+
+                    </div>
+                  ))}
+                </ul>
           </div>
 
         </div>

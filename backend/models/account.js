@@ -7,12 +7,12 @@ module.exports = mongoose.model("Account", new Schema({
         type: String,
         required: true,
         unique: true,
-        minLength: 1
+        minlength: 1
     },
     password: {
         type: String,
         required: true,
-        minLength: 1
+        minlength: 1
     },
     accCreation: {
         type: Date,
@@ -21,5 +21,9 @@ module.exports = mongoose.model("Account", new Schema({
     best_score: {
         type: Schema.Types.ObjectId,
         ref: "Score"
-    }
+    },
+    followers: [{
+        type: Schema.Types.ObjectId,
+        ref: "Account"
+    }]
 }));

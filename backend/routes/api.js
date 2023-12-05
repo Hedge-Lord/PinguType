@@ -184,4 +184,47 @@ router.get("/accounts/:username/scores", async (req, res, next) => {
   } else res.json({ scores: [] });
 });
 
+router.get("/accounts/:username/followers", async (req, res, next) => {
+  if (req.params.username) {
+    const user = await Account.findOne({
+      username: req.params.username,
+    })
+    .populate("followers")
+    .exec();
+    if (user) {
+      res.json({ followers: user.followers });
+    } else res.json({ followers: false });
+  } else res.json({ followers: [] });
+});
+
+router.post("/accounts/:username/followers", async (req, res, next) => {
+  console.log(req.body);
+  if (req.params.username) {
+    try {
+      const user = await Account.findOne({
+        username: req.params.username,
+      })
+      .exec();
+
+      if (user && req.body.user_id) {
+        if (!user.followers.includes(req.body.user_id)) {
+          user.followers.push(req.body.user_id); // use push() instead of append()
+          await user.save();
+          res.json({ success: true, newFollower: true });
+        } else {
+          res.json({ success: true, newFollower: false });
+        }
+      } else {
+        res.json({ success: false });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+  } else {
+    res.status(401).json({ success: false, error: "Unauthorized" });
+  }
+});
+
+
 module.exports = router;
