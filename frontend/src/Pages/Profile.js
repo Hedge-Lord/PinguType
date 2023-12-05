@@ -7,6 +7,7 @@ import "./Profile.css";
 import Login from "./Login";
 
 function Profile({ imageUrl }) {
+  const [profileLoad, setProfileLoad] = useState(null);
   const [loggedIn, setLoggedIn] = useState(null);
   const [scores, setScores] = useState([]);
   const [profileName, setProfileName] = useState("");
@@ -14,36 +15,49 @@ function Profile({ imageUrl }) {
   console.log(params);
   const navigate = useNavigate();
   useEffect(() => {
-    if (params ) {
+    if (params.username) {
       console.log("load user prof");
       axios
-        .get("http://localhost:3333/check-auth", { withCredentials: true })
-        .then((res) => {
-          if (res.data.auth) {
-            axios
-              .get("http://localhost:3333/scores", { withCredentials: true })
-              .then((res) => {
-                setScores(res.data.scores);
-              });
-          }
-          setLoggedIn(res.data.auth);
-          setProfileName(res.data.username);
-          navigate("/profile/" + res.data.username);
-        });
+      .get("http://localhost:3333/accounts/" + params.username + "/scores")
+      .then((res) => {
+        if (res.data.scores) {
+          setScores(res.data.scores);
+          setProfileLoad(true);
+          setProfileName(params.username);
+        }
+        else {
+          navigate('/profile');
+          window.location.reload(false);
+        }
+          });
+      // navigate("/profile/" + res.data.username);
     } else {
- 
+      axios.get('http://localhost:3333/check-auth', { withCredentials: true })
+      .then(res => {
+          if (res.data.auth) {
+              axios.get('http://localhost:3333/scores', { withCredentials: true })
+                  .then(res => {
+                      setScores(res.data.scores);
+                  });
+              navigate("/profile/" + res.data.username);
+              setProfileName(res.data.username);
+          } 
+          setProfileLoad(res.data.auth);
+          setLoggedIn(res.data.auth);
+      });
     }
   }, []);
 
   function logout() {
     axios.get("http://localhost:3333/logout", { withCredentials: true });
+    navigate("/profile");
     window.location.reload(false);
   }
 
-  if (loggedIn === null) {
+  if (profileLoad === null) {
     return <h1>Loading...</h1>;
   } else
-    return loggedIn ? (
+    return profileLoad ? (
       <div className="card">
         <div className="card1">
           <div className="profile-name">
@@ -54,10 +68,11 @@ function Profile({ imageUrl }) {
               <h4>Joined September 2023</h4>
             </div>
           </div>
-
-          <button className="logout" onClick={logout}>
-            Logout
-          </button>
+          {loggedIn && (
+              <button className="logout" onClick={logout}>
+                Logout
+              </button>
+            )}
 
           <img
             src="https://www.pinkandgreene.com/media/catalog/product/cache/1/image/334x/060688381b5b14a7115e480bc24e4ef1/0/0/001_4_27.jpg"
