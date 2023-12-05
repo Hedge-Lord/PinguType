@@ -259,4 +259,20 @@ router.delete("/accounts/:username/followers", async (req, res, next) => {
   }
 });
 
+router.get("/accounts/:username/following", async (req, res, next) => {
+  if (req.params.username) {
+    const user = await Account.findOne({
+      username: req.params.username,
+    })
+    .exec();
+    if (user) {
+      const following = await Account.find({
+        followers: user._id
+      })
+      .exec();
+      if (following) res.json({following})
+    } else res.json({ success: false, following: [] });
+  } else res.json({ success: false, following: [] });
+});
+
 module.exports = router;

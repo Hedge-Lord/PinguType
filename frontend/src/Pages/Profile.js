@@ -11,7 +11,8 @@ function Profile({ imageUrl }) {
   const [loggedIn, setLoggedIn] = useState(null);
   const [scores, setScores] = useState([]);
   const [followers, setFollowers] = useState([]);
-  const [following, setFollowing] = useState(false);
+  const [following, setFollowing] = useState([]);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [searchInput, setSearchInput] = useState(""); // Add state for search input
   const params = useParams();
@@ -23,6 +24,7 @@ function Profile({ imageUrl }) {
   const [highestWPM, setHighestWPM] = useState(0);
   const [highestAccuracy, setHighestAccuracy] = useState(0);
 
+  // all async effects
   useEffect(() => {
     if (params.username) {
       let currUser;
@@ -43,8 +45,16 @@ function Profile({ imageUrl }) {
             .then(res => {
               if (res.data.followers) {
                 setFollowers(res.data.followers);
-                setFollowing(res.data.followers.some(user => user.username === currUser));
+                setIsFollowing(res.data.followers.some(user => user.username === currUser));
               }
+            })
+            .then(() => {
+              axios.get("http://localhost:3333/accounts/" + params.username + "/following")
+              .then (res => {
+                if (res.data.following) {
+                  setFollowing(res.data.following);
+                }
+              })
             })
           })
         }
@@ -164,10 +174,10 @@ function Profile({ imageUrl }) {
                 Logout
               </button>
             ) || !loggedIn && (
-              !following && (<button className="follow" onClick={handleFollow}>
+              !isFollowing && (<button className="follow" onClick={handleFollow}>
                 Follow
                             </button>) || 
-              following && (<button className="follow" onClick={handleUnfollow}>
+              isFollowing && (<button className="follow" onClick={handleUnfollow}>
               Unfollow
                             </button>)
             )}
@@ -266,7 +276,23 @@ function Profile({ imageUrl }) {
             </div>
 
             <div className="main-following-card">
-              <h2>Following:</h2>
+              <h2>Following: {following.length}</h2>
+              <ul>
+                {following.map((follower, index) => (
+                  <div className="follower-card" key={index}>
+                    <div className="follower-info">
+                      <li>
+                        <div>
+                        <img src="https://www.freeiconspng.com/thumbs/penguin-icon/penguin-icon-18.jpg" 
+                            alt={`${follower.username}'s profile`}
+                            className="follower-image" />
+                        <a href={`/profile/${follower.username}`} className="follower-name">{follower.username}</a>
+                        </div>
+                      </li>
+                    </div>
+                  </div>
+                ))}
+              </ul>
             </div>
           </div>
 

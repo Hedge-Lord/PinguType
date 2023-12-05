@@ -32,6 +32,7 @@ function Login() {
     const [verifyNewPassword, setVerifyNewPassword] = useState('');
     const [isIncorrectVerify, setIsIncorrectVerify] = useState(false);
     const [isCorrectUsernamePassword, setIsCorrectUsernamePassword] = useState(false);
+    const navigate = useNavigate();
 
     const loginSubmit = (login) =>
     {
@@ -40,6 +41,7 @@ function Login() {
       .then(result=>{console.log(result)
         if(result.data.success)
         {
+          navigate("/profile");
           window.location.reload(false);
         }
       })
@@ -58,6 +60,7 @@ function Login() {
         .then(result=>{console.log(result)
           if(result.data.success)
           {
+            navigate("/profile");
             window.location.reload(false);
           }
         })
