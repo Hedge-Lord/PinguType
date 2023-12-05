@@ -23,6 +23,7 @@ function TypingTest() {
   const [saved, setSaved] = useState(false);
   const [enabledDifficulty, setEnabledDifficulty] = useState("normal");
   const [words, setWords] = useState(generateWords().normal);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     document.getElementById("normal").click();
@@ -105,8 +106,11 @@ function TypingTest() {
   }
 
   const handleKeyDown = (e) => {
-    if (elapsedTime === endTime) return;
-
+    if (elapsedTime === endTime) {
+      setIsVisible(true);
+      return;
+    }
+    
     const keyCode = e.keyCode;
 
 
@@ -118,7 +122,7 @@ function TypingTest() {
     (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
     (keyCode > 218 && keyCode < 223);   // [\]' (in order)
     if (!valid && keyCode !== 8) return;
-
+    setIsVisible(false);
 
     if (wpmKeyStrokes !== 0 && elapsedTime > 0) {
       setWpm(Math.floor((wpmKeyStrokes / 5 / (elapsedTime)) * 60.0));
@@ -206,7 +210,7 @@ function TypingTest() {
     setCurrentIndex(0);
     setCurrentCharIndex(0);
     textInputRef.current.value = "";
-
+    setIsVisible(true);
     if (update) {
       clearInterval(update);
       setUpdate(null);
@@ -234,7 +238,7 @@ function TypingTest() {
 
 return (
     <div onClick={focusTypeBox}>
-        <div className="options">
+        <div className={isVisible ? 'options' : 'invisible-options'} >
             <button id="normal" onClick={() => handleDifficultyClick("normal")}> Normal </button>
             <button id="hard" onClick={() => handleDifficultyClick("hard")}> Hard </button>
             <button id="timey15" onClick={() => {handleTimeClick("timey15"); setEndTime(15)}}> 15s </button>
@@ -277,13 +281,13 @@ return (
                 ⟳ {/* Unicode character for a home symbol */}
               </button>            
             </div>
-            <span className='wpm-counter'>
+            <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
               Raw WPM: {wpm}
             </span>
-            <span className='wpm-counter'>
+            <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
               Corrected WPM: {calculateWpm()[0]}
             </span>
-            <span className='wpm-counter'>
+            <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
               Accuracy: {calculateWpm()[1]}%
             </span>
         </div>

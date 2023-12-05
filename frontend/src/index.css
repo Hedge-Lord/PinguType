@@ -7,7 +7,8 @@
   --underlaying-text-color: gray;
   --border-color: black;
   --whole-page-background-color: white;
-  --background-color: #f7e7ce;
+  --background-color: white;
+  --button-color: #f7e7ce;
 } 
 
 html {
@@ -89,7 +90,8 @@ a:visited {
   --underlaying-text-color: lightgray;
   --border-color: white;
   --whole-page-background-color: #48494b;
-  --background-color: #828282;
+  --background-color: #48494b;
+  --button-color: #828282;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -102,7 +104,8 @@ a:visited {
   --underlaying-text-color: lightgray;
   --border-color: white;
   --whole-page-background-color: #48494b;
-  --background-color: #828282;
+  --background-color: #48494b;
+  --button-color: #828282;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -115,7 +118,8 @@ a:visited {
   --underlaying-text-color: gray;
   --border-color: black;
   --whole-page-background-color: white;
-  --background-color: #f7e7ce;;
+  --background-color: white;
+  --button-color: #f7e7ce;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -128,7 +132,8 @@ a:visited {
   --underlaying-text-color: grey;
   --border-color: white;
   --whole-page-background-color: black;
-  --background-color: #191919;
+  --background-color: black;
+  --button-color: #191919;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -141,7 +146,8 @@ a:visited {
   --underlaying-text-color: lightgray;
   --border-color: black;
   --whole-page-background-color: white;
-  --background-color: #f8f8ff;
+  --background-color: white;
+  --button-color: #f8f8ff;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -154,7 +160,8 @@ a:visited {
   --underlaying-text-color: white;
   --border-color: black;
   --whole-page-background-color: #ee6b6e;
-  --background-color: #7c0a03;
+  --background-color: #ee6b6e;
+  --button-color: #7c0a03;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -167,7 +174,8 @@ a:visited {
   --underlaying-text-color: #b64000;
   --border-color: #8b4000;
   --whole-page-background-color: #fda172;
-  --background-color: #ff964f;
+  --background-color: #fda172;
+  --button-color: #ff964f;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -180,7 +188,8 @@ a:visited {
   --underlaying-text-color: #006884;
   --border-color: black;
   --whole-page-background-color: #a9c7ee;
-  --background-color: #afdae0;
+  --background-color: #a9c7ee;
+  --button-color: #afdae0;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -194,7 +203,8 @@ a:visited {
   --underlaying-text-color: white;
   --border-color: #371f76;
   --whole-page-background-color: #8968cd;
-  --background-color: #cea2fd;
+  --background-color: #8968cd;
+  --button-color: #cea2fd;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -207,7 +217,8 @@ a:visited {
   --underlaying-text-color: yellow;
   --border-color: black;
   --whole-page-background-color: #0f52ba;
-  --background-color: #89cfef;
+  --background-color: #0f52ba;
+  --button-color: #89cfef;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -220,7 +231,8 @@ a:visited {
   --underlaying-text-color: black;
   --border-color: black;
   --whole-page-background-color: #d30000;
-  --background-color: black;
+  --background-color: #d30000;
+  --button-color: black;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
