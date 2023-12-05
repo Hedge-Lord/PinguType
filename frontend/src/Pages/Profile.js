@@ -111,10 +111,10 @@ function Profile({ imageUrl }) {
             </div>
           </div>
           {loggedIn && (
-              <button className="logout" onClick={logout}>
+              <button className="logout" onClick={logout} style={{backgroundColor: 'var(--button-color)'}}>
                 Logout
               </button>
-            ) || !loggedIn && (<button className="follow" >
+            ) || !loggedIn && (<button className="follow" style={{backgroundColor: 'var(--button-color)'}} >
                 Follow
             </button>)}
 
