@@ -30,6 +30,7 @@ function Routing() {
       <Route path="/" element={<TypingTest />} />
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/account/:id" element={<Profile />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/settings" element={<Settings />} />
     </Routes>

@@ -20,7 +20,7 @@ router.post('/register', async (req, res, next) => {
           username: req.body.username,
           password: hashedPassword,
         });
-        console.log('Account created:', newAccount);
+        console.log('Account created:', newAccount.username);
         res.json(newAccount);
       }
     } catch (err) {
@@ -102,7 +102,7 @@ router.post('/register', async (req, res, next) => {
         await account.save();
       }
     }
-      console.log("Score saved successfully: ", newScore);
+      console.log("Score saved: ", newScore);
       res.json({ success: true });
     }
     catch (err) {
@@ -115,7 +115,6 @@ router.post('/register', async (req, res, next) => {
     if (req.user) {
       const user = await Account.findOne({username: req.user.username}).exec();
       const scores = await Score.find({user: user._id}).exec();
-      console.log(scores);
       res.json({scores});
     }
     else res.json({scores: []});

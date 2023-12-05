@@ -1,5 +1,5 @@
 import React, { useState, useEffect }from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
 import '../App.css';
@@ -9,8 +9,10 @@ import Login from './Login';
 function Profile({ imageUrl }) {
     const [loggedIn, setLoggedIn] = useState(null);
     const [scores, setScores] = useState([]);
+    const params = useParams();
 
     useEffect(() => {
+        console.log(params);
         axios.get('http://localhost:3333/check-auth', { withCredentials: true })
             .then(res => {
                 if (res.data.auth) {
