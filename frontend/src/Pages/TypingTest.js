@@ -28,9 +28,20 @@ function TypingTest() {
   useEffect(() => {
     const storedDifficulty = localStorage.getItem('difficulty')
     if (storedDifficulty === null) {
-      document.getElementById("Normal").click();
+      try {
+        document.getElementById("Normal").click();
+      }
+      catch (err) {
+        console.log(err);
+      }
     } else {
-      document.getElementById(storedDifficulty).click();
+      try {
+        document.getElementById(storedDifficulty).click();
+      }
+      catch (err) {
+        console.log(err);
+      }
+      
     }
   }, []);
 
