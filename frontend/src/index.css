@@ -2,6 +2,8 @@
   --main-color: white;
   --accent-color: #ef820d;
   --text-color: black;
+  --correct-color: black;
+  --incorrect-color: red;
   --underlaying-text-color: gray;
   --border-color: black;
   --whole-page-background-color: white;
@@ -82,6 +84,8 @@ a:visited {
   --main-color: black;
   --accent-color: #ef820d;
   --text-color: white;
+  --correct-color: white;
+  --incorrect-color: red;
   --underlaying-text-color: lightgray;
   --border-color: white;
   --whole-page-background-color: #48494b;
@@ -93,6 +97,8 @@ a:visited {
   --main-color: black;
   --accent-color: lightblue;
   --text-color: white;
+  --correct-color: lightblue;
+  --incorrect-color: red;
   --underlaying-text-color: lightgray;
   --border-color: white;
   --whole-page-background-color: #48494b;
@@ -104,6 +110,8 @@ a:visited {
   --main-color: white;
   --accent-color: #598baf;
   --text-color: black;
+  --correct-color: black;
+  --incorrect-color: red;
   --underlaying-text-color: gray;
   --border-color: black;
   --whole-page-background-color: white;
@@ -115,7 +123,9 @@ a:visited {
   --main-color: black;
   --accent-color: white;
   --text-color: white;
-  --underlaying-text-color: lightgray;
+  --correct-color: white;
+  --incorrect-color: red;
+  --underlaying-text-color: grey;
   --border-color: white;
   --whole-page-background-color: black;
   --background-color: #191919;
@@ -126,6 +136,8 @@ a:visited {
   --main-color: white;
   --accent-color: black;
   --text-color: black;
+  --correct-color: black;
+  --incorrect-color: red;
   --underlaying-text-color: lightgray;
   --border-color: black;
   --whole-page-background-color: white;
@@ -137,7 +149,9 @@ a:visited {
   --main-color: black;
   --accent-color: #d30000;
   --text-color: white;
-  --underlaying-text-color: darkgray;
+  --correct-color: black;
+  --incorrect-color: #d30000;
+  --underlaying-text-color: white;
   --border-color: black;
   --whole-page-background-color: #ee6b6e;
   --background-color: #7c0a03;
@@ -148,7 +162,9 @@ a:visited {
   --main-color: white;
   --accent-color: #b64000;
   --text-color: black;
-  --underlaying-text-color: gray;
+  --correct-color: black;
+  --incorrect-color: red;
+  --underlaying-text-color: #b64000;
   --border-color: #8b4000;
   --whole-page-background-color: #fda172;
   --background-color: #ff964f;
@@ -159,7 +175,9 @@ a:visited {
   --main-color: white;
   --accent-color: #006884;
   --text-color: black;
-  --underlaying-text-color: gray;
+  --correct-color: white;
+  --incorrect-color: red;
+  --underlaying-text-color: #006884;
   --border-color: black;
   --whole-page-background-color: #a9c7ee;
   --background-color: #afdae0;
@@ -171,7 +189,9 @@ a:visited {
   --main-color: white;
   --accent-color: #371f76;
   --text-color: white;
-  --underlaying-text-color: #371f76;
+  --correct-color: #371f76;
+  --incorrect-color: red;
+  --underlaying-text-color: white;
   --border-color: #371f76;
   --whole-page-background-color: #8968cd;
   --background-color: #cea2fd;
@@ -180,9 +200,11 @@ a:visited {
 }
 .ucla {
   --main-color: white;
-  --accent-color: blue;
-  --text-color: yellow;
-  --underlaying-text-color: blue;
+  --accent-color: yellow;
+  --text-color: white;
+  --correct-color: #89cfef;
+  --incorrect-color: red;
+  --underlaying-text-color: yellow;
   --border-color: black;
   --whole-page-background-color: #0f52ba;
   --background-color: #89cfef;
@@ -191,9 +213,11 @@ a:visited {
 }
 .chiefs {
   --main-color: black;
-  --accent-color: #ffbf00;
+  --accent-color: white;
   --text-color: yellow;
-  --underlaying-text-color: white;
+  --correct-color: yellow;
+  --incorrect-color: lightgrey;
+  --underlaying-text-color: black;
   --border-color: black;
   --whole-page-background-color: #d30000;
   --background-color: black;

@@ -62,11 +62,11 @@
   }
 
   .correct {
-    color: var(--accent-color);
+    color: var(--correct-color);
   }
 
   .incorrect {
-    color: red;
+    color: var(--incorrect-color);
   }
 
   .caret {
@@ -97,6 +97,7 @@
     position: relative;
     font-size: 24px;
     scrollbar-width: none;
+    color: var(--underlaying-text-color);
   }
 
   #typing-area::-webkit-scrollbar {
