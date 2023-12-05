@@ -22,6 +22,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .constant-header {
@@ -75,7 +76,10 @@ label {
   margin-bottom: 10px;
 }
 
-
+a.logo-link {
+  display: flex;
+  align-items: center;
+}
 
 a:visited {
   color: var(--text-color);
