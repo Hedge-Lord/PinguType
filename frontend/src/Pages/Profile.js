@@ -56,7 +56,7 @@ function Profile({ imageUrl }) {
                   .then(res => {
                       setScores(res.data.scores);
                   });
-              navigate("/profile/" + res.data.username);
+              navigate("/profile/" + res.data.username, { replace: true });
               setProfileName(res.data.username);
           } 
           setProfileLoad(res.data.auth);
