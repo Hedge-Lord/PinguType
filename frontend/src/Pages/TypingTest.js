@@ -65,6 +65,7 @@ function TypingTest() {
         if (countDown <= 0) {
           clearInterval(updateInterval);
           timerDisplay.innerHTML = "Test Completed.";
+          setIsVisible(true);
         }
       }, 1000);
       setUpdate(updateInterval);

@@ -1,14 +1,14 @@
 :root {
-  --main-color: white;
-  --accent-color: #ef820d;
-  --text-color: black;
-  --correct-color: black;
+  --main-color: #828282;
+  --accent-color: white;
+  --text-color: lightblue;
+  --correct-color: lightblue;
   --incorrect-color: red;
-  --underlaying-text-color: gray;
-  --border-color: black;
-  --whole-page-background-color: white;
-  --background-color: white;
-  --button-color: #f7e7ce;
+  --underlaying-text-color: lightgray;
+  --border-color: white;
+  --whole-page-background-color: #48494b;
+  --background-color: #48494b;
+  --button-color: #828282;
 } 
 
 html {
@@ -80,9 +80,22 @@ label {
 a:visited {
   color: var(--text-color);
 }
-
+.light {
+  --main-color: #ffe5b4;
+  --accent-color: #ef820d;
+  --text-color: black;
+  --correct-color: black;
+  --incorrect-color: #ef820d;
+  --underlaying-text-color: gray;
+  --border-color: black;
+  --whole-page-background-color: white;
+  --background-color: white;
+  --button-color: lightgrey;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
 .dark {
-  --main-color: black;
+  --main-color: darkgrey;
   --accent-color: #ef820d;
   --text-color: white;
   --correct-color: white;
@@ -96,9 +109,9 @@ a:visited {
   color: var(--text-color);
 }
 .dark-blue-accent {
-  --main-color: black;
-  --accent-color: lightblue;
-  --text-color: white;
+  --main-color: #828282;
+  --accent-color: white;
+  --text-color: lightblue;
   --correct-color: lightblue;
   --incorrect-color: red;
   --underlaying-text-color: lightgray;
@@ -119,7 +132,7 @@ a:visited {
   --border-color: black;
   --whole-page-background-color: white;
   --background-color: white;
-  --button-color: #f7e7ce;
+  --button-color: lightgrey;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
@@ -152,11 +165,11 @@ a:visited {
   color: var(--text-color);
 }
 .red {
-  --main-color: black;
+  --main-color: #d30000;
   --accent-color: #d30000;
   --text-color: white;
-  --correct-color: black;
-  --incorrect-color: #d30000;
+  --correct-color: #d30000;
+  --incorrect-color: black;
   --underlaying-text-color: white;
   --border-color: black;
   --whole-page-background-color: #ee6b6e;
@@ -169,7 +182,7 @@ a:visited {
   --main-color: white;
   --accent-color: #b64000;
   --text-color: black;
-  --correct-color: black;
+  --correct-color: white;
   --incorrect-color: red;
   --underlaying-text-color: #b64000;
   --border-color: #8b4000;
@@ -181,8 +194,8 @@ a:visited {
 }
 .blue {
   --main-color: white;
-  --accent-color: #006884;
-  --text-color: black;
+  --accent-color: white;
+  --text-color: #006884;
   --correct-color: white;
   --incorrect-color: red;
   --underlaying-text-color: #006884;
@@ -193,28 +206,27 @@ a:visited {
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
-
 .purple {
   --main-color: white;
-  --accent-color: #371f76;
-  --text-color: white;
+  --accent-color: white;
+  --text-color: #8968cd;
   --correct-color: #371f76;
   --incorrect-color: red;
   --underlaying-text-color: white;
   --border-color: #371f76;
-  --whole-page-background-color: #8968cd;
-  --background-color: #8968cd;
-  --button-color: #cea2fd;
+  --whole-page-background-color: #cea2fd;
+  --background-color: #cea2fd;
+  --button-color: white;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
 .ucla {
-  --main-color: blue;
-  --accent-color: yellow;
-  --text-color: white;
-  --correct-color: #89cfef;
+  --main-color: #89cfef;
+  --accent-color: #89cfef;
+  --text-color: yellow;
+  --correct-color: yellow;
   --incorrect-color: red;
-  --underlaying-text-color: yellow;
+  --underlaying-text-color: #89cfef;
   --border-color: black;
   --whole-page-background-color: #0f52ba;
   --background-color: #0f52ba;
@@ -233,6 +245,118 @@ a:visited {
   --whole-page-background-color: #d30000;
   --background-color: #d30000;
   --button-color: black;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.pink {
+  --main-color: #ff69b4;
+  --accent-color: #ff69b4;
+  --text-color: white;
+  --correct-color: #ff69b4;
+  --incorrect-color: black;
+  --underlaying-text-color: white;
+  --border-color: black;
+  --whole-page-background-color: pink;
+  --background-color: #ffc0cb;
+  --button-color: #ff69b4;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.puke {
+  --main-color: #e5d3b3;
+  --accent-color: #ccff66;
+  --text-color: #7b3f00;
+  --correct-color: #7b3f00;
+  --incorrect-color: red;
+  --underlaying-text-color: grey;
+  --border-color: black;
+  --whole-page-background-color: #a3cc52;
+  --background-color: #a3cc52;
+  --button-color: #3d550c;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.terminal {
+  --main-color: #2e2e2e;
+  --accent-color: #00ff00;
+  --text-color: white;
+  --correct-color: #00ff00;;
+  --incorrect-color: red;
+  --underlaying-text-color: white;
+  --border-color: black;
+  --whole-page-background-color: #111111;
+  --background-color: #111111;
+  --button-color: #2e2e2e;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.chatgpt {
+  --main-color: grey;
+  --accent-color: white;
+  --text-color: #ffcc33;
+  --correct-color: #ffcc33;
+  --incorrect-color: red;
+  --underlaying-text-color: grey;
+  --border-color: black;
+  --whole-page-background-color: darkgrey;
+  --background-color: darkgrey;
+  --button-color: grey;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.watermelon {
+  --main-color: rgb(238, 200, 225);
+  --accent-color: rgb(239, 223, 226);
+  --text-color: #ff3377ea;
+  --correct-color: #ff3377ac;
+  --incorrect-color: red;
+  --underlaying-text-color: #ff33775d;
+  --border-color: black;
+  --whole-page-background-color: rgba(0, 128, 0, 0.444);
+  --background-color: rgb(68, 169, 68);
+  --button-color: rgb(248, 207, 214);
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.dark-purple {
+  --main-color: black;
+  --accent-color: white;
+  --text-color: #b026ff;
+  --correct-color: white;
+  --incorrect-color: #800020;
+  --underlaying-text-color: #b026ff;
+  --border-color: black;
+  --whole-page-background-color: black;
+  --background-color: black;
+  --button-color: white;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.newtheme3 {
+  --main-color: grey;
+  --accent-color: white;
+  --text-color: #ffcc33;
+  --correct-color: #ffcc33;
+  --incorrect-color: red;
+  --underlaying-text-color: grey;
+  --border-color: black;
+  --whole-page-background-color: darkgrey;
+  --background-color: darkgrey;
+  --button-color: grey;
+  background-color: var(--whole-page-background-color);
+  color: var(--text-color);
+}
+.blind-simulation {
+  --main-color: white;
+  --accent-color: white;
+  --text-color: white;
+  --correct-color: white;
+  --incorrect-color: white;
+  --underlaying-text-color: white;
+  --border-color: white;
+  --whole-page-background-color: white;
+  --background-color: white;
+  --button-color: white;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }

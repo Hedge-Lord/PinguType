@@ -1,12 +1,12 @@
 .collapsible {
     display: flex;
     flex-direction: column;
-    width: 80vh;
+    width: 84vh;
 }
 
 .theme-menu-button {
     display: grid;
-    grid-template-columns: 20vh 20vh 20vh 20vh;
+    grid-template-columns: 21vh 21vh 21vh 21vh;
     gap: 3px;
 }
 
@@ -171,4 +171,116 @@ h1 {
     border-radius: 15px; 
     transition: filter 0.1s ease-in-out;
     margin-bottom: 3px;
+}
+.theme-button-pink {
+    background-color: #ffc0cb;
+    color: #ff69b4;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-puke {
+    background-color: #a3cc52;
+    color: #7b3f00;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-terminal {
+    background-color: #111111;
+    color: #00ff00;;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-chatgpt {
+    background-color: grey;
+    color: #ffcc33;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-watermelon {
+    background-color: rgba(0, 128, 0, 0.444);
+    color: #ff3377ea;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-dark-purple {
+    background-color: black;
+    color: #b026ff;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-newtheme3 {
+    background-color: grey;
+    color: #ffcc33;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.theme-button-blind-simulation {
+    background-color: white;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+}
+.custom-theme-menu-button {
+    display: grid;
+    grid-template-columns: 28vh 28vh 28vh;
+    gap: 3px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.custom-theme-button {
+    background-color: var(--button-color);
+    color: var(--accent-color);
+    width: 27vh;
+}
+.custom-theme-change {
+    background-color: var(--text-color);
+    color: var(--main-color);
+    padding: 16px;
+    font-size: 16px;
+    border-style: none;
+    border-color: var(--border-color);
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 8px;
 }

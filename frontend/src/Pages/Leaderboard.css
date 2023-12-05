@@ -156,3 +156,10 @@
   button:active {
     filter: brightness(70%);
   }
+
+  .user-link {
+    text-decoration: none;
+  }
+  .user-link:hover {
+    color: var(--accent-color);
+  }

@@ -41,7 +41,7 @@ function Leaderboard() {
           <ul>
             {scores.map((score, index) => (
               <li key={index}>
-                <a href={`/profile/${score.user}`}>{score.user}</a>
+                <a href={`/profile/${score.user}`} className="user-link">{score.user}</a>
               </li>
             ))}
           </ul>
@@ -62,7 +62,7 @@ function Leaderboard() {
             ))}
           </ul>
         </div>
-        <div className="fourth-column">
+        <div className="fifth-column">
           <h3>Date</h3>
           <ul>
             {scores.map((score, index) => (
@@ -70,7 +70,7 @@ function Leaderboard() {
             ))}
           </ul>
         </div>
-        <div className="fifth-column">
+        <div className="sixth-column">
           <h3>Time</h3>
           <ul>
             {scores.map((score, index) => (
@@ -78,7 +78,7 @@ function Leaderboard() {
             ))}
           </ul>
         </div>
-        <div className="sixth-column">
+        <div className="seventh-column">
           <h3>Difficulty</h3>
           <ul>
             {scores.map((score, index) => (

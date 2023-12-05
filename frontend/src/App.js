@@ -14,7 +14,16 @@ function App() {
   const storedValue = localStorage.getItem('theme');
   const [theme, setTheme] = useState(storedValue);
   useEffect(() => {
-    document.body.className = theme;
+    document.body.style.setProperty('--main-color', theme.mainColor);
+    document.body.style.setProperty('--accent-color', theme.accentColor);
+    document.body.style.setProperty('--text-color', theme.textColor);
+    document.body.style.setProperty('--correct-color', theme.correctColor);
+    document.body.style.setProperty('--incorrect-color', theme.incorrectColor);
+    document.body.style.setProperty('--underlaying-text-color', theme.underlayingTextColor);
+    document.body.style.setProperty('--border-color', theme.borderColor);
+    document.body.style.setProperty('--whole-page-background-color', theme.wholePageBackgroundColor);
+    document.body.style.setProperty('--background-color', theme.backgroundColor);
+    document.body.style.setProperty('--button-color', theme.buttonColor);
   }, [theme]);
   return (
     <>
