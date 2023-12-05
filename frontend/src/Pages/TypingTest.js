@@ -43,11 +43,11 @@ function TypingTest() {
       var updateInterval = setInterval(function () {
         var now = countDown--;
         setElapsedTime(endTime - countDown);
-        timerDisplay.innerHTML = "Time: " + countDown;
+        timerDisplay.innerHTML = countDown;
 
         if (countDown <= 0) {
           clearInterval(updateInterval);
-          timerDisplay.innerHTML = "Time's up!!!";
+          timerDisplay.innerHTML = "Test Completed.";
         }
       }, 1000);
       setUpdate(updateInterval);
@@ -57,19 +57,31 @@ function TypingTest() {
   /////// score submit
   useEffect(() => {
     if (elapsedTime === endTime && !saved) {
-      setSaved(true);
-      console.log(calculateWpm());
-      const [wpm, accuracy] = calculateWpm();
-      axios.get("http://localhost:3333/get-user-id", { withCredentials: true })
-      .then(res => {
-        if (res.data.user_id) {
-          axios.post("http://localhost:3333/scores",
-          {user_id: res.data.user_id, wpm, accuracy, difficulty: "placeholder"});
-        }
-        else console.log("Log in to save scores.");
-      })
+        setSaved(true);
+        console.log(calculateWpm());
+        const [wpm, accuracy] = calculateWpm();
+
+        axios.get("http://localhost:3333/get-user-id", { withCredentials: true })
+            .then(res => {
+                if (res.data.user_id) {
+                    axios.post("http://localhost:3333/scores", {
+                        user_id: res.data.user_id,
+                        wpm,
+                        accuracy,
+                        difficulty: "placeholder"
+                    })
+                    .catch(error => {
+                        console.error("Error posting scores:", error);
+                    });
+                } else {
+                    console.log("Log in to save scores.");
+                }
+            })
+            .catch(error => {
+                console.error("Error getting user ID:", error);
+            });
     }
-  });
+}, [elapsedTime, endTime, saved]);
 
   ///////// autoscroll
   useEffect(() => {
@@ -203,7 +215,7 @@ function TypingTest() {
     const selectedWords = enabledDifficulty === "hard" ? generateWords().hard : generateWords().normal;
     setWords(selectedWords);
 
-    document.getElementById("time").innerHTML = "Start typing to start the timer";
+    document.getElementById("time").innerHTML = "start typing.";
     setSaved(false);
   };
 
@@ -230,9 +242,6 @@ return (
             <button id="timey60" onClick={() => {handleTimeClick("timey60"); setEndTime(60)}}> 60s</button>
         </div>
         <div id="typing-test">
-            <label htmlFor="typing-area">
-              Type away! PinguType is a WIP. Typing accuracy has not yet been implemented.
-            </label>
             <div id="timerDisplay">
             <h3 id="time">Start typing to start the timer</h3>
             </div>
@@ -269,7 +278,7 @@ return (
               </button>            
             </div>
             <span className='wpm-counter'>
-              WPM: {wpm}
+              Raw WPM: {wpm}
             </span>
             <span className='wpm-counter'>
               Corrected WPM: {calculateWpm()[0]}
