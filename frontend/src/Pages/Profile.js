@@ -107,6 +107,9 @@ function Profile({ imageUrl }) {
       .then(resp => {
         // do something with resp
         // resp.success, resp.newFollower
+        //if (resp.success) {
+          window.location.reload();
+        //}
       })
     })
   }
