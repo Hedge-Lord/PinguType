@@ -14,7 +14,7 @@ function Leaderboard() {
         user: account.username,
       }));
       let filteredScores = retrievedScores.filter(
-        (score) => score.score !== undefined
+        (score) => score.score
       );
       filteredScores.sort((a, b) => b.score.wpm - a.score.wpm);
       setScores(filteredScores);

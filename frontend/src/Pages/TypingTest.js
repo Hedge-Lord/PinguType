@@ -9,7 +9,7 @@ const { normal, hard } = generateWords();
 
 function TypingTest() {
   const [timerStarted, setTimerStarted] = useState(false);
-  const [endTime, setEndTime] = useState(30);
+  const [endTime, setEndTime] = useState(1);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [inputHistory, setInputHistory] = useState([]);
   const [update, setUpdate] = useState(null);
@@ -24,25 +24,15 @@ function TypingTest() {
   const [enabledDifficulty, setEnabledDifficulty] = useState("Normal");
   const [words, setWords] = useState(generateWords().normal);
   const [isVisible, setIsVisible] = useState(true);
-  const [enabledTime, setEnabledTime] = useState("timey30");
 
   useEffect(() => {
     const storedDifficulty = localStorage.getItem('difficulty')
-    console.log('happened');
     if (storedDifficulty === null) {
       document.getElementById("Normal").click();
     } else {
       document.getElementById(storedDifficulty).click();
-    } 
+    }
   }, []);
-  // useEffect(() => {
-  //   const storedTimey = localStorage.getItem('timey');
-  //   if (storedTimey === null) {
-  //     document.getElementById('timey30').click();
-  //   } else {
-  //     document.getElementById(storedTimey).click();
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (textInputRef.current) {
@@ -84,6 +74,7 @@ function TypingTest() {
                         user_id: res.data.user_id,
                         wpm,
                         accuracy,
+                        time: endTime,
                         difficulty: enabledDifficulty
                     })
                     .catch(error => {
@@ -111,22 +102,14 @@ function TypingTest() {
         }
   })
 
-
+  const [enabledTime, setEnabledTime] = useState("timey30");
   function handleTimeClick(time) {
     handleReset();
-    console.log("called");
-    console.log(enabledTime);
+
     document.getElementById(enabledTime).classList.toggle("button-clicked");
     document.getElementById(time).classList.toggle("button-clicked");
     setEnabledTime(time);
-    console.log(time);
   }
-  // useEffect(() => {
-  //   const storedTime = localStorage.getItem('time');
-  //   if (storedTime !== null) {
-  //       setEndTime(storedTime);
-  //   }
-  // }, []);
 
   const handleKeyDown = (e) => {
     if (elapsedTime === endTime) {
