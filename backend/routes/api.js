@@ -1,9 +1,9 @@
-const express = require('express');
-const Account = require('../models/account');
-const Score = require('../models/score');
+const express = require("express");
+const Account = require("../models/account");
+const Score = require("../models/score");
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const passport = require('../strategies/passport')
+const bcrypt = require("bcryptjs");
+const passport = require("../strategies/passport");
 
 
 router.post('/register', async (req, res, next) => {
@@ -20,7 +20,7 @@ router.post('/register', async (req, res, next) => {
           username: req.body.username,
           password: hashedPassword,
         });
-        console.log('Account created:', newAccount.username);
+        console.log('Account created:', newAccount);
         res.json(newAccount);
       }
     } catch (err) {
@@ -46,37 +46,60 @@ router.post('/register', async (req, res, next) => {
         })(req, res, next);
   });
 
-  router.get("/logout", (req, res, next) => {
-    req.logout((err) => {
-      if (err) return next(err);
-    })
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
   });
+});
 
-  router.get("/check-auth", (req, res, next) => {
-    try {
-        if(req.user) res.json({auth: true});
-        else res.json({auth: false});
-    }
-    catch(err) {
-        return next(err);
-    }
-  });
+router.get("/check-auth", async (req, res, next) => {
+  try {
+    if (req.user) res.json({ auth: true, username: req.user.username });
+    else res.json({ auth: false, username: null });
+  } catch (err) {
+    return next(err);
+  }
+});
 
-  router.get("/get-user-id", async (req, res, next) => {
-    try {
-        if(req.user) {
-          const user = await Account.findOne({username: req.user.username}).exec();
-          res.json({user_id: user._id});
-        }
-        else res.json({user_id: null});
+router.get("/accounts/:username", async (req, res, next) => {
+  try {
+    const user = await Account.findOne({ username: req.params.username }).populate("best_score").exec();
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
     }
-    catch(err) {
-        return next(err);
-    }
-  });
-  
-  router.post('/scores', async (req, res, next) => {
-    try {
+
+    const scores = await Score.find({ user: user._id }).exec();
+
+    // Include scores in the response
+    const userWithScores = {
+      _id: user._id,
+      username: user.username,
+      best_score: user.best_score,
+      scores: scores,
+    };
+
+    res.json({ user: userWithScores });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+router.get("/get-user-id", async (req, res, next) => {
+  try {
+    if (req.user) {
+      const user = await Account.findOne({
+        username: req.user.username,
+      }).exec();
+      res.json({ user_id: user._id });
+    } else res.json({ user_id: null });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+router.post("/scores", async (req, res, next) => {
+  try {
     const wpm = req.body.wpm;
     const accuracy = req.body.accuracy;
     const difficulty = req.body.difficulty;
@@ -84,25 +107,25 @@ router.post('/register', async (req, res, next) => {
 
     console.log("saving score to uid ", user);
     const newScore = await Score.create({
-      date: new Date(), 
-      wpm: wpm, 
-      acc: accuracy, 
-      difficulty: difficulty, 
-      user: user});
+      date: new Date(),
+      wpm: wpm,
+      acc: accuracy,
+      difficulty: difficulty,
+      user: user,
+    });
 
     const account = await Account.findById(user).populate("best_score");
 
     if (!account.best_score) {
       account.best_score = newScore._id;
       await account.save();
-    }
-    else {
+    } else {
       if (account.best_score.wpm < newScore.wpm) {
         account.best_score = newScore._id;
         await account.save();
       }
     }
-      console.log("Score saved: ", newScore);
+      console.log("Score saved successfully: ", newScore);
       res.json({ success: true });
     }
     catch (err) {
@@ -115,14 +138,16 @@ router.post('/register', async (req, res, next) => {
     if (req.user) {
       const user = await Account.findOne({username: req.user.username}).exec();
       const scores = await Score.find({user: user._id}).exec();
+      console.log(scores);
       res.json({scores});
     }
     else res.json({scores: []});
   });
 
-  router.get('/accounts', async (req, res, next) => {
-    const accounts = await Account.find().populate("best_score").exec();
-    res.json({accounts});
-  });
+router.get("/accounts", async (req, res, next) => {
+  const accounts = await Account.find().populate("best_score").exec();
+  res.json({ accounts });
+});
 
 module.exports = router;
+

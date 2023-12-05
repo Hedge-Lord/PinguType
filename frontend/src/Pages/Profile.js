@@ -1,5 +1,5 @@
 import React, { useState, useEffect }from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
 import '../App.css';
@@ -9,10 +9,8 @@ import Login from './Login';
 function Profile({ imageUrl }) {
     const [loggedIn, setLoggedIn] = useState(null);
     const [scores, setScores] = useState([]);
-    const params = useParams();
 
     useEffect(() => {
-        console.log(params);
         axios.get('http://localhost:3333/check-auth', { withCredentials: true })
             .then(res => {
                 if (res.data.auth) {
@@ -25,61 +23,63 @@ function Profile({ imageUrl }) {
             });
     }, []); 
 
-    function logout() {
-        axios.get('http://localhost:3333/logout', {withCredentials: true});
-        window.location.reload(false);
-    }
+  function logout() {
+    axios.get("http://localhost:3333/logout", { withCredentials: true });
+    window.location.reload(false);
+  }
 
-    if (loggedIn === null) {
-        return (
-            <h1>Loading...</h1>
-        );
-    }
-    else return loggedIn 
-    ? (
-        <div className="card">
-        <div className= "card1">
-        <div className="profile-name">
-            <h3>Profile Name</h3>
-        </div>
-        
-        <div className="caption-container">
+  if (loggedIn === null) {
+    return <h1>Loading...</h1>;
+  } else
+    return loggedIn ? (
+      <div className="card">
+        <div className="card1">
+          <div className="profile-name">
+            <h3>{profileName}'s Account</h3>
+          </div>
+          <div className="caption-container">
             <div className="caption">
-                <h4>Joined September 2023</h4>
+              <h4>Joined September 2023</h4>
             </div>
-        </div>
+          </div>
 
-        <button className="logout" onClick={logout}>Logout</button>
+          <button className="logout" onClick={logout}>
+            Logout
+          </button>
 
-        <img src="https://media.istockphoto.com/id/1351147752/photo/studio-portrait-of-attractive-20-year-old-bearded-man.jpg?s=612x612&w=0&k=20&c=-twL1NKKad6S_EPrGSniewjh6776A0Ju27ExMh7v_kI=" 
-            alt = 'pic'
-            className='card-img'/>
+          <img
+            src="https://www.pinkandgreene.com/media/catalog/product/cache/1/image/334x/060688381b5b14a7115e480bc24e4ef1/0/0/001_4_27.jpg"
+            alt="pic"
+            className="card-img"
+          />
         </div>
 
         <div className="card2">
-            <div className="info">
-                <div className= "stats">
-                <h2> Completed Tests: </h2>
-                <div>
-                    <ul>
-                        {scores.map((score, index) => (
-                            <div className="score-card">
-                                <li key={index}> 
-                                    <div> Date: {score.date} </div>
-                                    <div> WPM/ACC: {score.wpm} WPM / {score.acc}% ACC </div>
-                                    <div> Difficulty: {score.difficulty} </div>
-                                </li>
-                             </div>
-                        ))}
-                    </ul>
-                </div>
-                </div>
+          <div className="info">
+            <div className="stats">
+              <h2> Completed Tests: </h2>
+              <div>
+                <ul>
+                  {scores.map((score, index) => (
+                    <div className="score-card">
+                      <li key={index}>
+                        <div> Date: {score.date} </div>
+                        <div>
+                          {" "}
+                          WPM/ACC: {score.wpm} WPM / {score.acc}% ACC{" "}
+                        </div>
+                        <div> Difficulty: {score.difficulty} </div>
+                      </li>
+                    </div>
+                  ))}
+                </ul>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-        ) 
-    : (
-        <Login />
+      </div>
+    ) : (
+      <Login />
     );
 }
 
