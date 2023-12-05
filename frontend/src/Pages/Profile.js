@@ -214,20 +214,30 @@ function Profile({ imageUrl }) {
               </div>
           </div>
 
-          <div className="following-card">
-            <h2> Followers  {followers.length}</h2>
-            <ul>
-                  {followers.map((follower, index) => (
-                    <div className="score-card">
-                      <div className="test-info">
-                        <li key={index}>
-                          <div> {follower.username} </div>
-                        </li>
-                      </div>
-
+          <div className="follow-cards">
+            <div className="main-follower-card">
+              <h2>Followers: {followers.length}</h2>
+              <ul>
+                {followers.map((follower, index) => (
+                  <div className="follower-card" key={index}>
+                    <div className="follower-info">
+                      <li>
+                        <div>
+                        <img src="https://www.freeiconspng.com/thumbs/penguin-icon/penguin-icon-18.jpg" 
+                            alt={`${follower.username}'s profile`}
+                            className="follower-image" />
+                        <a href={`/profile/${follower.username}`} className="follower-name">{follower.username}</a>
+                        </div>
+                      </li>
                     </div>
-                  ))}
-                </ul>
+                  </div>
+                ))}
+              </ul>
+            </div>
+
+            <div className="main-following-card">
+              <h2>Following:</h2>
+            </div>
           </div>
 
         </div>
