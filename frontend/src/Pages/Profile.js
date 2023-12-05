@@ -125,20 +125,18 @@ function Profile({ imageUrl }) {
             </button>)}
           </div>
 
-          {loggedIn && (
-              <div className="add-following">
-                <div> Search Users: </div>
-                <div className="search-bar">
-                  <input
-                    type="text"
-                    placeholder="Type in existing user"
-                    value={searchInput}
-                    onChange={getSearchText}
-                    onKeyDown={searchUser}
-                  />
-                </div>
+            <div className="add-following">
+              <div> Search Users: </div>
+              <div className="search-bar">
+                <input
+                  type="text"
+                  placeholder="Type in existing user"
+                  value={searchInput}
+                  onChange={getSearchText}
+                  onKeyDown={searchUser}
+                />
               </div>
-            )}
+            </div>
 
         </div>
 
