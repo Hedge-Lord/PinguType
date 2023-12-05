@@ -1,5 +1,5 @@
 import React, { useState, useEffect }from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
 import '../App.css';
@@ -24,6 +24,10 @@ function Profile({ imageUrl }) {
           setScores(res.data.scores);
           setProfileLoad(true);
           setProfileName(params.username);
+          axios.get('http://localhost:3333/check-auth', { withCredentials: true })
+          .then(res => {
+            setLoggedIn(res.data.username == params.username);
+          })
         }
         else {
           navigate('/profile');
