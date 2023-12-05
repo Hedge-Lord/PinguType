@@ -85,14 +85,22 @@
   }
 
   #typing-area{
-    background-color: var(--background-color);
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    color: var(--underlaying-text-color);
-    border: 10px;
-    border: var(--border-color);
-    border-style: solid;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    height: 140px;
+    overflow: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    position: relative;
+    font-size: 24px;
+    scrollbar-width: none;
+  }
+
+  #typing-area::-webkit-scrollbar {
+    width: 0; /* Set width to 0 to hide the scrollbar */
   }
 
   #reset-button{
@@ -109,4 +117,9 @@
     margin-top: -20px;
     font-size: 50px;
     text-decoration: none;
+  }
+
+  span.word {
+    height: 45px;
+    margin-right: 10px;
   }

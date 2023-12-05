@@ -14,6 +14,7 @@ function TypingTest() {
   const [inputHistory, setInputHistory] = useState([]);
   const [update, setUpdate] = useState(null);
   const textInputRef = useRef(null);
+  const typeBoxRef = useRef(null);
   const [currInput, setCurrInput] = useState("");
   const [wpmKeyStrokes, setWpmKeyStrokes] = useState(0);
   const [wpm, setWpm] = useState(0);
@@ -69,6 +70,18 @@ function TypingTest() {
       })
     }
   });
+
+  ///////// autoscroll
+  useEffect(() => {
+        if (textInputRef.current) {
+          const currentCharElement = typeBoxRef.current.querySelector('.correct.caret, .incorrect.caret, .left-caret');
+          if (currentCharElement) {
+            currentCharElement.scrollIntoView({
+              behavior: 'smooth',
+            });
+          }
+        }
+  })
 
   const [enabledTime, setEnabledTime] = useState("timey30");
   function handleTimeClick(time) {
@@ -171,7 +184,7 @@ function TypingTest() {
     setWords(selectedWords);
 
     document.getElementById("time").innerHTML = "Start typing to start the timer";
-
+    setSaved(false);
   };
 
   const handleDifficultyClick = (difficulty) => {
@@ -203,10 +216,11 @@ return (
             <div id="timerDisplay">
             <h3 id="time">Start typing to start the timer</h3>
             </div>
-            <div id="typing-area">
+            <div id="typing-area" ref={typeBoxRef}>
               {words.map((word, i) => (
                 <span
                   key={i}
+                  className="word"
                   >
                   {word.split("").map((char, idx) => (
                     <span
@@ -216,19 +230,9 @@ return (
                       {char}
                     </span>
                   ))}
-                  <span> {" "} </span>
                 </span>
               ))}
             </div>
-            <span className='wpm-counter'>
-              WPM: {wpm}
-            </span>
-            <span className='wpm-counter'>
-              Corrected WPM: {calculateWpm()[0]}
-            </span>
-            <span className='wpm-counter'>
-              Accuracy: {calculateWpm()[1]}%
-            </span>
             <input 
               ref={textInputRef}
               className='hidden-input'
@@ -239,9 +243,20 @@ return (
               id='hidden-input'
               autocomplete='off'
             />
-            <button id ="reset-button" onClick={handleReset}>
-              ⟳ {/* Unicode character for a home symbol */}
-            </button>
+            <div>
+              <button id ="reset-button" onClick={handleReset}>
+                ⟳ {/* Unicode character for a home symbol */}
+              </button>            
+            </div>
+            <span className='wpm-counter'>
+              WPM: {wpm}
+            </span>
+            <span className='wpm-counter'>
+              Corrected WPM: {calculateWpm()[0]}
+            </span>
+            <span className='wpm-counter'>
+              Accuracy: {calculateWpm()[1]}%
+            </span>
         </div>
     </div>);
 }
