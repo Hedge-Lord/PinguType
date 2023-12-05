@@ -11,6 +11,7 @@ function Profile({ imageUrl }) {
   const [loggedIn, setLoggedIn] = useState(null);
   const [scores, setScores] = useState([]);
   const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [searchInput, setSearchInput] = useState(""); // Add state for search input
   const params = useParams();
@@ -24,7 +25,7 @@ function Profile({ imageUrl }) {
 
   useEffect(() => {
     if (params.username) {
-      console.log("load user prof");
+      let currUser;
       axios
       .get("http://localhost:3333/accounts/" + params.username + "/scores")
       .then((res) => {
@@ -35,11 +36,15 @@ function Profile({ imageUrl }) {
           axios.get('http://localhost:3333/check-auth', { withCredentials: true })
           .then(res => {
             setLoggedIn(res.data.username == params.username);
+            currUser = res.data.username;
           })
           .then(res => {
             axios.get("http://localhost:3333/accounts/" + params.username + "/followers")
             .then(res => {
-              if (res.data.followers) setFollowers(res.data.followers);
+              if (res.data.followers) {
+                setFollowers(res.data.followers);
+                setFollowing(res.data.followers.some(user => user.username === currUser));
+              }
             })
           })
         }
@@ -81,7 +86,6 @@ function Profile({ imageUrl }) {
 
       setHighestWPM(maxWPM);
       setHighestAccuracy(maxAccuracy);
-
     }
   }, [scores])
 
@@ -107,8 +111,19 @@ function Profile({ imageUrl }) {
       .then(resp => {
         // do something with resp
         // resp.success, resp.newFollower
+        window.location.reload(false);
       })
     })
+  }
+
+  function handleUnfollow() {
+      axios.delete("http://localhost:3333/accounts/" + profileName + "/followers", {withCredentials: true})
+      .then(res => {
+        console.log(res);
+        // do something with res
+        // res.success, res.unfollow
+        window.location.reload(false);
+      });
   }
 
   if (profileLoad === null) {
@@ -138,9 +153,14 @@ function Profile({ imageUrl }) {
               <button className="logout" onClick={logout}>
                 Logout
               </button>
-            ) || !loggedIn && (<button className="follow" onClick={handleFollow}>
+            ) || !loggedIn && (
+              !following && (<button className="follow" onClick={handleFollow}>
                 Follow
-            </button>)}
+                            </button>) || 
+              following && (<button className="follow" onClick={handleUnfollow}>
+              Unfollow
+                            </button>)
+            )}
           </div>
 
             <div className="add-following">
@@ -221,7 +241,7 @@ function Profile({ imageUrl }) {
                     <div className="score-card">
                       <div className="test-info">
                         <li key={index}>
-                          <div> {follower.username} </div>
+                          <a href={`/profile/${follower.username}`}>{follower.username}</a>
                         </li>
                       </div>
 

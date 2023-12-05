@@ -226,5 +226,37 @@ router.post("/accounts/:username/followers", async (req, res, next) => {
   }
 });
 
+router.delete("/accounts/:username/followers", async (req, res, next) => {
+  if (req.params.username && req.user) {
+    try {
+      const user = await Account.findOne({
+        username: req.params.username,
+      })
+      .exec();
+      const follower = await Account.findOne({
+        username: req.user.username
+      })
+      .exec();
+      if (user && follower) {
+        const index = user.followers.indexOf(follower._id);
+        if (index !== -1) {
+          user.followers.splice(index, 1);
+          await user.save();
+          
+          res.json({ success: true, unfollow: true });
+        } else {
+          res.json({ success: true, unfollow: false });
+        }
+      } else {
+        res.json({ success: false });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+  } else {
+    res.status(401).json({ success: false, error: "Unauthorized" });
+  }
+});
 
 module.exports = router;
