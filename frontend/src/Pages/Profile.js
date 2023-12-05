@@ -1,96 +1,97 @@
-import React, { useState, useEffect }from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import './Login.css';
-import axios from 'axios';
-import '../App.css';
-import './Profile.css';
-import Login from './Login';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import "./Login.css";
+import axios from "axios";
+import "../App.css";
+import "./Profile.css";
+import Login from "./Login";
 
 function Profile({ imageUrl }) {
-    const [loggedIn, setLoggedIn] = useState(null);
-    const [scores, setScores] = useState([]);
-    const [username, setUsername] = useState(null);
-    const params = useParams();
-    console.log(params.username);
-    const navigate = useNavigate();
-    useEffect(() => {
-        if(params)
-        {
-            axios.get('http://localhost:3333/check-auth', { withCredentials: true })
-            .then(res => {
-                if (res.data.auth) {
-                    axios.get('http://localhost:3333/scores', { withCredentials: true })
-                        .then(res => {
-                            setScores(res.data.scores);
-                        });
-                        setUsername(res.data.username);
-                }
-                setLoggedIn(res.data.auth);
-                navigate('/profile/');
-            });
-        }
-        else
-        {
-            console.log("bruh");
-        }
-
-    }, []); 
-
-    function logout() {
-        axios.get('http://localhost:3333/logout', {withCredentials: true});
-        window.location.reload(false);
+  const [loggedIn, setLoggedIn] = useState(null);
+  const [scores, setScores] = useState([]);
+  const [profileName, setProfileName] = useState("");
+  const params = useParams(); //call params.user
+  console.log(params);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (params ) {
+      console.log("load user prof");
+      axios
+        .get("http://localhost:3333/check-auth", { withCredentials: true })
+        .then((res) => {
+          if (res.data.auth) {
+            axios
+              .get("http://localhost:3333/scores", { withCredentials: true })
+              .then((res) => {
+                setScores(res.data.scores);
+              });
+          }
+          setLoggedIn(res.data.auth);
+          setProfileName(res.data.username);
+          navigate("/profile/" + res.data.username);
+        });
+    } else {
+ 
     }
+  }, []);
 
-    if (loggedIn === null) {
-        return (
-            <h1>Loading...</h1>
-        );
-    }
-    else return loggedIn 
-    ? (
-        <div className="card">
-        <div className= "card1">
-        <div className="profile-name">
-            <h3>{username}'s Profile</h3>
-        </div>
-        
-        <div className="caption-container">
+  function logout() {
+    axios.get("http://localhost:3333/logout", { withCredentials: true });
+    window.location.reload(false);
+  }
+
+  if (loggedIn === null) {
+    return <h1>Loading...</h1>;
+  } else
+    return loggedIn ? (
+      <div className="card">
+        <div className="card1">
+          <div className="profile-name">
+            <h3>{profileName}'s Account</h3>
+          </div>
+          <div className="caption-container">
             <div className="caption">
-                <h4>Joined September 2023</h4>
+              <h4>Joined September 2023</h4>
             </div>
-        </div>
+          </div>
 
-        <button className="logout" onClick={logout}>Logout</button>
+          <button className="logout" onClick={logout}>
+            Logout
+          </button>
 
-        <img src="https://media.istockphoto.com/id/1351147752/photo/studio-portrait-of-attractive-20-year-old-bearded-man.jpg?s=612x612&w=0&k=20&c=-twL1NKKad6S_EPrGSniewjh6776A0Ju27ExMh7v_kI=" 
-            alt = 'pic'
-            className='card-img'/>
+          <img
+            src="https://www.pinkandgreene.com/media/catalog/product/cache/1/image/334x/060688381b5b14a7115e480bc24e4ef1/0/0/001_4_27.jpg"
+            alt="pic"
+            className="card-img"
+          />
         </div>
 
         <div className="card2">
-            <div className="info">
-                <div className= "stats">
-                <h2> Completed Tests: </h2>
-                <div>
-                    <ul>
-                        {scores.map((score, index) => (
-                            <div className="score-card">
-                                <li key={index}> 
-                                    <div> Date: {score.date} </div>
-                                    <div> WPM/ACC: {score.wpm} WPM / {score.acc}% ACC </div>
-                                    <div> Difficulty: {score.difficulty} </div>
-                                </li>
-                             </div>
-                        ))}
-                    </ul>
-                </div>
-                </div>
+          <div className="info">
+            <div className="stats">
+              <h2> Completed Tests: </h2>
+              <div>
+                <ul>
+                  {scores.map((score, index) => (
+                    <div className="score-card">
+                      <li key={index}>
+                        <div> Date: {score.date} </div>
+                        <div>
+                          {" "}
+                          WPM/ACC: {score.wpm} WPM / {score.acc}% ACC{" "}
+                        </div>
+                        <div> Difficulty: {score.difficulty} </div>
+                      </li>
+                    </div>
+                  ))}
+                </ul>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-        ) 
-    : (
-        <Login />
+      </div>
+    ) : (
+      <Login />
     );
 }
 
