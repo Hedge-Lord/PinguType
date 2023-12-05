@@ -7,7 +7,7 @@ import './Settings.css'
 
 function Collapsible() {
     const [theme, setTheme] = useState('light');
-    
+    const [isExpanded, setIsExpanded] = useState(true);
     const toggleTheme = (type) => {
        setTheme(type);
        localStorage.setItem('theme', type);
@@ -22,11 +22,11 @@ function Collapsible() {
     useEffect(() => {
         document.body.className = theme;
     }, [theme]);
-    const { getCollapseProps, getToggleProps} = useCollapse();
+    const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded: isExpanded });
     return (
         <body>
             <div className="collapsible">
-                <button className="header" {...getToggleProps()}>
+                <button className="header" {...getToggleProps({ onClick: () => setIsExpanded(!isExpanded) })}>
                     Themes
                 </button>
                 <div {...getCollapseProps()}>
@@ -51,58 +51,13 @@ function Collapsible() {
         );
 }
 
-function logout() {
-    return;
-}
-
-// function Settings() {
-//       const [currentStyle, setCurrentStyle] = useState(themes[0].style);
-
-//       const changeStyle = (style) => {
-//         setCurrentStyle(style);
-//         localStorage.setItem('currentStyle', style);
-//       };
-    
-//       useEffect(() => {
-//         const storedStyle = localStorage.getItem('currentStyle');
-//         if (storedStyle !== null) {
-//           setCurrentStyle(storedStyle);
-//         }
-//       }, []);
-//       const { getCollapseProps, getToggleProps} = useCollapse();
-//       return (
-//         <div>
-//         <body>
-//         <h1>Settings</h1>
-//         <div className="collapsible">
-//             <button className="header" {...getToggleProps()}>
-//                     Themes
-//             </button>
-//           <div className="theme-menu-button" {...getCollapseProps()}>
-//             {themes.map((theme, index) => (
-//               <button key={index} onClick={() => changeStyle(theme.style)} className={theme.classThingy}>
-//                 {theme.name}
-//               </button>
-//             ))}
-//           </div>
-//         </div>
-//         <button onClick={() => logout()} className='logout-button'>Logout</button>
-//         </body>
-//         <style>
-//             {currentStyle}
-//         </style>
-//         </div>
-//     );
-// }
-
 function Settings() {
     return (
             <body>
                 <h1>Settings</h1>
                 <Collapsible />
-                <button onClick={() => logout()} className='logout-button'>Logout</button>
             </body>
           );
 }
-  
-  export default Settings;
+
+export default Settings;
