@@ -149,5 +149,16 @@ router.get("/accounts", async (req, res, next) => {
   res.json({ accounts });
 });
 
+router.get("/accounts/:username/scores", async (req, res, next) => {
+  if (req.params.username) {
+    const user = await Account.findOne({ username: req.params.username }).exec();
+    if (user) {
+      const scores = await Score.find({ user: user._id }).exec();
+      console.log(scores);
+      res.json({ scores });
+    } else res.json({ scores: false });
+  } else res.json({ scores: [] });
+});
+
 module.exports = router;
 
