@@ -101,17 +101,25 @@ function Profile({ imageUrl }) {
   }
 
   function handleFollow() {
-    axios.get("http://localhost:3333/get-user-id", {withCredentials: true})
-    .then(res => {
-      axios.post("http://localhost:3333/accounts/" + profileName + "/followers", {user_id: res.data.user_id})
-      .then(resp => {
-        // do something with resp
-        // resp.success, resp.newFollower
-        //if (resp.success) {
-          window.location.reload();
-        //}
-      })
-    })
+    axios.get("http://localhost:3333/check-auth", { withCredentials: true })
+      .then((res) => {
+        if (res.data.auth) {
+          axios.get("http://localhost:3333/get-user-id", { withCredentials: true })
+            .then((res) => {
+              axios.post("http://localhost:3333/accounts/" + profileName + "/followers", { user_id: res.data.user_id })
+                .then((resp) => {
+                  // do something with resp
+                  // resp.success, resp.newFollower
+                  //if (resp.success) {
+                  window.location.reload();
+                  //}
+                });
+            });
+        } else {
+          alert("Need to be logged in to follow accounts.");
+          navigate("/login");
+        }
+      });
   }
 
   if (profileLoad === null) {
