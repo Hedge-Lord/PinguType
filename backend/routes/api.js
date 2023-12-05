@@ -110,6 +110,7 @@ router.post("/scores", async (req, res, next) => {
     const wpm = req.body.wpm;
     const accuracy = req.body.accuracy;
     const difficulty = req.body.difficulty;
+    const time = req.body.time;
     const user = req.body.user_id;
 
     console.log("saving score to uid ", user);
@@ -132,6 +133,7 @@ router.post("/scores", async (req, res, next) => {
       wpm: wpm,
       acc: accuracy,
       difficulty: difficulty,
+      time: time, 
       user: user,
     });
 

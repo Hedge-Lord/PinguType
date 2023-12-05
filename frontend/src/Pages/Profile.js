@@ -102,6 +102,7 @@ function Profile({ imageUrl }) {
                           WPM/ACC: {score.wpm} WPM / {score.acc}% ACC{" "}
                         </div>
                         <div> Difficulty: {score.difficulty} </div>
+                        <div> Time: {score.time} </div>
                       </li>
                     </div>
                   ))}

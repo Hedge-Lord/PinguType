@@ -14,6 +14,10 @@ module.exports = mongoose.model("Account", new Schema({
         required: true,
         minLength: 1
     },
+    accCreation: {
+        type: Date,
+        default: Date.now
+    },
     best_score: {
         type: Schema.Types.ObjectId,
         ref: "Score"

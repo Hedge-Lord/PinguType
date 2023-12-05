@@ -21,7 +21,7 @@ function TypingTest() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [saved, setSaved] = useState(false);
-  const [enabledDifficulty, setEnabledDifficulty] = useState("normal");
+  const [enabledDifficulty, setEnabledDifficulty] = useState("Normal");
   const [words, setWords] = useState(generateWords().normal);
   const [isVisible, setIsVisible] = useState(true);
   const [enabledTime, setEnabledTime] = useState("timey30");
@@ -32,7 +32,7 @@ function TypingTest() {
       document.getElementById(storedDifficulty).click();
       return;
     }
-    document.getElementById("normal").click();
+    document.getElementById("Normal").click();
   }, []);
   // useEffect(() => {
   //   const storedTimey = localStorage.getItem('timey');
@@ -237,7 +237,7 @@ function TypingTest() {
       setUpdate(null);
     }
 
-    const selectedWords = enabledDifficulty === "hard" ? generateWords().hard : generateWords().normal;
+    const selectedWords = enabledDifficulty === "Hard" ? generateWords().hard : generateWords().normal;
     setWords(selectedWords);
 
     document.getElementById("time").innerHTML = "start typing.";
@@ -252,7 +252,7 @@ function TypingTest() {
     document.getElementById(difficulty).classList.add("button-clicked");
     setEnabledDifficulty(difficulty);
 
-    const selectedWords = difficulty === "hard" ? generateWords().hard : generateWords().normal;
+    const selectedWords = difficulty === "Hard" ? generateWords().hard : generateWords().normal;
     setWords(selectedWords);
 
   };
@@ -260,8 +260,8 @@ function TypingTest() {
 return (
     <div onClick={focusTypeBox}>
         <div className={isVisible ? 'options' : 'invisible-options'} >
-            <button id="normal" onClick={() => {handleDifficultyClick("normal"); localStorage.setItem('difficulty', 'normal')}}> Normal </button>
-            <button id="hard" onClick={() => {handleDifficultyClick("hard"); localStorage.setItem('difficulty', 'hard')}}> Hard </button>
+            <button id="Normal" onClick={() => {handleDifficultyClick("Normal"); localStorage.setItem('difficulty', 'normal')}}> Normal </button>
+            <button id="Hard" onClick={() => {handleDifficultyClick("Hard"); localStorage.setItem('difficulty', 'hard')}}> Hard </button>
             <button id="timey15" onClick={() => {handleTimeClick("timey15"); setEndTime(15); localStorage.setItem('time', 15); localStorage.setItem('timey', 'timey15')}}> 15s </button>
             <button id="timey30" className="button-clicked" onClick={() => {handleTimeClick("timey30"); setEndTime(30); localStorage.setItem('time', 30);localStorage.setItem('timey', 'timey30')}}> 30s </button>
             <button id="timey60" onClick={() => {handleTimeClick("timey60"); setEndTime(60); localStorage.setItem('time', 60);localStorage.setItem('timey', 'timey60')}}> 60s</button>
