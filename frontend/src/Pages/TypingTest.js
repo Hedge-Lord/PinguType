@@ -69,7 +69,7 @@ function TypingTest() {
                         user_id: res.data.user_id,
                         wpm,
                         accuracy,
-                        difficulty: "placeholder"
+                        difficulty: enabledDifficulty
                     })
                     .catch(error => {
                         console.error("Error posting scores:", error);
