@@ -62,6 +62,11 @@ router.post('/register', async (req, res, next) => {
     }
   });
 
+  router.get("/profile", async (req, res, next)=>
+  {
+    const user = await Account.findOne({username: req.user.username}).exec();
+  });
+
   router.get("/get-user-id", async (req, res, next) => {
     try {
         if(req.user) {

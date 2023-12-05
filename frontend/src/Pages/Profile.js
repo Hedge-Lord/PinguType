@@ -1,5 +1,5 @@
 import React, { useState, useEffect }from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
 import '../App.css';
@@ -9,18 +9,31 @@ import Login from './Login';
 function Profile({ imageUrl }) {
     const [loggedIn, setLoggedIn] = useState(null);
     const [scores, setScores] = useState([]);
-
+    const [username, setUsername] = useState(null);
+    const params = useParams();
+    console.log(params.username);
+    const navigate = useNavigate();
     useEffect(() => {
-        axios.get('http://localhost:3333/check-auth', { withCredentials: true })
+        if(params)
+        {
+            axios.get('http://localhost:3333/check-auth', { withCredentials: true })
             .then(res => {
                 if (res.data.auth) {
                     axios.get('http://localhost:3333/scores', { withCredentials: true })
                         .then(res => {
                             setScores(res.data.scores);
                         });
+                        setUsername(res.data.username);
                 }
                 setLoggedIn(res.data.auth);
+                navigate('/profile/');
             });
+        }
+        else
+        {
+            console.log("bruh");
+        }
+
     }, []); 
 
     function logout() {
@@ -38,7 +51,7 @@ function Profile({ imageUrl }) {
         <div className="card">
         <div className= "card1">
         <div className="profile-name">
-            <h3>Profile Name</h3>
+            <h3>{username}'s Profile</h3>
         </div>
         
         <div className="caption-container">

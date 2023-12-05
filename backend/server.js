@@ -11,21 +11,6 @@ const logger = require('morgan');
 
 const apiRouter = require('./routes/api.js');
 
-/*
-USE THIS GENERAL TEMPLATE TO SAVE USER INFO
-            axios.post('http://localhost:3333/userscores', {
-              wpm: 2000,
-              acc: 100,
-              date: new Date(),
-              difficulty: "easy"
-            }, {
-              withCredentials: true
-            })
-            .then(result => {
-              console.log(result);
-            })
-            .catch(err => console.log(err));
-*/
 const PORT = process.env.PORT || 3333;
 mongoose.connect(process.env.mongoDB_URL);
 
