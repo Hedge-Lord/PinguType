@@ -5,46 +5,51 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("../strategies/passport");
 
+router.post("/register", async (req, res, next) => {
+  try {
+    const existingUser = await Account.findOne({ username: req.body.username });
 
-router.post('/register', async (req, res, next) => {
-    try {
-      const existingUser = await Account.findOne({ username: req.body.username });
-  
-      if (existingUser) {
-        console.log('Username already exists.');
-        res.json({ error: 'Username already exists.' });
-      } else {
-        // Hash the password before saving it to the database
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const newAccount = await Account.create({
-          username: req.body.username,
-          password: hashedPassword,
-        });
-        console.log('Account created:', newAccount);
-        res.json(newAccount);
-      }
-    } catch (err) {
-      console.error(err);
-      res.json({ error: 'Something went wrong when creating your account.' });
+    if (existingUser) {
+      console.log("Username already exists.");
+      res.json({ error: "Username already exists." });
+    } else {
+      // Hash the password before saving it to the database
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const newAccount = await Account.create({
+        username: req.body.username,
+        password: hashedPassword,
+      });
+      console.log("Account created:", newAccount);
+      res.json(newAccount);
     }
-  });
-  
-  router.post('/login', async (req, res, next) => {
-    passport.authenticate("local", (err, user, info) => {
-        if (err) {
-            return res.status(500).json({ success: false, message: 'Internal Server Error' });
-          }
-          if (!user) {
-            return res.status(401).json({ success: false, message: 'Login failed' });
-          }
-          req.logIn(user, (err) => {
-            if (err) {
-              return res.status(500).json({ success: false, message: 'Internal Server Error' });
-            }
-            return res.status(200).json({ success: true, message: 'Login successful' });
-          });
-        })(req, res, next);
-  });
+  } catch (err) {
+    console.error(err);
+    res.json({ error: "Something went wrong when creating your account." });
+  }
+});
+
+router.post("/login", async (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal Server Error" });
+    }
+    if (!user) {
+      return res.status(401).json({ success: false, message: "Login failed" });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ success: false, message: "Internal Server Error" });
+      }
+      return res
+        .status(200)
+        .json({ success: true, message: "Login successful" });
+    });
+  })(req, res, next);
+});
 
 router.get("/logout", (req, res, next) => {
   req.logout((err) => {
@@ -63,7 +68,9 @@ router.get("/check-auth", async (req, res, next) => {
 
 router.get("/accounts/:username", async (req, res, next) => {
   try {
-    const user = await Account.findOne({ username: req.params.username }).populate("best_score").exec();
+    const user = await Account.findOne({ username: req.params.username })
+      .populate("best_score")
+      .exec();
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -106,8 +113,22 @@ router.post("/scores", async (req, res, next) => {
     const user = req.body.user_id;
 
     console.log("saving score to uid ", user);
+
+    //Format date
+    const currentDate =  new Date();
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZoneName: "short",
+    };
+    const formattedDate = currentDate.toLocaleString("en-US", options);
+
+    console.log(formattedDate);
     const newScore = await Score.create({
-      date: new Date(),
+      date: formattedDate,
       wpm: wpm,
       acc: accuracy,
       difficulty: difficulty,
@@ -125,24 +146,22 @@ router.post("/scores", async (req, res, next) => {
         await account.save();
       }
     }
-      console.log("Score saved successfully: ", newScore);
-      res.json({ success: true });
-    }
-    catch (err) {
-      return next(err);
-    }
-  });
+    console.log("Score saved successfully: ", newScore);
+    res.json({ success: true });
+  } catch (err) {
+    return next(err);
+  }
+});
 
-  /////// NOT REST API, retrieves scores of user of current session
-  router.get('/scores', async (req, res, next) => { 
-    if (req.user) {
-      const user = await Account.findOne({username: req.user.username}).exec();
-      const scores = await Score.find({user: user._id}).exec();
-      console.log(scores);
-      res.json({scores});
-    }
-    else res.json({scores: []});
-  });
+/////// NOT REST API, retrieves scores of user of current session
+router.get("/scores", async (req, res, next) => {
+  if (req.user) {
+    const user = await Account.findOne({ username: req.user.username }).exec();
+    const scores = await Score.find({ user: user._id }).exec();
+    console.log(scores);
+    res.json({ scores });
+  } else res.json({ scores: [] });
+});
 
 router.get("/accounts", async (req, res, next) => {
   const accounts = await Account.find().populate("best_score").exec();
@@ -151,7 +170,9 @@ router.get("/accounts", async (req, res, next) => {
 
 router.get("/accounts/:username/scores", async (req, res, next) => {
   if (req.params.username) {
-    const user = await Account.findOne({ username: req.params.username }).exec();
+    const user = await Account.findOne({
+      username: req.params.username,
+    }).exec();
     if (user) {
       const scores = await Score.find({ user: user._id }).exec();
       console.log(scores);
@@ -161,4 +182,3 @@ router.get("/accounts/:username/scores", async (req, res, next) => {
 });
 
 module.exports = router;
-

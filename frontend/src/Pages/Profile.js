@@ -1,4 +1,4 @@
-import React, { useState, useEffect }from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
@@ -11,9 +11,10 @@ function Profile({ imageUrl }) {
   const [loggedIn, setLoggedIn] = useState(null);
   const [scores, setScores] = useState([]);
   const [profileName, setProfileName] = useState("");
-  const params = useParams(); //call params.user
-  console.log(params);
+  const [searchInput, setSearchInput] = useState(""); // Add state for search input
+  const params = useParams();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (params.username) {
       console.log("load user prof");
@@ -34,7 +35,6 @@ function Profile({ imageUrl }) {
           window.location.reload(false);
         }
           });
-      // navigate("/profile/" + res.data.username);
     } else {
       axios.get('http://localhost:3333/check-auth', { withCredentials: true })
       .then(res => {
@@ -50,7 +50,15 @@ function Profile({ imageUrl }) {
           setLoggedIn(res.data.auth);
       });
     }
-  }, []);
+  }, [params.username]);
+  function getSearchText(e) {
+    setSearchInput(e.target.value);
+  }
+  function searchUser(event) {
+    if (event.key === 'Enter') {
+        navigate('/profile/'+searchInput)
+    }
+  }
 
   function logout() {
     axios.get("http://localhost:3333/logout", { withCredentials: true });
@@ -62,6 +70,7 @@ function Profile({ imageUrl }) {
     return <h1>Loading...</h1>;
   } else
     return profileLoad ? (
+        
       <div className="card">
         <div className="card1">
           <div className="profile-name">
@@ -71,23 +80,16 @@ function Profile({ imageUrl }) {
             <div className="caption">
               <h4>Joined September 2023</h4>
             </div>
+            <div className="search-bar">
+            <input
+              type="text"
+              placeholder="Search an existing user"
+              value={searchInput}
+              onChange={getSearchText}
+              onKeyDown={searchUser}
+            />
           </div>
-          {loggedIn && (
-              <button className="logout" onClick={logout}>
-                Logout
-              </button>
-            )}
-
-          <img
-            src="https://www.pinkandgreene.com/media/catalog/product/cache/1/image/334x/060688381b5b14a7115e480bc24e4ef1/0/0/001_4_27.jpg"
-            alt="pic"
-            className="card-img"
-          />
-        </div>
-
-        <div className="card2">
-          <div className="info">
-            <div className="stats">
+<div className="stats">
               <h2> Completed Tests: </h2>
               <div>
                 <ul>
@@ -107,6 +109,14 @@ function Profile({ imageUrl }) {
               </div>
             </div>
           </div>
+          {loggedIn && (
+              <button className="logout" onClick={logout}>
+                Logout
+              </button>
+            ) || !loggedIn && (<button className="follow" >
+                Follow
+            </button>)}
+
         </div>
       </div>
     ) : (

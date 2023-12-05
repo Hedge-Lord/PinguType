@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import "./Leaderboard.css";
 import axios from "axios";
