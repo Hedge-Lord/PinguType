@@ -96,7 +96,7 @@ function Profile({ imageUrl }) {
 
   function logout() {
     axios.get("http://localhost:3333/logout", { withCredentials: true });
-    navigate("/profile");
+    navigate("/login");
     window.location.reload(false);
   }
 
