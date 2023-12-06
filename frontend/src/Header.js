@@ -30,7 +30,7 @@ export default function Header() {
         <header>
           <Link className="logo-link" to="/"><img src={logo} id="logo" alt="PinguType Logo" /></Link>
           <div className="title">
-            <Link to="/" className="pingutype-header">
+            <Link to="/" id="pingutype-header">
               pingutype
             </Link>
             <p className="subtext">a typing tool for penguins.</p>
