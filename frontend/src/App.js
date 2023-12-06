@@ -22,6 +22,7 @@ function App() {
   const background = localStorage.getItem('background');
   const border = localStorage.getItem('border');
   const button = localStorage.getItem('button');
+  console.log('theme: ', theme);
   useEffect(() => {
     if (theme === 'custom') {
       console.log(document.body.style.setProperty('--main-color', main));

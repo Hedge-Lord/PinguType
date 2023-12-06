@@ -349,22 +349,23 @@ function Collapsible() {
     };
 
     const predefinedThemesJSON = JSON.stringify(predefinedThemes);
-    const [flag, setFlag] = useState(false);
+
     const toggleTheme = (type) => {
         setTheme(type);
         localStorage.setItem('stuff', type);
+        console.log(type);
     };
 
     const toggleCustomTheme = () => {
         setTheme('custom');
         localStorage.setItem('theme', 'custom');
+        localStorage.setItem('stuff', 'custom');
+        console.log(localStorage.getItem('theme'));
     }
     useEffect(() => {
         setTheme(predefinedThemes['custom']);
     }, [accent1, accent2, text, background, correct, incorrect, underlay, border, button])
     useEffect(() => {
-        // if (!isCustom) {
-            //document.body.style = ''; // Reset inline styles if it was a custom theme
         localStorage.setItem('theme', JSON.stringify(predefinedThemes));
         const parsedThemes = JSON.parse(predefinedThemesJSON);
         const selectedTheme = parsedThemes[theme]
@@ -374,14 +375,6 @@ function Collapsible() {
             document.body.style.setProperty(key, selectedTheme[key]);
             });
         }
-        console.log("called");
-        // } 
-        // else {
-        //     // Apply custom theme using setProperty
-        //     Object.keys(theme).forEach((key) => {
-        //         document.body.style.setProperty(`--${key}`, theme[key]);
-        //     });
-        // }
     }, [theme]);
     const [isExpanded, setIsExpanded] = useState(true);
     const { getCollapseProps: getCollapseProps1, getToggleProps: getToggleProps1 } = useCollapse({ isExpanded: isExpanded });
