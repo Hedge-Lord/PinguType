@@ -79,7 +79,7 @@ function Login() {
       </head>
       <body>
         <h2 className="description-signup" style={{ marginBottom: 0 }}>
-          login or sign-up below
+          
         </h2>
         <div className="login-main-body">
           <div className="register-login-spot">
