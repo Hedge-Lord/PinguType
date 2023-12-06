@@ -217,7 +217,7 @@ h1 {
     margin-bottom: 3px;
 }
 .theme-button-watermelon {
-    background-color: rgba(0, 128, 0, 0.444);
+    background-color: rgb(0, 128, 0);
     color: #ff3377ea;
     padding: 16px;
     font-size: 16px;
