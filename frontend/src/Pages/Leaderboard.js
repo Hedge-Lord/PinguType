@@ -96,7 +96,7 @@ function Leaderboard() {
           <h3>Score <button className="info-button" onClick={scoreInfo}>﹖</button></h3>
           <ul className = "column">
             {scores.map((score, index) => (
-              <li key={index}> {score.score.score} </li>
+              <li key={index}> {score.score.score.toFixed(2)} </li>
             ))}
           </ul>
         </div>
