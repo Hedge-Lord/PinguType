@@ -103,15 +103,22 @@ function TypingTest() {
 
   ///////// autoscroll
   useEffect(() => {
-        if (textInputRef.current) {
-          const currentCharElement = typeBoxRef.current.querySelector('.correct.caret, .incorrect.caret, .left-caret');
-          if (currentCharElement) {
-            currentCharElement.scrollIntoView({
-              behavior: 'smooth',
-            });
-          }
-        }
-  })
+    if (textInputRef.current) {
+      const currentCharElement = typeBoxRef.current.querySelector('.correct.caret, .incorrect.caret, .left-caret');
+      
+      if (currentCharElement) {
+        const scrollOptions = {
+          behavior: 'smooth',
+        };
+  
+        const scrollIntoView = () => {
+          currentCharElement.scrollIntoView(scrollOptions);
+        };
+  
+        requestAnimationFrame(scrollIntoView);
+      }
+    }
+  }); 
 
   const [enabledTime, setEnabledTime] = useState("timey30");
   function handleTimeClick(time) {
@@ -298,15 +305,17 @@ return (
                 ⟳ {/* Unicode character for a home symbol */}
               </button>            
             </div>
-            <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
-              Raw WPM: {wpm}
-            </span>
-            <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
-              Corrected WPM: {calculateWpm()[0]}
-            </span>
-            <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
-              Accuracy: {calculateWpm()[1]}%
-            </span>
+            <div className="wpm-info">
+              <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
+                Raw WPM: {wpm}
+              </span>
+              <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
+                Corrected WPM: {calculateWpm()[0]}
+              </span>
+              <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
+                Accuracy: {calculateWpm()[1]}%
+              </span>
+            </div>
         </div>
     </div>);
 }

@@ -57,7 +57,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 0px;
+    margin-top: 20px;
     max-width: 50vw;
     margin-right: auto;
     margin-left: auto;
@@ -138,9 +138,14 @@
   }
   .wpm-counter {
     display: block;
-    margin-bottom: 15px; /* Increase spacing between counters */
-    border: 2px solid #000; /* Add a slightly thicker rectangular border */
+    margin-bottom: 10px; /* Increase spacing between counters */
     padding: 10px; /* Adjust padding as needed */
-    border-radius: 5px; /* Add border radius for rounded corners */
+  }
+
+  .wpm-info {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
   }
   

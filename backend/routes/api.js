@@ -112,6 +112,16 @@ router.post("/scores", async (req, res, next) => {
     const difficulty = req.body.difficulty;
     const time = req.body.time;
     const user = req.body.user_id;
+    let score = -1;
+    if ((time === 15 || time === 30 || time == 60) && (difficulty === "Normal" || difficulty === "Hard")) {
+      let mult;
+      if (time === 15) mult = 0.9;
+      else if (time === 30) mult = 1;
+      else mult = 1.066
+
+      if (difficulty === "Hard") mult *= 1.5;
+      score = req.body.wpm * mult;
+    }
 
     console.log("saving score to uid ", user);
 
@@ -135,6 +145,7 @@ router.post("/scores", async (req, res, next) => {
       difficulty: difficulty,
       time: time, 
       user: user,
+      score
     });
 
     const account = await Account.findById(user).populate("best_score");
@@ -143,7 +154,7 @@ router.post("/scores", async (req, res, next) => {
       account.best_score = newScore._id;
       await account.save();
     } else {
-      if (account.best_score.wpm < newScore.wpm) {
+      if (account.best_score.score < newScore.score) {
         account.best_score = newScore._id;
         await account.save();
       }
