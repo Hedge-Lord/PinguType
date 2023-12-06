@@ -25,6 +25,13 @@ function Profile({ imageUrl }) {
   const [highestAccuracy, setHighestAccuracy] = useState(0);
 
   const [averageScore, setAverageScore] = useState(0);
+  
+  const [joinDate, setJoinDate] = useState("");
+
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   // all async effects
   useEffect(() => {
@@ -56,9 +63,18 @@ function Profile({ imageUrl }) {
                 if (res.data.following) {
                   setFollowing(res.data.following);
                 }
-              })
-            })
+              });
+            });
           })
+          .then (() => {
+            axios
+              .get('http://localhost:3333/accounts/' + params.username + '/accCreation')
+              .then ((res) => {
+                if (res.data.accCreation) {
+                  setJoinDate(res.data.accCreation);
+                }
+              });
+          });
         }
         else {
           navigate('/profile');
@@ -168,7 +184,7 @@ function Profile({ imageUrl }) {
               <h3>{profileName}</h3>
             </div>
             <div className="caption">
-                <h4>Joined September 2023</h4>
+                <h4>Joined {joinDate ? formatDate(joinDate) : "Loading..."}</h4>
             </div>
 
           </div>
@@ -208,7 +224,7 @@ function Profile({ imageUrl }) {
             <h2> Completed Tests </h2>
               <div>
                 <ul>
-                  {scores.map((score, index) => (
+                  {scores.toReversed().map((score, index) => (
                     <div className="score-card">
                       <div className="penguin-icon">
                         🐧

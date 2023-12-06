@@ -107,7 +107,7 @@
     border: solid;
     padding-left: 15px;
     border-radius: 10px;
-    width: 500px;
+    width: 488px;
     height: 340px;
 }
 
@@ -221,6 +221,7 @@
 .follower-name {
     margin-left: 15px;
     text-decoration: none;
+    color: black;
 }
 
 .follower-info a {

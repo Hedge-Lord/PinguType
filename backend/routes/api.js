@@ -286,4 +286,20 @@ router.get("/accounts/:username/following", async (req, res, next) => {
   } else res.json({ success: false, following: [] });
 });
 
+router.get("/accounts/:username/accCreation", async (req, res, next) => {
+  try {
+    const user = await Account.findOne({ username: req.params.username }).exec();
+  
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const accCreation = user.accCreation;
+
+    res.json({ accCreation });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 module.exports = router;

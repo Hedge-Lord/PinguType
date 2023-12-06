@@ -357,70 +357,11 @@ function Collapsible() {
 
     const toggleCustomTheme = () => {
         setTheme('custom');
-        localStorage.setItem('stuff', 'custom');
-        localStorage.setItem('asdf', 'asdf');
+        localStorage.setItem('theme', 'custom');
     }
     useEffect(() => {
         setTheme(predefinedThemes['custom']);
     }, [accent1, accent2, text, background, correct, incorrect, underlay, border, button])
-    // useEffect(() => {
-    //     setTheme('light');
-    // }, [flag]);
-    // useEffect(() => {
-    //     setTheme('custom');
-    // }, [flag]);
-    // useEffect(() => {
-    //     setTheme((prevTheme) => ({
-    //     ...prevTheme,
-    //     custom: {
-    //         ...prevTheme.custom,
-    //         '--main-color': accent2,
-    //         '--accent-color': accent1,
-    //         '--text-color': text,
-    //         '--correct-color': correct,
-    //         '--incorrect-color': incorrect,
-    //         '--underlaying-text-color': underlay,
-    //         '--border-color': border,
-    //         '--whole-page-background-color': background,
-    //         '--background-color': background,
-    //         '--button-color': button,
-    //         'background-color': 'var(--whole-page-background-color)',
-    //         'color': 'var(--text-color)',
-    //     },
-    // }));
-    // }, [rerenderCustom]);
-
-    // function handleChange() {
-    //     setIsCustom(true);
-    //     const customTheme = {
-    //         mainColor: accent2,
-    //         accentColor: accent1,
-    //         textColor: text,
-    //         correctColor: correct,
-    //         incorrectColor: incorrect,
-    //         underlayingTextColor: underlay,
-    //         borderColor: border,
-    //         wholePageBackgroundColor: background,
-    //         backgroundColor: background,
-    //         buttonColor: button
-    //     };
-    //     setTheme(customTheme);
-    //     localStorage.setItem('theme', customTheme);
-    // }
-
-    // useEffect(() => {
-    //     const storedThemeDictString = localStorage.getItem('theme');
-    //     console.log('theme');
-    //     const storedThemeDict = JSON.parse(storedThemeDictString);
-    //     const storedKey = localStorage.getItem('key');
-    //     const storedTheme = storedThemeDict[storedKey];
-    //     console.log(storedTheme);
-    //     if (storedTheme !== null) {
-    //         //console.log("asqwahh");
-    //         setTheme(storedTheme);
-    //         //console.log(storedTheme);
-    //     }
-    // }, []);
     useEffect(() => {
         // if (!isCustom) {
             //document.body.style = ''; // Reset inline styles if it was a custom theme
@@ -472,7 +413,7 @@ function Collapsible() {
                         <button onClick={() => toggleTheme('watermelon')} className="theme-button-watermelon">Watermelon</button>
                         <button onClick={() => toggleTheme('dark-purple')} className="theme-button-dark-purple">Dark: Purple</button>
                         <button onClick={() => toggleTheme('slot-machine')} className="theme-button-slot-machine">Slot Machine</button>
-                        <button onClick={() => toggleTheme('blind-simulation')} className="theme-button-blind-simulation">Blind Simulation</button>
+                        <button onClick={() => toggleTheme('blind-simulation')} className="theme-button-blind-simulation">White</button>
                     </div>
                 </div>
             </div>
