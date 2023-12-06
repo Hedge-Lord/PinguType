@@ -271,6 +271,18 @@ h1 {
     transition: filter 0.1s ease-in-out;
     margin-bottom: 3px;
 }
+.theme-button-coffee{
+    background-color: #BE8E5C;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px; 
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 3px;
+    
+}
 .custom-theme-menu-button {
     display: grid;
     grid-template-columns: 28vh 28vh 28vh;

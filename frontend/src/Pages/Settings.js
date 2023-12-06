@@ -335,13 +335,27 @@ function Collapsible() {
               'pastel': {
                 '--main-color': '#CBF8DA',
                 '--accent-color': 'white',
-                '--text-color': '#E3BDF4',
+                '--text-color': '#C18CDA',
                 '--correct-color': 'white',
                 '--incorrect-color': '#800020',
-                '--underlaying-text-color': '#b026ff',
+                '--underlaying-text-color': 'white',
                 '--border-color': '#CBF8DA',
                 '--whole-page-background-color': '#CBF8DA',
                 '--background-color': '#CBF8DA',
+                '--button-color': 'white',
+                'background-color': 'var(--whole-page-background-color)',
+                'color': 'var(--text-color)',
+              },
+              'coffee': {
+                '--main-color': '#BE8E5C',
+                '--accent-color': 'white',
+                '--text-color': 'black',
+                '--correct-color': 'white',
+                '--incorrect-color': '#800020',
+                '--underlaying-text-color': '#BE8E5C',
+                '--border-color': '#BE8E5C',
+                '--whole-page-background-color': '#BE8E5C',
+                '--background-color': '#BE8E5C',
                 '--button-color': 'white',
                 'background-color': 'var(--whole-page-background-color)',
                 'color': 'var(--text-color)',
@@ -422,6 +436,8 @@ function Collapsible() {
                         <button onClick={() => toggleTheme('slot-machine')} className="theme-button-slot-machine">Slot Machine</button>
                         <button onClick={() => toggleTheme('blind-simulation')} className="theme-button-blind-simulation">White</button>
                         <button onClick={() => toggleTheme('pastel')} className="theme-button-pastel">Pastel</button>
+                        <button onClick={() => toggleTheme('coffee')} className="theme-button-coffee">Coffee</button>
+
 
                     </div>
                 </div>
