@@ -269,8 +269,13 @@ function Profile({ imageUrl }) {
                 </div>
 
                 <div className="avg-score">
-                  <div> Average Score </div>
+                  <div> Average Score{' '} 
+                    <button className="info-button" onClick={() => alert("Score calculated for leaderboard purposes. Check leaderboard for more information.")}>
+                        ?
+                    </button>
+                  </div>
                   <div className="score"> {averageScore.toFixed(2)} </div>
+
                 </div>
               </div>
           </div>

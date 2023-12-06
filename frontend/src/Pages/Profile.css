@@ -270,3 +270,9 @@ li {
 h2 {
     font-size: 20px;
 }
+
+.info-button {
+    margin-left: 10px; /* Adjust the margin as needed */
+    padding: 5px 10px;
+    cursor: pointer;
+  }
