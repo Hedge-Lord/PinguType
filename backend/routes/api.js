@@ -119,7 +119,7 @@ router.post("/scores", async (req, res, next) => {
       else if (time === 30) mult = 1;
       else mult = 1.066
 
-      if (difficulty === "Hard") mult *= 1.5;
+      if (difficulty === "Hard") mult *= 1.18;
       score = req.body.wpm * mult;
     }
 

@@ -99,3 +99,8 @@
   .dont-show-incorrect-verify {
     display: none;
   }
+
+  input {
+    padding: 6px;
+    margin-right: 6px;
+  }

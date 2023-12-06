@@ -23,7 +23,7 @@ function Leaderboard() {
     alert("Scores are calculated baesd on WPM, Accuracy, and Difficulty using the following schema:\n"+
           "WPM * speed_multiplier * diff_multiplier\n" +
           "speed_multiplier: 15s -> 0.9x, 30s -> 1x, 60x -> 1.066x\n" +
-          "diff_multiplier: Normal -> 1x, Hard -> 1.5x\n" +
+          "diff_multiplier: Normal -> 1x, Hard -> 1.18x\n" +
           "We confirmed these values with extensive testing. (eyeballing)")
   }
 
