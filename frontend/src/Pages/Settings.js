@@ -332,6 +332,20 @@ function Collapsible() {
                 'background-color': 'var(--whole-page-background-color)',
                 'color': 'var(--text-color)',
               },
+              'pastel': {
+                '--main-color': '#CBF8DA',
+                '--accent-color': 'white',
+                '--text-color': '#E3BDF4',
+                '--correct-color': 'white',
+                '--incorrect-color': '#800020',
+                '--underlaying-text-color': '#b026ff',
+                '--border-color': '#CBF8DA',
+                '--whole-page-background-color': '#CBF8DA',
+                '--background-color': '#CBF8DA',
+                '--button-color': 'white',
+                'background-color': 'var(--whole-page-background-color)',
+                'color': 'var(--text-color)',
+              },
           custom: {
             '--main-color': accent2,
             '--accent-color': accent1,
@@ -407,6 +421,8 @@ function Collapsible() {
                         <button onClick={() => toggleTheme('dark-purple')} className="theme-button-dark-purple">Dark: Purple</button>
                         <button onClick={() => toggleTheme('slot-machine')} className="theme-button-slot-machine">Slot Machine</button>
                         <button onClick={() => toggleTheme('blind-simulation')} className="theme-button-blind-simulation">White</button>
+                        <button onClick={() => toggleTheme('pastel')} className="theme-button-pastel">Pastel</button>
+
                     </div>
                 </div>
             </div>
