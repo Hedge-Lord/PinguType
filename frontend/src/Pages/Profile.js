@@ -270,7 +270,7 @@ function Profile({ imageUrl }) {
 
                 <div className="avg-score">
                   <div> Average Score{' '} 
-                    <button className="info-button" onClick={() => alert("Score calculated for leaderboard purposes. Check leaderboard for more information.")}>
+                    <button className="profile-info-button" onClick={() => alert("Score calculated for leaderboard purposes. Check leaderboard for more information.")}>
                         ?
                     </button>
                   </div>

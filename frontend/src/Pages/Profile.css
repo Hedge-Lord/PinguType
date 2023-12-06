@@ -271,8 +271,11 @@ h2 {
     font-size: 20px;
 }
 
-.info-button {
-    margin-left: 10px; /* Adjust the margin as needed */
+.profile-info-button {
     padding: 5px 10px;
     cursor: pointer;
+    background: var(--main-color);
+    padding: 3px;
+    margin: 0;
+    border: 0;
   }
