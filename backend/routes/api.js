@@ -112,6 +112,16 @@ router.post("/scores", async (req, res, next) => {
     const difficulty = req.body.difficulty;
     const time = req.body.time;
     const user = req.body.user_id;
+    let score = -1;
+    if ((time === 15 || time === 30 || time == 60) && (difficulty === "Normal" || difficulty === "Hard")) {
+      let mult;
+      if (time === 15) mult = 0.9;
+      else if (time === 30) mult = 1;
+      else mult = 1.066
+
+      if (difficulty === "Hard") mult *= 1.18;
+      score = req.body.wpm * mult;
+    }
 
     console.log("saving score to uid ", user);
 
@@ -135,6 +145,7 @@ router.post("/scores", async (req, res, next) => {
       difficulty: difficulty,
       time: time, 
       user: user,
+      score
     });
 
     const account = await Account.findById(user).populate("best_score");
@@ -143,7 +154,7 @@ router.post("/scores", async (req, res, next) => {
       account.best_score = newScore._id;
       await account.save();
     } else {
-      if (account.best_score.wpm < newScore.wpm) {
+      if (account.best_score.score < newScore.score) {
         account.best_score = newScore._id;
         await account.save();
       }
@@ -226,5 +237,53 @@ router.post("/accounts/:username/followers", async (req, res, next) => {
   }
 });
 
+router.delete("/accounts/:username/followers", async (req, res, next) => {
+  if (req.params.username && req.user) {
+    try {
+      const user = await Account.findOne({
+        username: req.params.username,
+      })
+      .exec();
+      const follower = await Account.findOne({
+        username: req.user.username
+      })
+      .exec();
+      if (user && follower) {
+        const index = user.followers.indexOf(follower._id);
+        if (index !== -1) {
+          user.followers.splice(index, 1);
+          await user.save();
+          
+          res.json({ success: true, unfollow: true });
+        } else {
+          res.json({ success: true, unfollow: false });
+        }
+      } else {
+        res.json({ success: false });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+  } else {
+    res.status(401).json({ success: false, error: "Unauthorized" });
+  }
+});
+
+router.get("/accounts/:username/following", async (req, res, next) => {
+  if (req.params.username) {
+    const user = await Account.findOne({
+      username: req.params.username,
+    })
+    .exec();
+    if (user) {
+      const following = await Account.find({
+        followers: user._id
+      })
+      .exec();
+      if (following) res.json({following})
+    } else res.json({ success: false, following: [] });
+  } else res.json({ success: false, following: [] });
+});
 
 module.exports = router;

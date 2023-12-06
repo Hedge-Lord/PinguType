@@ -66,5 +66,6 @@ button:active {
 
 .pingutype-header {
   text-decoration: none;
-  color: var(--text-color)
+  color: var(--text-color);
+  font-weight: normal;
 }

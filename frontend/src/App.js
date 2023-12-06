@@ -11,19 +11,34 @@ import {useState} from 'react'
 import "./App.css"
 
 function App() {
-  const storedValue = localStorage.getItem('theme');
+  const storedValue = localStorage.getItem('stuff');
   const [theme, setTheme] = useState(storedValue);
+  const main = localStorage.getItem('accent2');
+  const accent = localStorage.getItem('accent1');
+  const text = localStorage.getItem('text');
+  const correct = localStorage.getItem('correct');
+  const incorrect = localStorage.getItem('incorrect');
+  const underlaying = localStorage.getItem('underlay');
+  const background = localStorage.getItem('background');
+  const border = localStorage.getItem('border');
+  const button = localStorage.getItem('button');
   useEffect(() => {
-    document.body.style.setProperty('--main-color', theme.mainColor);
-    document.body.style.setProperty('--accent-color', theme.accentColor);
-    document.body.style.setProperty('--text-color', theme.textColor);
-    document.body.style.setProperty('--correct-color', theme.correctColor);
-    document.body.style.setProperty('--incorrect-color', theme.incorrectColor);
-    document.body.style.setProperty('--underlaying-text-color', theme.underlayingTextColor);
-    document.body.style.setProperty('--border-color', theme.borderColor);
-    document.body.style.setProperty('--whole-page-background-color', theme.wholePageBackgroundColor);
-    document.body.style.setProperty('--background-color', theme.backgroundColor);
-    document.body.style.setProperty('--button-color', theme.buttonColor);
+    if (theme === 'custom') {
+      console.log(document.body.style.setProperty('--main-color', main));
+      document.body.style.setProperty('--accent-color', accent);
+      document.body.style.setProperty('--text-color', text);
+      document.body.style.setProperty('--correct-color', correct);
+      document.body.style.setProperty('--incorrect-color', incorrect);
+      document.body.style.setProperty('--underlaying-text-color', underlaying);
+      document.body.style.setProperty('--border-color', border);
+      document.body.style.setProperty('--whole-page-background-color', background);
+      document.body.style.setProperty('--background-color', background);
+      document.body.style.setProperty('--button-color', button);
+      document.body.style.setProperty('background-color', 'var(--whole-page-background-color');
+      document.body.style.setProperty('color', 'var(--text-color');
+    } else {
+      document.body.className = theme;
+    }
   }, [theme]);
   return (
     <>

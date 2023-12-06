@@ -104,15 +104,22 @@ function TypingTest() {
 
   ///////// autoscroll
   useEffect(() => {
-        if (textInputRef.current) {
-          const currentCharElement = typeBoxRef.current.querySelector('.correct.caret, .incorrect.caret, .left-caret');
-          if (currentCharElement) {
-            currentCharElement.scrollIntoView({
-              behavior: 'smooth',
-            });
-          }
-        }
-  })
+    if (textInputRef.current) {
+      const currentCharElement = typeBoxRef.current.querySelector('.correct.caret, .incorrect.caret, .left-caret');
+      
+      if (currentCharElement) {
+        const scrollOptions = {
+          behavior: 'smooth',
+        };
+  
+        const scrollIntoView = () => {
+          currentCharElement.scrollIntoView(scrollOptions);
+        };
+  
+        requestAnimationFrame(scrollIntoView);
+      }
+    }
+  }); 
 
   const [enabledTime, setEnabledTime] = useState("timey30");
   function handleTimeClick(time) {
@@ -203,6 +210,14 @@ function TypingTest() {
     return "";
   }
 
+  function getExtraCharClass(i, i_curr, idx) {
+    let className = "incorrect";
+      if (i === i_curr && idx === currInput.length - words[i].length - 1) {
+        className += " caret";
+      } 
+      return className;
+  }
+
   function calculateWpm() {
     if (elapsedTime === 0) return 0;
     let correctCpm = 0;
@@ -211,6 +226,7 @@ function TypingTest() {
         correctCpm += words.at(i).length + 1;
       }
     }
+    
     return [Math.floor((correctCpm / 5 / (elapsedTime)) * 60.0), (correctCpm / (wpmKeyStrokes - currInput.length) * 100).toFixed(2)];
   }
 
@@ -254,6 +270,19 @@ function TypingTest() {
 
   };
 
+  function getExtraChars(i) {
+    if (i == inputHistory.length) {
+      if (currInput.length > words.at(i).length) {
+        return currInput.substring(words.at(i).length);
+      }
+    }
+    else if (i > inputHistory.length) return "";
+    else if (inputHistory.at(i).length > words.at(i).length) {
+      return inputHistory.at(i).substring(words.at(i).length);
+    }
+    return "";
+  }
+
 return (
     <div onClick={focusTypeBox}>
         <div className={isVisible ? 'options' : 'invisible-options'} >
@@ -281,6 +310,14 @@ return (
                       {char}
                     </span>
                   ))}
+                 {getExtraChars(i).split("").map((char, idx) => (
+                    <span
+                      key={"extraword" + idx}
+                      className={getExtraCharClass(i, currentIndex, idx)}
+                    >
+                      {char}
+                    </span>
+                  ))}
                 </span>
               ))}
             </div>
@@ -299,15 +336,17 @@ return (
                 ⟳ {/* Unicode character for a home symbol */}
               </button>            
             </div>
-            <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
-              Raw WPM: {wpm}
-            </span>
-            <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
-              Corrected WPM: {calculateWpm()[0]}
-            </span>
-            <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
-              Accuracy: {calculateWpm()[1]}%
-            </span>
+            <div className="wpm-info">
+              <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
+                Raw WPM: {wpm}
+              </span>
+              <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
+                Corrected WPM: {calculateWpm()[0]}
+              </span>
+              <span className={isVisible ? 'wpm-counter' : 'invisible-wpm-counter'}>
+                Accuracy: {calculateWpm()[1]}%
+              </span>
+            </div>
         </div>
     </div>);
 }

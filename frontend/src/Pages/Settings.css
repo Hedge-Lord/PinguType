@@ -1,7 +1,7 @@
 .collapsible {
     display: flex;
     flex-direction: column;
-    width: 84vh;
+    width: 90vh;
 }
 
 .theme-menu-button {
@@ -238,9 +238,9 @@ h1 {
     transition: filter 0.1s ease-in-out;
     margin-bottom: 3px;
 }
-.theme-button-newtheme3 {
-    background-color: grey;
-    color: #ffcc33;
+.theme-button-slot-machine {
+    background-color: #800080;
+    color: #32CD32;
     padding: 16px;
     font-size: 16px;
     border-style: solid;
@@ -269,9 +269,13 @@ h1 {
     text-align: center;
 }
 .custom-theme-button {
-    background-color: var(--button-color);
-    color: var(--accent-color);
+    background-color: var(--main-color);
+    color: var(--text-color);
     width: 27vh;
+}
+.custom-theme-button::placeholder {
+    color: var(--text-color);
+    opacity: 0.4;
 }
 .custom-theme-change {
     background-color: var(--text-color);
@@ -284,3 +288,48 @@ h1 {
     transition: filter 0.1s ease-in-out;
     margin-bottom: 8px;
 }
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .settings-card {
+    width: 700px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    text-align: center;
+    
+  }
+  
+  .settings-card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .sub-heading {
+    font-size: 16px;
+    margin-bottom: 10px; /* Increase margin for better spacing */
+    text-align: left;
+  }
+  
+  .button-group {
+    position: relative; /* Make the button group relatively positioned */
+  }
+  
+  .button-group button {
+    margin-bottom: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    position: absolute; /* Position buttons absolutely */
+    right: 200px; /* Adjust the exact position */
+  }
+  
+
+  

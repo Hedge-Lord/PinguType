@@ -11,6 +11,8 @@ function Profile({ imageUrl }) {
   const [loggedIn, setLoggedIn] = useState(null);
   const [scores, setScores] = useState([]);
   const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [searchInput, setSearchInput] = useState(""); // Add state for search input
   const params = useParams();
@@ -22,9 +24,12 @@ function Profile({ imageUrl }) {
   const [highestWPM, setHighestWPM] = useState(0);
   const [highestAccuracy, setHighestAccuracy] = useState(0);
 
+  const [averageScore, setAverageScore] = useState(0);
+
+  // all async effects
   useEffect(() => {
     if (params.username) {
-      console.log("load user prof");
+      let currUser;
       axios
       .get("http://localhost:3333/accounts/" + params.username + "/scores")
       .then((res) => {
@@ -35,11 +40,23 @@ function Profile({ imageUrl }) {
           axios.get('http://localhost:3333/check-auth', { withCredentials: true })
           .then(res => {
             setLoggedIn(res.data.username == params.username);
+            currUser = res.data.username;
           })
           .then(res => {
             axios.get("http://localhost:3333/accounts/" + params.username + "/followers")
             .then(res => {
-              if (res.data.followers) setFollowers(res.data.followers);
+              if (res.data.followers) {
+                setFollowers(res.data.followers);
+                setIsFollowing(res.data.followers.some(user => user.username === currUser));
+              }
+            })
+            .then(() => {
+              axios.get("http://localhost:3333/accounts/" + params.username + "/following")
+              .then (res => {
+                if (res.data.following) {
+                  setFollowing(res.data.following);
+                }
+              })
             })
           })
         }
@@ -69,19 +86,21 @@ function Profile({ imageUrl }) {
     if (scores.length > 0) {
       const totalWPM = scores.reduce((sum, score) => sum + score.wpm, 0);
       const totalAccuracy = scores.reduce((sum,score) => sum + score.acc, 0);
+      const totalScore = scores.reduce((sum, score) => sum + score.score, 0);
 
       const avgWPM = totalWPM / scores.length;
       const avgAccuracy = totalAccuracy / scores.length;
+      const avgScore = totalScore / scores.length;
 
       setAverageWPM(avgWPM);
       setAverageAccuracy(avgAccuracy);
+      setAverageScore(avgScore);
 
       const maxWPM = Math.max(...scores.map(score => score.wpm));
       const maxAccuracy = Math.max(...scores.map(score => score.acc));
 
       setHighestWPM(maxWPM);
       setHighestAccuracy(maxAccuracy);
-
     }
   }, [scores])
 
@@ -122,6 +141,16 @@ function Profile({ imageUrl }) {
       });
   }
 
+  function handleUnfollow() {
+      axios.delete("http://localhost:3333/accounts/" + profileName + "/followers", {withCredentials: true})
+      .then(res => {
+        console.log(res);
+        // do something with res
+        // res.success, res.unfollow
+        window.location.reload(false);
+      });
+  }
+
   if (profileLoad === null) {
     return <h1>Loading...</h1>;
   } else
@@ -149,9 +178,14 @@ function Profile({ imageUrl }) {
               <button className="logout" onClick={logout}>
                 Logout
               </button>
-            ) || !loggedIn && (<button className="follow" onClick={handleFollow}>
+            ) || !loggedIn && (
+              !isFollowing && (<button className="follow" onClick={handleFollow}>
                 Follow
-            </button>)}
+                            </button>) || 
+              isFollowing && (<button className="follow" onClick={handleUnfollow}>
+              Unfollow
+                            </button>)
+            )}
           </div>
 
             <div className="add-following">
@@ -184,7 +218,7 @@ function Profile({ imageUrl }) {
                           <div> {score.date} </div>
                           <div>
                             {" "}
-                            WPM: {score.wpm} -- ACC: {score.acc}%{" "}
+                            WPM: {score.wpm} -- ACC: {score.acc}% -- Score: {score.score.toFixed(2)}
                           </div>
                           <div> Difficulty: {score.difficulty} </div>
                           <div> Time: {score.time}s </div>
@@ -218,9 +252,9 @@ function Profile({ imageUrl }) {
                   <div className="wpm"> {highestWPM.toFixed(2)} </div>
                 </div>
 
-                <div className="max-acc">
-                  <div> Best Accuracy </div>
-                  <div className="acc"> {highestAccuracy.toFixed(2)}% </div>
+                <div className="avg-score">
+                  <div> Average Score </div>
+                  <div className="score"> {averageScore.toFixed(2)} </div>
                 </div>
               </div>
           </div>
@@ -247,7 +281,23 @@ function Profile({ imageUrl }) {
             </div>
 
             <div className="main-following-card">
-              <h2>Following:</h2>
+              <h2>Following: {following.length}</h2>
+              <ul>
+                {following.map((follower, index) => (
+                  <div className="follower-card" key={index}>
+                    <div className="follower-info">
+                      <li>
+                        <div>
+                        <img src="https://www.freeiconspng.com/thumbs/penguin-icon/penguin-icon-18.jpg" 
+                            alt={`${follower.username}'s profile`}
+                            className="follower-image" />
+                        <a href={`/profile/${follower.username}`} className="follower-name">{follower.username}</a>
+                        </div>
+                      </li>
+                    </div>
+                  </div>
+                ))}
+              </ul>
             </div>
           </div>
 

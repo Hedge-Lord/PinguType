@@ -1,14 +1,14 @@
 :root {
-  --main-color: #828282;
-  --accent-color: white;
-  --text-color: lightblue;
-  --correct-color: lightblue;
-  --incorrect-color: red;
-  --underlaying-text-color: lightgray;
-  --border-color: white;
-  --whole-page-background-color: #48494b;
-  --background-color: #48494b;
-  --button-color: #828282;
+  --main-color: #ffe5b4;
+  --accent-color: #ef820d;
+  --text-color: black;
+  --correct-color: black;
+  --incorrect-color: #ef820d;
+  --underlaying-text-color: gray;
+  --border-color: black;
+  --whole-page-background-color: white;
+  --background-color: white;
+  --button-color: lightgrey;
 } 
 
 html {
@@ -22,6 +22,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .constant-header {
@@ -75,7 +76,10 @@ label {
   margin-bottom: 10px;
 }
 
-
+a.logo-link {
+  display: flex;
+  align-items: center;
+}
 
 a:visited {
   color: var(--text-color);
@@ -332,17 +336,17 @@ a:visited {
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
-.newtheme3 {
-  --main-color: grey;
-  --accent-color: white;
-  --text-color: #ffcc33;
-  --correct-color: #ffcc33;
-  --incorrect-color: red;
-  --underlaying-text-color: grey;
-  --border-color: black;
-  --whole-page-background-color: darkgrey;
-  --background-color: darkgrey;
-  --button-color: grey;
+.slot-machine {
+  --main-color: #F08080
+  --accent-color: #4682B4;
+  --text-color: #32CD32;
+  --correct-color: #FFD700;
+  --incorrect-color: #8A2BE2;
+  --underlaying-text-color: #FF6347;
+  --border-color: #00FFFF;
+  --whole-page-background-color: #800080;
+  --background-color: #800080;
+  --button-color: #FFA07A;
   background-color: var(--whole-page-background-color);
   color: var(--text-color);
 }
