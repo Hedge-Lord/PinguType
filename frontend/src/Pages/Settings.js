@@ -373,6 +373,20 @@ function Collapsible() {
                 '--button-color': 'black',
                 'background-color': 'var(--whole-page-background-color)',
                 'color': 'var(--text-color)',
+              }, 
+              'plum': {
+                '--main-color': '#AB2F62',
+                '--accent-color': 'black',
+                '--text-color': 'white',
+                '--correct-color': 'white',
+                '--incorrect-color': '#800020',
+                '--underlaying-text-color': 'white',
+                '--border-color': '#AB2F62',
+                '--whole-page-background-color': '#AB2F62',
+                '--background-color': '#AB2F62',
+                '--button-color': 'black',
+                'background-color': 'var(--whole-page-background-color)',
+                'color': 'var(--text-color)',
               },
           custom: {
             '--main-color': accent2,
@@ -452,6 +466,8 @@ function Collapsible() {
                         <button onClick={() => toggleTheme('pastel')} className="theme-button-pastel">Pastel</button>
                         <button onClick={() => toggleTheme('coffee')} className="theme-button-coffee">Coffee</button>
                         <button onClick={() => toggleTheme('aqua')} className="theme-button-aqua">Aqua</button>
+                        <button onClick={() => toggleTheme('plum')} className="theme-button-plum">Plum</button>
+
                     </div>
                 </div>
             </div>
