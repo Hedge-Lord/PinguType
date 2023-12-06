@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import "./Leaderboard.css";
 import axios from "axios";
 
@@ -16,10 +14,18 @@ function Leaderboard() {
       let filteredScores = retrievedScores.filter(
         (score) => score.score
       );
-      filteredScores.sort((a, b) => b.score.wpm - a.score.wpm);
+      filteredScores.sort((a, b) => b.score.score - a.score.score);
       setScores(filteredScores);
     });
   }, []);
+
+  function scoreInfo() {
+    alert("Scores are calculated baesd on WPM, Accuracy, and Difficulty using the following schema:\n"+
+          "WPM * speed_multiplier * diff_multiplier\n" +
+          "speed_multiplier: 15s -> 0.9x, 30s -> 1x, 60x -> 1.066x\n" +
+          "diff_multiplier: Normal -> 1x, Hard -> 1.5x\n" +
+          "We confirmed these values with extensive testing. (eyeballing)")
+  }
 
   return (
     <body>
@@ -30,7 +36,7 @@ function Leaderboard() {
       <div className="leaderboard-main-body">
         <div className="first-column">
           <h3>Rank</h3>
-          <ul>
+          <ul className = "column">
             {scores.map((score, index) => (
               <li key={index}> {index + 1} </li>
             ))}
@@ -38,7 +44,7 @@ function Leaderboard() {
         </div>
         <div className="second-column">
           <h3>User</h3>
-          <ul>
+          <ul className = "column">
             {scores.map((score, index) => (
               <li key={index}>
                 <a href={`/profile/${score.user}`}>{score.user}</a>
@@ -48,7 +54,7 @@ function Leaderboard() {
         </div>
         <div className="third-column">
           <h3>WPM</h3>
-          <ul>
+          <ul className = "column">
             {scores.map((score, index) => (
               <li key={index}> {score.score.wpm} </li>
             ))}
@@ -56,7 +62,7 @@ function Leaderboard() {
         </div>
         <div className="fourth-column">
           <h3>Accuracy</h3>
-          <ul>
+          <ul className = "column">
             {scores.map((score, index) => (
               <li key={index}> {score.score.acc}% </li>
             ))}
@@ -64,7 +70,7 @@ function Leaderboard() {
         </div>
         <div className="fourth-column">
           <h3>Date</h3>
-          <ul>
+          <ul className = "column">
             {scores.map((score, index) => (
               <li key={index}> {score.score.date} </li>
             ))}
@@ -72,7 +78,7 @@ function Leaderboard() {
         </div>
         <div className="fifth-column">
           <h3>Time</h3>
-          <ul>
+          <ul className = "column">
             {scores.map((score, index) => (
               <li key={index}> {score.score.time} </li>
             ))}
@@ -80,9 +86,17 @@ function Leaderboard() {
         </div>
         <div className="sixth-column">
           <h3>Difficulty</h3>
-          <ul>
+          <ul className = "column">
             {scores.map((score, index) => (
               <li key={index}> {score.score.difficulty} </li>
+            ))}
+          </ul>
+        </div>
+        <div className="sixth-column">
+          <h3>Score <button className="info-button" onClick={scoreInfo}>﹖</button></h3>
+          <ul className = "column">
+            {scores.map((score, index) => (
+              <li key={index}> {score.score.score} </li>
             ))}
           </ul>
         </div>

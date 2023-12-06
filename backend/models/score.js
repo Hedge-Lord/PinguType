@@ -7,5 +7,6 @@ module.exports = mongoose.model("Score", new Schema({
     date: {type: String, required: true},
     difficulty: {type: String, required: true},
     time: {type: Number, required: true},
-    user: {type: Schema.Types.ObjectId, ref: "Account", required: true}
+    user: {type: Schema.Types.ObjectId, ref: "Account", required: true},
+    score: {type: Number}
 }));

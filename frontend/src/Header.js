@@ -1,9 +1,6 @@
 import "./App.css"
 import logo from './assets/pingutype.png';
 import { BrowserRouter as Router, Link, Routes, Route} from "react-router-dom";
-import {useState} from 'react'
-import {useEffect} from 'react'
-import Settings from './Pages/Settings'
 function NavBar() {
     return (    
     <nav>
