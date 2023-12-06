@@ -17,6 +17,9 @@ function NavBar() {
           <Link to="/settings" className="top-menu-button">
             ⚙ {/* Unicode character for a gear symbol */}
           </Link>
+          <Link to="/feed" className="top-menu-button">
+            📰
+          </Link>
         </ul>
       </nav>
       

@@ -5,6 +5,9 @@ import Login from "./Pages/Login";
 import Profile from "./Pages/Profile"
 import Leaderboard from "./Pages/Leaderboard";
 import Settings from "./Pages/Settings"
+
+import Feed from './Pages/Feed';
+
 import Header from "./Header"
 import {useEffect} from 'react'
 import {useState} from 'react'
@@ -33,6 +36,7 @@ function Routing() {
       <Route path="/profile/:username" element={<Profile />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/feed" element={<Feed />} />
     </Routes>
   )
 }

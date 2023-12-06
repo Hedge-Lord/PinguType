@@ -1,6 +1,9 @@
 const express = require("express");
 const Account = require("../models/account");
 const Score = require("../models/score");
+
+const Feed = require("../models/feed");
+
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("../strategies/passport");
@@ -148,6 +151,16 @@ router.post("/scores", async (req, res, next) => {
       score
     });
 
+    const followers = await Account.findById(user).select('followers');
+    const feedActivities = followers.followers.map(followerId => ({
+      userId: followerId,
+      activityType: 'new_score',
+      scoreId: newScore._id,
+      timestamp: new Date()
+    }));
+
+    await Feed.insertMany(feedActivities);
+
     const account = await Account.findById(user).populate("best_score");
 
     if (!account.best_score) {
@@ -163,6 +176,17 @@ router.post("/scores", async (req, res, next) => {
     res.json({ success: true });
   } catch (err) {
     return next(err);
+  }
+});
+
+router.get("/feed", async (req, res, next) => {
+  try {
+    const feedData = await Feed.find().populate('userId').exec();
+
+    res.json({ feed: feedData });
+  } catch (error) {
+    console.error('Error fetching feed data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
