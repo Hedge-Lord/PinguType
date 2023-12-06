@@ -217,6 +217,13 @@ function TypingTest() {
         correctCpm += words.at(i).length + 1;
       }
     }
+    let flag = true;
+
+    for (let i = 0; i < currInput.length; i++) {
+      if (currInput.at(i) !== words[currentIndex].at(i)) flag = false;
+    }
+    if (flag) correctCpm += currInput.length
+    
     return [Math.floor((correctCpm / 5 / (elapsedTime)) * 60.0), (correctCpm / (wpmKeyStrokes - currInput.length) * 100).toFixed(2)];
   }
 
