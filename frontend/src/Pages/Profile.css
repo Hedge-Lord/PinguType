@@ -270,3 +270,12 @@ li {
 h2 {
     font-size: 20px;
 }
+
+.profile-info-button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background: var(--main-color);
+    padding: 3px;
+    margin: 0;
+    border: 0;
+  }
