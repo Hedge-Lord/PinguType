@@ -205,7 +205,7 @@ function Profile({ imageUrl }) {
           </div>
 
             <div className="add-following">
-              <div> Search Users: </div>
+              <div> Search For Users: </div>
               <div className="search-bar">
                 <input
                   type="text"
