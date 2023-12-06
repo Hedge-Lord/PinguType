@@ -221,6 +221,7 @@
 .follower-name {
     margin-left: 15px;
     text-decoration: none;
+    color: black;
 }
 
 .follower-info a {
