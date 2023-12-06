@@ -221,7 +221,7 @@ function Profile({ imageUrl }) {
 
         <div className="main-body">
           <div className="tests-card">
-            <h2> Completed Tests </h2>
+            <h2> Completed Tests: {scores.length} </h2>
               <div>
                 <ul>
                   {scores.toReversed().map((score, index) => (
