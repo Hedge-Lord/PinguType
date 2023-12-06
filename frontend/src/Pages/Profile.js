@@ -24,6 +24,8 @@ function Profile({ imageUrl }) {
   const [highestWPM, setHighestWPM] = useState(0);
   const [highestAccuracy, setHighestAccuracy] = useState(0);
 
+  const [averageScore, setAverageScore] = useState(0);
+
   // all async effects
   useEffect(() => {
     if (params.username) {
@@ -84,12 +86,15 @@ function Profile({ imageUrl }) {
     if (scores.length > 0) {
       const totalWPM = scores.reduce((sum, score) => sum + score.wpm, 0);
       const totalAccuracy = scores.reduce((sum,score) => sum + score.acc, 0);
+      const totalScore = scores.reduce((sum, score) => sum + score.score, 0);
 
       const avgWPM = totalWPM / scores.length;
       const avgAccuracy = totalAccuracy / scores.length;
+      const avgScore = totalScore / scores.length;
 
       setAverageWPM(avgWPM);
       setAverageAccuracy(avgAccuracy);
+      setAverageScore(avgScore);
 
       const maxWPM = Math.max(...scores.map(score => score.wpm));
       const maxAccuracy = Math.max(...scores.map(score => score.acc));
@@ -247,9 +252,9 @@ function Profile({ imageUrl }) {
                   <div className="wpm"> {highestWPM.toFixed(2)} </div>
                 </div>
 
-                <div className="max-acc">
-                  <div> Best Accuracy </div>
-                  <div className="acc"> {highestAccuracy.toFixed(2)}% </div>
+                <div className="avg-score">
+                  <div> Average Score </div>
+                  <div className="score"> {averageScore.toFixed(2)} </div>
                 </div>
               </div>
           </div>

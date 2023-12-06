@@ -158,7 +158,7 @@
     text-align: center;
 }
 
-.max-acc {
+.avg-score {
     background-color: var(--main-color);
     border: solid;
     border-radius: 10px;
@@ -176,6 +176,11 @@
 }
 
 .acc {
+    margin-top: 15px;
+    font-size: 30px;
+}
+
+.score {
     margin-top: 15px;
     font-size: 30px;
 }
