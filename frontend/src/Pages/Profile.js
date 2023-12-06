@@ -218,7 +218,7 @@ function Profile({ imageUrl }) {
                           <div> {score.date} </div>
                           <div>
                             {" "}
-                            WPM: {score.wpm} -- ACC: {score.acc}%{" "}
+                            WPM: {score.wpm} -- ACC: {score.acc}% -- Score: {score.score.toFixed(2)}
                           </div>
                           <div> Difficulty: {score.difficulty} </div>
                           <div> Time: {score.time}s </div>
