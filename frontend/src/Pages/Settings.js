@@ -10,39 +10,39 @@ function Collapsible() {
     const [background, setBackground] = useState(() => {
         const thing = localStorage.getItem('background');
         return (
-            thing ? thing : '#48494b')});
+            thing ? thing : 'white')});
     const [accent1, setAccent1] = useState(() => {
         const thing = localStorage.getItem('accent1');
         return (
-        thing ? thing : 'white')});
+        thing ? thing : '#ef820d')});
     const [accent2, setAccent2] = useState(() => {
         const thing = localStorage.getItem('accent2');
         return (
-        thing ? thing : '#828282')});
+        thing ? thing : '#ffe5b4')});
     const [text, setText] = useState(() => {
         const thing = localStorage.getItem('text');
         return (
-        thing ? thing : 'lightblue')});
+        thing ? thing : 'black')});
     const [correct, setCorrect] = useState(() => {
         const thing = localStorage.getItem('correct');
         return (
-        thing ? thing : 'lightblue')});
+        thing ? thing : 'black')});
     const [incorrect, setIncorrect] = useState(() => {
         const thing = localStorage.getItem('incorrect');
         return (
-        thing ? thing : 'red')});
+        thing ? thing : '#ef820d')});
     const [underlay, setUnderlay] = useState(() => {
         const thing = localStorage.getItem('underlay');
         return (
-        thing ? thing : 'lightgray')});
+        thing ? thing : 'gray')});
     const [border, setBorder] = useState(() => {
         const thing = localStorage.getItem('border');
         return (
-        thing ? thing : 'white')});
+        thing ? thing : 'black')});
     const [button, setButton] = useState(() => {
         const thing = localStorage.getItem('button');
         return (
-        thing ? thing : '#828282')});
+        thing ? thing : 'lightgray')});
     const [rerenderCustom, setRerenderCustom] = useState(false);
     const [theme, setTheme] = useState(() => {
         const thing = localStorage.getItem('theme');
