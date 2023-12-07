@@ -21,6 +21,7 @@
     gap: 6vh;
     margin-top: 0;
     margin-bottom: 0;
+    padding: 25px;
 
 }
 
@@ -159,12 +160,16 @@
     filter: brightness(70%);
   }
 
-  .user-link {
+  a:link, a:visited {
+    color: var(--text-color);
     text-decoration: none;
+    font-weight: bold;
   }
-  .user-link:hover {
+
+  a:hover {
     color: var(--accent-color);
   }
+
   ul.column {
     padding: 0;
   }
@@ -182,9 +187,4 @@
     margin: 0;
     border: 0;
     font-size: 20px;
-  }
-
-  a {
-    text-decoration: none;
-    font-weight: bold;
   }
