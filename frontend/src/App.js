@@ -38,6 +38,7 @@ function App() {
       document.body.style.setProperty('background-color', 'var(--whole-page-background-color');
       document.body.style.setProperty('color', 'var(--text-color');
     } else {
+      console.log("happened: ", theme);
       document.body.className = theme;
     }
   }, [theme]);

@@ -337,7 +337,7 @@ a:visited {
   color: var(--text-color);
 }
 .slot-machine {
-  --main-color: #F08080
+  --main-color: #F08080;
   --accent-color: #4682B4;
   --text-color: #32CD32;
   --correct-color: #FFD700;
