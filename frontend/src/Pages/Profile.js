@@ -38,19 +38,19 @@ function Profile({ imageUrl }) {
     if (params.username) {
       let currUser;
       axios
-      .get("http://localhost:3333/accounts/" + params.username + "/scores")
+      .get("https://pingutype-backend-6f7213dfc12e.herokuapp.com//accounts/" + params.username + "/scores")
       .then((res) => {
         if (res.data.scores) {
           setScores(res.data.scores);
           setProfileLoad(true);
           setProfileName(params.username);
-          axios.get('http://localhost:3333/check-auth', { withCredentials: true })
+          axios.get('https://pingutype-backend-6f7213dfc12e.herokuapp.com//check-auth', { withCredentials: true })
           .then(res => {
             setLoggedIn(res.data.username == params.username);
             currUser = res.data.username;
           })
           .then(res => {
-            axios.get("http://localhost:3333/accounts/" + params.username + "/followers")
+            axios.get("https://pingutype-backend-6f7213dfc12e.herokuapp.com//accounts/" + params.username + "/followers")
             .then(res => {
               if (res.data.followers) {
                 setFollowers(res.data.followers);
@@ -58,7 +58,7 @@ function Profile({ imageUrl }) {
               }
             })
             .then(() => {
-              axios.get("http://localhost:3333/accounts/" + params.username + "/following")
+              axios.get("https://pingutype-backend-6f7213dfc12e.herokuapp.com//accounts/" + params.username + "/following")
               .then (res => {
                 if (res.data.following) {
                   setFollowing(res.data.following);
@@ -68,7 +68,7 @@ function Profile({ imageUrl }) {
           })
           .then (() => {
             axios
-              .get('http://localhost:3333/accounts/' + params.username + '/accCreation')
+              .get('https://pingutype-backend-6f7213dfc12e.herokuapp.com//accounts/' + params.username + '/accCreation')
               .then ((res) => {
                 if (res.data.accCreation) {
                   setJoinDate(res.data.accCreation);
@@ -82,10 +82,10 @@ function Profile({ imageUrl }) {
         }
           });
     } else {
-      axios.get('http://localhost:3333/check-auth', { withCredentials: true })
+      axios.get('https://pingutype-backend-6f7213dfc12e.herokuapp.com//check-auth', { withCredentials: true })
       .then(res => {
           if (res.data.auth) {
-              axios.get('http://localhost:3333/scores', { withCredentials: true })
+              axios.get('https://pingutype-backend-6f7213dfc12e.herokuapp.com//scores', { withCredentials: true })
                   .then(res => {
                       setScores(res.data.scores);
                   });
@@ -130,18 +130,18 @@ function Profile({ imageUrl }) {
   }
 
   function logout() {
-    axios.get("http://localhost:3333/logout", { withCredentials: true });
+    axios.get("https://pingutype-backend-6f7213dfc12e.herokuapp.com//logout", { withCredentials: true });
     navigate("/login");
     window.location.reload(false);
   }
 
   function handleFollow() {
-    axios.get("http://localhost:3333/check-auth", { withCredentials: true })
+    axios.get("https://pingutype-backend-6f7213dfc12e.herokuapp.com//check-auth", { withCredentials: true })
       .then((res) => {
         if (res.data.auth) {
-          axios.get("http://localhost:3333/get-user-id", { withCredentials: true })
+          axios.get("https://pingutype-backend-6f7213dfc12e.herokuapp.com//get-user-id", { withCredentials: true })
             .then((res) => {
-              axios.post("http://localhost:3333/accounts/" + profileName + "/followers", { user_id: res.data.user_id })
+              axios.post("https://pingutype-backend-6f7213dfc12e.herokuapp.com//accounts/" + profileName + "/followers", { user_id: res.data.user_id })
                 .then((resp) => {
                   // do something with resp
                   // resp.success, resp.newFollower
@@ -158,7 +158,7 @@ function Profile({ imageUrl }) {
   }
 
   function handleUnfollow() {
-      axios.delete("http://localhost:3333/accounts/" + profileName + "/followers", {withCredentials: true})
+      axios.delete("https://pingutype-backend-6f7213dfc12e.herokuapp.com//accounts/" + profileName + "/followers", {withCredentials: true})
       .then(res => {
         console.log(res);
         // do something with res

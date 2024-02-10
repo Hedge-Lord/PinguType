@@ -6,7 +6,7 @@ function Leaderboard() {
   const [scores, setScores] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3333/accounts").then((res) => {
+    axios.get("https://pingutype-backend-6f7213dfc12e.herokuapp.com/accounts").then((res) => {
       let retrievedScores = res.data.accounts.map((account) => ({
         score: account.best_score,
         user: account.username,

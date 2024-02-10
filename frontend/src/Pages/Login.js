@@ -37,7 +37,7 @@ function Login() {
     const loginSubmit = (login) =>
     {
       login.preventDefault();
-      axios.post('http://localhost:3333/login', {username: user, password: password}, {withCredentials: true})
+      axios.post('https://pingutype-backend-6f7213dfc12e.herokuapp.com//login', {username: user, password: password}, {withCredentials: true})
       .then(result=>{console.log(result)
         if(result.data.success)
         {
@@ -54,9 +54,9 @@ function Login() {
         return;
       }
       register.preventDefault();
-      axios.post('http://localhost:3333/register', {username: newUser, password: newPassword}, {withCredentials: true})
+      axios.post('https://pingutype-backend-6f7213dfc12e.herokuapp.com//register', {username: newUser, password: newPassword}, {withCredentials: true})
       .then(result=> {console.log(result)
-        axios.post('http://localhost:3333/login', {username: newUser, password: newPassword}, {withCredentials: true})
+        axios.post('https://pingutype-backend-6f7213dfc12e.herokuapp.com//login', {username: newUser, password: newPassword}, {withCredentials: true})
         .then(result=>{console.log(result)
           if(result.data.success)
           {
