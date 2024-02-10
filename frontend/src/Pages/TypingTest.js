@@ -79,10 +79,10 @@ function TypingTest() {
         console.log(calculateWpm());
         const [wpm, accuracy] = calculateWpm();
 
-        axios.get("http://localhost:3333/get-user-id", { withCredentials: true })
+        axios.get("https://pingutype-backend-6f7213dfc12e.herokuapp.com/get-user-id", { withCredentials: true })
             .then(res => {
                 if (res.data.user_id) {
-                    axios.post("http://localhost:3333/scores", {
+                    axios.post("https://pingutype-backend-6f7213dfc12e.herokuapp.com/scores", {
                         user_id: res.data.user_id,
                         wpm,
                         accuracy,
